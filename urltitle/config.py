@@ -9,7 +9,7 @@ def configure_logging() -> None:
     log.debug('Logging is configured.')
 
 
-CACHE_TTL = datetime.timedelta(minutes=58).total_seconds()
+CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
 DEFAULT_USER_AGENT = 'Mozilla/5.0'
 MAX_CACHE_SIZE = 2048
 PACKAGE_NAME = Path(__file__).parent.stem

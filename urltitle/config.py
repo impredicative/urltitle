@@ -9,11 +9,11 @@ def configure_logging() -> None:
     log.debug('Logging is configured.')
 
 
-CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
-DEFAULT_USER_AGENT = 'Mozilla/5.0'
-MAX_CACHE_SIZE = 2048
+DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
+DEFAULT_MAX_CACHE_SIZE = 2048
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_TIMEOUT = 60
+USER_AGENT = 'Mozilla/5.0'
 
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging
     'version': 1,

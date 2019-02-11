@@ -14,9 +14,10 @@ Python 3.7 is required. To install the package, run:
 
 Usage examples:
 ```python
-from urltitle import URL
+from urltitle import CachedURLTitle
 
-urltitle = URL('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
-urltitle.title
+cached_url_title = CachedURLTitle()
+
+cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
 ```

@@ -1,0 +1,2 @@
+humanize>=0.5.1
+requests>=-2.21.0

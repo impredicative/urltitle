@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file install.txt install.in
 #
+cachetools==3.1.0
 certifi==2018.11.29       # via requests
 chardet==3.0.4            # via requests
 humanize==0.5.1

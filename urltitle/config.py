@@ -15,7 +15,7 @@ DEFAULT_REQUEST_SIZE = 8 * 1024
 MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = 128 * 1024
-REQUEST_TIMEOUT = 60
+REQUEST_TIMEOUT = 30
 USER_AGENT = 'Mozilla/5.0'
 
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging

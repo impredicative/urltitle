@@ -1,6 +1,10 @@
 # urltitle
 **urltitle** returns the page title or other description for a given URL.
-Its primary purpose is the inclusion of the returned value in conversations.
+Its intended primary use is the inclusion of the returned value in conversations.
+
+## Features
+* It uses an in-memory cache with a default time of a week. The cache size and time are customizable.
+* It reads only the fraction of a page required to return a title, up to a maximum of 128 KiB.
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/

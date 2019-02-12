@@ -21,7 +21,7 @@ class CachedURLTitle:
         # Can raise: requests.HTTPError, requests.ConnectionError, requests.ConnectTimeout
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
-        log.debug('Received %s', request_desc)
+        log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
         for num_attempt in range(1, max_attempts + 1):
             try:
                 start_time = time.monotonic()
@@ -30,8 +30,8 @@ class CachedURLTitle:
                     time_used = time.monotonic() - start_time
                     content_type = request.headers.get('Content-Type')
                     content_len = humanize_bytes(request.headers.get('Content-Length'))
-                    log.debug('Started receiving streaming response with declared content type "%s" and content '
-                              'length %s in %.2fs.', content_type, content_len, time_used)
+                    log.debug('Started receiving streaming response in attempt %s with declared content type "%s" and '
+                              'content length %s in %.2fs.', num_attempt, content_type, content_len, time_used)
                     request.raise_for_status()
             except (requests.HTTPError, requests.ConnectionError, requests.ConnectTimeout) as exception:
                 exception_desc = f'The exception is: {exception.__class__.__qualname__}: {exception}'

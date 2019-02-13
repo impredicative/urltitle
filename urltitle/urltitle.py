@@ -106,6 +106,6 @@ class CachedURLTitle:
                 read &= bool(amt)
                 continue
             self._update_content_amount_guess_for_title(url, amt)
-            log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_len(content))
+            log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
             return title  # TODO: Determine if a partial title has a risk of being returned.
-        raise URLTitleError(f'Unable to find title in HTML content of length {humanize_len(content)}.')
+        raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')

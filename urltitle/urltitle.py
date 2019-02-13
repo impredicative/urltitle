@@ -30,7 +30,7 @@ class CachedURLTitle:
     def _guess_content_amount_for_title(self, url) -> int:
         netloc = urlparse(url).netloc
         guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
-        log.debug('Returning content amount guess for %s to %s.', netloc, guess)
+        log.debug('Returning content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
     def _update_content_amount_guess_for_title(self, url, value) -> None:
@@ -88,19 +88,21 @@ class CachedURLTitle:
         amt = self._guess_content_amount_for_title(url)
         read = True
         while read:
-            log.debug(f'Reading %s in this iteration with a total of %s read so far.',
-                      humanize_bytes(amt), humanize_len(content))
+            # log.debug(f'Reading %s in this iteration with a total of %s read so far.',
+            #           humanize_bytes(amt), humanize_len(content))
             start_time = time.monotonic()
             content_new = response.read(amt) or b''
             time_used = time.monotonic() - start_time
             read &= bool(content_new)
             content += content_new
-            read &= (len(content) <= config.REQUEST_SIZE_MAX)
+            content_len = len(content)
+            read &= (content_len <= config.REQUEST_SIZE_MAX)
             log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
-                      humanize_len(content_new), time_used, humanize_len(content))
+                      humanize_len(content_new), time_used, humanize_bytes(content_len))
             title = self._title_from_partial_content(content)
             if not title:
-                amt = min(amt * 2, config.REQUEST_SIZE_MAX - len(content))
+                target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
+                amt = max(0, target_content_len - content_len)
                 read &= bool(amt)
                 continue
             self._update_content_amount_guess_for_title(url, amt)

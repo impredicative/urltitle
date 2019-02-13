@@ -1,10 +1,12 @@
 import logging
 from socket import timeout as RareTimeoutError
+from statistics import mean
 import time
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
-from cachetools.func import ttl_cache
+from cachetools.func import LFUCache, ttl_cache
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
@@ -23,10 +25,26 @@ class CachedURLTitle:
                  cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, cache_ttl: float = config.DEFAULT_CACHE_TTL):
         log.debug('Max cache size is %s and cache TTL is %s seconds.', cache_max_size, cache_ttl)
         self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)   # type: ignore  # Instance level cache
+        self._content_amount_guesses = LFUCache(maxsize=cache_max_size)
+
+    def _guess_content_amount_for_title(self, url) -> int:
+        netloc = urlparse(url).netloc
+        guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
+        log.debug('Returning content amount guess for %s to %s.', netloc, guess)
+        return guess
+
+    def _update_content_amount_guess_for_title(self, url, value) -> None:
+        netloc = urlparse(url).netloc
+        old_guess = self._guess_content_amount_for_title(url)
+        new_guess = int(mean((old_guess, value)))  # May need a better technique, but let's see how well this works.
+        new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
+        log.debug('Updating content amount guess for %s with observed value %s from %s to %s.',
+                  netloc, humanize_bytes(value), humanize_bytes(old_guess), humanize_bytes(new_guess))
+        self._content_amount_guesses[netloc] = new_guess
 
     @staticmethod
     def _title_from_partial_content(content: bytes) -> str:
-        return 'random page title'
+        return ''
 
     def title(self, url: str) -> str:
         # Can raise: URLTitleError
@@ -67,21 +85,25 @@ class CachedURLTitle:
 
         # Iterate over content
         content = b''
-        amt = config.DEFAULT_REQUEST_SIZE
+        amt = self._guess_content_amount_for_title(url)
         read = True
         while read:
             log.debug(f'Reading %s in this iteration with a total of %s read so far.',
                       humanize_bytes(amt), humanize_len(content))
+            start_time = time.monotonic()
             content_new = response.read(amt) or b''
+            time_used = time.monotonic() - start_time
             read &= bool(content_new)
             content += content_new
             read &= (len(content) <= config.REQUEST_SIZE_MAX)
-            log.debug('Read %s in this iteration with a total of %s read so far.',
-                      humanize_len(content_new), humanize_len(content))
+            log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
+                      humanize_len(content_new), time_used, humanize_len(content))
             title = self._title_from_partial_content(content)
             if not title:
-                amt += amt
+                amt = min(amt * 2, config.REQUEST_SIZE_MAX - len(content))
+                read &= bool(amt)
                 continue
+            self._update_content_amount_guess_for_title(url, amt)
             log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_len(content))
             return title  # TODO: Determine if a partial title has a risk of being returned.
         raise URLTitleError(f'Unable to find title in HTML content of length {humanize_len(content)}.')

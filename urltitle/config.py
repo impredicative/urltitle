@@ -10,8 +10,8 @@ def configure_logging() -> None:
 
 
 DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
-DEFAULT_CACHE_MAX_SIZE = 4096
-DEFAULT_REQUEST_SIZE = 8 * 1024
+DEFAULT_CACHE_MAX_SIZE = 4 * 1024
+DEFAULT_REQUEST_SIZE = 4 * 1024
 MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = 128 * 1024

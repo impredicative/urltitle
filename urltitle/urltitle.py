@@ -57,7 +57,7 @@ class CachedURLTitle:
         title_bytes = title_text.encode(bs.original_encoding)
         if content.endswith(title_bytes):
             return None  # Possibly incomplete title.
-        # log.debug('Returning title: %s', title_text)
+        title_text = title_text.strip()  # Required for https://www.ncbi.nlm.nih.gov/pubmed/12542348
         return title_text
 
     def title(self, url: str) -> str:

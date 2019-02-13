@@ -1,4 +1,5 @@
 import logging
+from socket import timeout as UncaughtTimeoutError
 import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -40,16 +41,16 @@ class CachedURLTitle:
                 request = Request(url, headers={'User-Agent': config.USER_AGENT})
                 response = urlopen(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
-            except (ValueError, HTTPError, URLError) as exc:
-                exception_desc = f'The prior exception is: {exc.__class__.__qualname__}: {exc}'
+            except (ValueError, HTTPError, URLError, UncaughtTimeoutError) as exc:
+                exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
                 if isinstance(exc, ValueError) or (isinstance(exc, HTTPError) and (exc.code in (400, 401, 404))):
                     msg = f'Unrecoverable error processing {request_desc}. The request will not be reattempted. ' \
                         f'{exception_desc}'
-                    raise URLTitleError(msg)
+                    raise URLTitleError(msg) from None
                 if num_attempt == max_attempts:
                     msg = f'Exhausted all {max_attempts} attempts for {request_desc}. {exception_desc}'
-                    raise URLTitleError(msg)
+                    raise URLTitleError(msg) from None
                 continue
             else:
                 break

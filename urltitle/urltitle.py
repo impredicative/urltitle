@@ -80,6 +80,6 @@ class CachedURLTitle:
             if not title:
                 amt += amt
                 continue
-            log.info('Returning title "%s" for URL %s', title, url)
+            log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_len(content))
             return title  # TODO: Determine if a partial title has a risk of being returned.
         raise URLTitleError(f'Unable to find title in HTML content of length {humanize_len(content)}.')

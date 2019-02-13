@@ -27,5 +27,10 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 ```
 
 ## To do
-* Handle failing sites, e.g. swansonvitamins.com, cell.com
+* Handle failing sites:
+  - swansonvitamins.com
+  - cell.com
+  - https://wordpress.com/post/johnflux.com/2880
+  - https://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html
+  - https://techcrunch.com/2019/02/12/ubisoft-and-mozilla-team-up-to-develop-clever-commit-an-ai-coding-assistant/
 * Handle some non-HTML content types such as PDF, etc.

@@ -25,3 +25,7 @@ cached_url_title = CachedURLTitle()
 cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
 ```
+
+## To do
+* Handle failing sites, e.g. swansonvitamins.com, cell.com
+* Handle some non-HTML content types such as PDF, etc.

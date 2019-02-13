@@ -1,5 +1,5 @@
 import logging
-from socket import timeout as UncaughtTimeoutError
+from socket import timeout as RareTimeoutError
 import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -41,7 +41,7 @@ class CachedURLTitle:
                 request = Request(url, headers={'User-Agent': config.USER_AGENT})
                 response = urlopen(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
-            except (ValueError, HTTPError, URLError, UncaughtTimeoutError) as exc:
+            except (ValueError, HTTPError, URLError, RareTimeoutError) as exc:
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
                 if isinstance(exc, ValueError) or (isinstance(exc, HTTPError) and (exc.code in (400, 401, 404))):

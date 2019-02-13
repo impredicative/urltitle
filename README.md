@@ -28,8 +28,8 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 
 ## To do
 * Handle failing sites:
-  - swansonvitamins.com
-  - cell.com
+  - https://www.swansonvitamins.com/swanson-ultra-coq10-100-100-mg-100-sgels
+  - https://www.cell.com/cell/fulltext/S0092-8674(15)01574-3
   - https://wordpress.com/post/johnflux.com/2880
   - https://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html
   - https://techcrunch.com/2019/02/12/ubisoft-and-mozilla-team-up-to-develop-clever-commit-an-ai-coding-assistant/

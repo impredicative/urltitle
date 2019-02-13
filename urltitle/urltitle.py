@@ -75,8 +75,8 @@ class CachedURLTitle:
 
         content_type = response.headers['Content-Type']
         content_len = humanize_bytes(response.headers.get('Content-Length'))
-        log.debug('Started receiving response in attempt %s with declared content type "%s" and '
-                  'content length %s in %.1fs.', num_attempt, content_type, content_len, time_used)
+        log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
+                  num_attempt, content_type, content_len, time_used)
         if not content_type.startswith('text/html'):
             content_type = content_type.replace('; charset=utf-8', '')
             title = f'{content_type} ({content_len})'
@@ -88,10 +88,10 @@ class CachedURLTitle:
         amt = self._guess_content_amount_for_title(url)
         read = True
         while read:
-            # log.debug(f'Reading %s in this iteration with a total of %s read so far.',
-            #           humanize_bytes(amt), humanize_len(content))
+            log.debug(f'Reading %s in this iteration with a total of %s read so far.',
+                      humanize_bytes(amt), humanize_len(content))
             start_time = time.monotonic()
-            content_new = response.read(amt) or b''
+            content_new = response.read(amt)  # or b''
             time_used = time.monotonic() - start_time
             read &= bool(content_new)
             content += content_new
@@ -99,6 +99,8 @@ class CachedURLTitle:
             read &= (content_len <= config.REQUEST_SIZE_MAX)
             log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
                       humanize_len(content_new), time_used, humanize_bytes(content_len))
+            if not content_new:
+                break
             title = self._title_from_partial_content(content)
             if not title:
                 target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)

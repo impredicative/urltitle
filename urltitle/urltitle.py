@@ -2,10 +2,12 @@ import logging
 from socket import timeout as RareTimeoutError
 from statistics import mean
 import time
+from typing import Optional
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
+from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
 
 from . import config
@@ -36,15 +38,27 @@ class CachedURLTitle:
     def _update_content_amount_guess_for_title(self, url, value) -> None:
         netloc = urlparse(url).netloc
         old_guess = self._guess_content_amount_for_title(url)
-        new_guess = int(mean((old_guess, value)))  # May need a better technique, but let's see how well this works.
-        new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
-        log.debug('Updating content amount guess for %s with observed value %s from %s to %s.',
-                  netloc, humanize_bytes(value), humanize_bytes(old_guess), humanize_bytes(new_guess))
-        self._content_amount_guesses[netloc] = new_guess
+        if old_guess != value:
+            new_guess = int(mean((old_guess, value)))  # May need a better technique, but let's see how well this works.
+            new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
+            log.debug('Updating content amount guess for %s with observed value %s from %s to %s.',
+                      netloc, humanize_bytes(value), humanize_bytes(old_guess), humanize_bytes(new_guess))
+            self._content_amount_guesses[netloc] = new_guess
+        else:
+            log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 
     @staticmethod
-    def _title_from_partial_content(content: bytes) -> str:
-        return ''
+    def _title_from_partial_content(content: bytes) -> Optional[str]:
+        bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
+        title_tag = bs.title
+        if not title_tag:
+            return None
+        title_text = title_tag.text
+        title_bytes = title_text.encode(bs.original_encoding)
+        if content.endswith(title_bytes):
+            return None  # Possibly incomplete title.
+        log.debug('Returning title: %s', title_text)
+        return title_text
 
     def title(self, url: str) -> str:
         # Can raise: URLTitleError
@@ -78,7 +92,7 @@ class CachedURLTitle:
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type, content_len, time_used)
         if not content_type.startswith('text/html'):
-            content_type = content_type.replace('; charset=utf-8', '')
+            # content_type = content_type.replace('; charset=utf-8', '')
             title = f'{content_type} ({content_len})'
             log.info('Returning title "%s" for URL %s', title, url)
             return title
@@ -107,7 +121,7 @@ class CachedURLTitle:
                 amt = max(0, target_content_len - content_len)
                 read &= bool(amt)
                 continue
-            self._update_content_amount_guess_for_title(url, amt)
+            self._update_content_amount_guess_for_title(url, content_len)
             log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
-            return title  # TODO: Determine if a partial title has a risk of being returned.
+            return title
         raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')

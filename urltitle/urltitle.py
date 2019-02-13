@@ -93,7 +93,9 @@ class CachedURLTitle:
                   num_attempt, content_type, content_len, time_used)
         if not content_type.startswith('text/html'):
             # content_type = content_type.replace('; charset=utf-8', '')
-            title = f'({content_type}) ({content_len})'
+            title = f'({content_type})'
+            if content_len is not None:  # Is None for https://pastebin.com/raw/KKJNBgjt
+                title += f' ({content_len})'
             log.info('Returning title "%s" for URL %s', title, url)
             return title
 

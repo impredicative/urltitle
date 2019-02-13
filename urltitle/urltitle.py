@@ -53,8 +53,8 @@ class CachedURLTitle:
             else:
                 break
 
-        content_type = request.headers['Content-Type']
-        content_len = humanize_bytes(request.headers.get('Content-Length'))
+        content_type = response.headers['Content-Type']
+        content_len = humanize_bytes(response.headers.get('Content-Length'))
         log.debug('Started receiving response in attempt %s with declared content type "%s" and '
                   'content length %s in %.1fs.', num_attempt, content_type, content_len, time_used)
         if not content_type.startswith('text/html'):
@@ -70,7 +70,7 @@ class CachedURLTitle:
         while read:
             log.debug(f'Reading %s in this iteration with a total of %s read so far.',
                       humanize_bytes(amt), humanize_len(content))
-            content_new = request.read(amt) or b''
+            content_new = response.read(amt) or b''
             read &= bool(content_new)
             content += content_new
             read &= (len(content) <= config.REQUEST_SIZE_MAX)

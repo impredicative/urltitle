@@ -9,12 +9,15 @@ def configure_logging() -> None:
     log.debug('Logging is configured.')
 
 
+KiB = 1024
+MiB = KiB ** 2
+
 DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
-DEFAULT_CACHE_MAX_SIZE = 4 * 1024
-DEFAULT_REQUEST_SIZE = 4 * 1024
+DEFAULT_CACHE_MAX_SIZE = 4 * KiB
+DEFAULT_REQUEST_SIZE = 4 * KiB
 MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
-REQUEST_SIZE_MAX = 128 * 1024
+REQUEST_SIZE_MAX = MiB  # Amazon product links, for example, have the title between 512K and 1M.
 REQUEST_TIMEOUT = 30
 USER_AGENT = 'Mozilla/5.0'
 

@@ -1,14 +1,20 @@
 import logging
 import time
-
-import requests
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from cachetools.func import ttl_cache
 
 from . import config
-from .util.humanize import humanize_bytes
+from .util.humanize import humanize_bytes, humanize_len
 
 log = logging.getLogger(__name__)
+
+
+class URLTitleError(Exception):
+    def __init__(self, msg: str):
+        log.error(msg)
+        super().__init__(msg)
 
 
 class CachedURLTitle:
@@ -17,31 +23,63 @@ class CachedURLTitle:
         log.debug('Max cache size is %s and cache TTL is %s seconds.', cache_max_size, cache_ttl)
         self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)   # type: ignore  # Instance level cache
 
-    def title(self, url: str):
-        # Can raise: requests.HTTPError, requests.ConnectionError, requests.ConnectTimeout
+    @staticmethod
+    def _title_from_partial_content(content: bytes) -> str:
+        return 'random page title'
+
+    def title(self, url: str) -> str:
+        # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
         for num_attempt in range(1, max_attempts + 1):
+            # Request
+            log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
                 start_time = time.monotonic()
-                with requests.get(url, stream=True, timeout=config.REQUEST_TIMEOUT,
-                                  headers={'User-Agent': config.USER_AGENT}) as request:
-                    time_used = time.monotonic() - start_time
-                    content_type = request.headers.get('Content-Type')
-                    content_len = humanize_bytes(request.headers.get('Content-Length'))
-                    log.debug('Started receiving streaming response in attempt %s with declared content type "%s" and '
-                              'content length %s in %.2fs.', num_attempt, content_type, content_len, time_used)
-                    request.raise_for_status()
-            except (requests.HTTPError, requests.ConnectionError, requests.ConnectTimeout) as exception:
-                exception_desc = f'The exception is: {exception.__class__.__qualname__}: {exception}'
-                log.warning('Error in attempt %s getting %s. %s', num_attempt, request_desc, exception_desc)
-                if isinstance(exception, requests.HTTPError) and (request.status_code == 400):
-                    log.error('Unrecoverable error 400 getting %s. The request will not be reattempted. %s',
-                              request_desc, exception_desc)
-                    raise
+                request = Request(url, headers={'User-Agent': config.USER_AGENT})
+                response = urlopen(request, timeout=config.REQUEST_TIMEOUT)
+                time_used = time.monotonic() - start_time
+            except (ValueError, HTTPError, URLError) as exc:
+                exception_desc = f'The prior exception is: {exc.__class__.__qualname__}: {exc}'
+                log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
+                if isinstance(exc, ValueError) or (isinstance(exc, HTTPError) and (exc.code in (400, 401, 404))):
+                    msg = f'Unrecoverable error processing {request_desc}. The request will not be reattempted. ' \
+                        f'{exception_desc}'
+                    raise URLTitleError(msg)
                 if num_attempt == max_attempts:
-                    log.error('Exhausted all %s attempts for %s', max_attempts, request_desc)
-                    raise
-            break
-        return url
+                    raise URLTitleError(f'Exhausted all {max_attempts} attempts for {request_desc}')
+                continue
+            else:
+                break
+
+        content_type = request.headers['Content-Type']
+        content_len = humanize_bytes(request.headers.get('Content-Length'))
+        log.debug('Started receiving response in attempt %s with declared content type "%s" and '
+                  'content length %s in %.1fs.', num_attempt, content_type, content_len, time_used)
+        if not content_type.startswith('text/html'):
+            content_type = content_type.replace('; charset=utf-8', '')
+            title = f'{content_type} ({content_len})'
+            log.info('Returning title "%s" for URL %s', title, url)
+            return title
+
+        # Iterate over content
+        content = b''
+        amt = config.DEFAULT_REQUEST_SIZE
+        read = True
+        while read:
+            log.debug(f'Reading %s in this iteration with a total of %s read so far.',
+                      humanize_bytes(amt), humanize_len(content))
+            content_new = request.read(amt) or b''
+            read &= bool(content_new)
+            content += content_new
+            read &= (len(content) <= config.REQUEST_SIZE_MAX)
+            log.debug('Read %s in this iteration with a total of %s read so far.',
+                      humanize_len(content_new), humanize_len(content))
+            title = self._title_from_partial_content(content)
+            if not title:
+                amt += amt
+                continue
+            log.info('Returning title "%s" for URL %s', title, url)
+            return title  # TODO: Determine if a partial title has a risk of being returned.
+        raise URLTitleError(f'Unable to find title in HTML content of length {humanize_len(content)}.')

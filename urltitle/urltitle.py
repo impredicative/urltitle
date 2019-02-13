@@ -48,7 +48,8 @@ class CachedURLTitle:
                         f'{exception_desc}'
                     raise URLTitleError(msg)
                 if num_attempt == max_attempts:
-                    raise URLTitleError(f'Exhausted all {max_attempts} attempts for {request_desc}')
+                    msg = f'Exhausted all {max_attempts} attempts for {request_desc}. {exception_desc}'
+                    raise URLTitleError(msg)
                 continue
             else:
                 break

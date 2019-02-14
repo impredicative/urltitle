@@ -44,7 +44,7 @@ class CachedURLTitle:
         is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
         if is_webcache:
             url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
-        netloc = urlparse(url).netloc
+        netloc = urlparse(url).netloc.lower()
         if netloc.startswith('www.'):
             netloc = netloc[4:]
         if is_webcache:

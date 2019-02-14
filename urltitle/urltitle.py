@@ -45,6 +45,8 @@ class CachedURLTitle:
         if is_webcache:
             url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
         netloc = urlparse(url).netloc
+        if netloc.startswith('www.'):
+            netloc = netloc[4:]
         if is_webcache:
             netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
         return netloc
@@ -79,6 +81,13 @@ class CachedURLTitle:
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
+
+        if config.NETLOC.get(self._netloc(url), {}).get('google_webcache') and \
+            not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
+            log.info('URL %s is configured to use Google web cache.', url)
+            url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
+            return self.title(url)
+
         for num_attempt in range(1, max_attempts + 1):
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)

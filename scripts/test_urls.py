@@ -13,6 +13,8 @@ TEST_CASES = {
         'Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty',
     'https://www.amazon.com/gp/product/B077YCC84H/':
         'Amazon.com : Crest 3D White Whitestrips Vivid Plus : Beauty',
+    'https://arxiv.org/abs/1810.04805':
+        '[1810.04805] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'https://docs.python.org/2/library/unittest.html':
@@ -23,6 +25,10 @@ TEST_CASES = {
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
         'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
+    'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
+        'Lycopenaemia.  - PubMed - NCBI',
+    'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/':
+        'Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient',
     'https://www.nbcnews.com/politics/donald-trump/trump-installs-state-art-golf-simulator-white-house-n971176':
         'Trump installs state-of-the-art golf simulator in the White House',
     'https://stackoverflow.com/questions/50842144/':

@@ -46,6 +46,6 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
     },
 }
 
-SITES = {
-    'swansonvitamins.com': {'google_cache': True}
+NETLOC = {
+    'swansonvitamins.com': {'google_webcache': True}
 }

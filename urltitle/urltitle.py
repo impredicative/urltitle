@@ -1,3 +1,4 @@
+from datetime import timedelta
 from functools import lru_cache
 import logging
 from socket import timeout as RareTimeoutError
@@ -27,7 +28,7 @@ class CachedURLTitle:
     def __init__(self,
                  cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, cache_ttl: float = config.DEFAULT_CACHE_TTL):
         log.debug('Max cache size of each of various caches is %s.', cache_max_size)
-        log.debug('Cache TTL of title cache is %s seconds.', cache_ttl)
+        log.debug('Cache TTL of title cache is %s.', timedelta(seconds=cache_ttl))
         self._content_amount_guesses = LFUCache(maxsize=cache_max_size)
         self._netloc = lru_cache(maxsize=cache_max_size)(self._netloc)
         self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)  # type: ignore  # Instance level cache

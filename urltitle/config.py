@@ -19,7 +19,7 @@ MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = MiB  # Amazon product links, for example, have the title between 512K and 1M.
 REQUEST_TIMEOUT = 30
-USER_AGENT = 'Mozilla/5.0'
+USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
 
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging
     'version': 1,
@@ -44,3 +44,4 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
         },
     },
 }
+

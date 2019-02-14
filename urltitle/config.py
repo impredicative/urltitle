@@ -15,6 +15,7 @@ MiB = KiB ** 2
 DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
 DEFAULT_CACHE_MAX_SIZE = 4 * KiB
 DEFAULT_REQUEST_SIZE = 4 * KiB
+GOOGLE_WEBCACHE_URL_PREFIX = 'https://webcache.googleusercontent.com/search?q=cache:'
 MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = MiB  # Amazon product links, for example, have the title between 512K and 1M.
@@ -45,3 +46,6 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
     },
 }
 
+SITES = {
+    'swansonvitamins.com': {'google_cache': True}
+}

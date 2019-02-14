@@ -126,4 +126,8 @@ class CachedURLTitle:
             self._update_content_amount_guess_for_title(url, content_len)
             log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
             return title
+        if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
+            log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
+            url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
+            return self.title(url)
         raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')

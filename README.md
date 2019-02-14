@@ -4,7 +4,7 @@ Its intended primary use is the inclusion of the returned value in conversations
 
 ## Features
 * It uses an in-memory cache with a default time of a week. The cache size and time are customizable.
-* It reads only the fraction of a page required to return a title, up to a maximum of 128 KiB.
+* It reads approximately only the fraction of a page required to return a title, up to a maximum of 1 MiB.
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/
@@ -28,6 +28,5 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 
 ## To do
 * Handle failing sites:
-  - https://www.swansonvitamins.com/swanson-ultra-coq10-100-100-mg-100-sgels
   - https://www.cell.com/cell/fulltext/S0092-8674(15)01574-3
 * Handle some non-HTML content types such as PDF, etc.

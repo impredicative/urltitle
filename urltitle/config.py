@@ -47,5 +47,6 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 }
 
 NETLOC = {
-    'swansonvitamins.com': {'google_webcache': True}
+    'swansonvitamins.com': {'google_webcache': True},
+    'youtube.com': {'user_agent': 'Mozilla/5.0'},
 }

@@ -82,19 +82,20 @@ class CachedURLTitle:
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
+        netloc_config = config.NETLOC.get(self._netloc(url), {})
 
-        if config.NETLOC.get(self._netloc(url), {}).get('google_webcache') and \
-            not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
+        if netloc_config.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
             log.info('URL %s is configured to use Google web cache.', url)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
             return self.title(url)
 
+        user_agent = netloc_config.get('user_agent', config.USER_AGENT)
         for num_attempt in range(1, max_attempts + 1):
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
                 start_time = time.monotonic()
-                request = Request(url, headers={'User-Agent': config.USER_AGENT})
+                request = Request(url, headers={'User-Agent': user_agent})
                 response = urlopen(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
             except (ValueError, HTTPError, URLError, RareTimeoutError) as exc:

@@ -9,6 +9,10 @@ log = logging.getLogger(config.PACKAGE_NAME + '.' + __name__)
 
 
 TEST_CASES = {
+    'https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/':
+        'Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty',
+    'https://www.amazon.com/gp/product/B077YCC84H/':
+        'Amazon.com : Crest 3D White Whitestrips Vivid Plus : Beauty',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'https://docs.python.org/2/library/unittest.html':
@@ -21,6 +25,8 @@ TEST_CASES = {
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
         'Introducing Uber’s Ludwig – Towards Data Science',
+    'https://www.youtube.com/watch?v=53YvP6gdD7U':
+        'Deep Learning State of the Art (2019) - MIT - YouTube',
 }
 
 url_title = CachedURLTitle()

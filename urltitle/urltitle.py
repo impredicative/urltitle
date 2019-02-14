@@ -1,3 +1,4 @@
+from functools import lru_cache
 import logging
 from socket import timeout as RareTimeoutError
 from statistics import mean
@@ -25,27 +26,27 @@ class URLTitleError(Exception):
 class CachedURLTitle:
     def __init__(self,
                  cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, cache_ttl: float = config.DEFAULT_CACHE_TTL):
-        log.debug('Max cache size is %s and cache TTL is %s seconds.', cache_max_size, cache_ttl)
-        self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)   # type: ignore  # Instance level cache
+        log.debug('Max cache size of each of various caches is %s.', cache_max_size)
+        log.debug('Cache TTL of title cache is %s seconds.', cache_ttl)
         self._content_amount_guesses = LFUCache(maxsize=cache_max_size)
+        self._netloc = lru_cache(maxsize=cache_max_size)(self._netloc)
+        self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)  # type: ignore  # Instance level cache
 
-    def _guess_content_amount_for_title(self, url) -> int:
-        netloc = urlparse(url).netloc
+    def _guess_content_amount_for_title(self, url: str) -> int:
+        netloc = self._netloc(url)
         guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
         log.debug('Returning content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
-    def _update_content_amount_guess_for_title(self, url, value) -> None:
+    @staticmethod
+    def _netloc(url: str) -> str:
+        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
+        if is_webcache:
+            url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
         netloc = urlparse(url).netloc
-        old_guess = self._guess_content_amount_for_title(url)
-        if old_guess != value:
-            new_guess = int(mean((old_guess, value)))  # May need a better technique, but let's see how well this works.
-            new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
-            log.debug('Updating content amount guess for %s with observed value %s from %s to %s.',
-                      netloc, humanize_bytes(value), humanize_bytes(old_guess), humanize_bytes(new_guess))
-            self._content_amount_guesses[netloc] = new_guess
-        else:
-            log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
+        if is_webcache:
+            netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
+        return netloc
 
     @staticmethod
     def _title_from_partial_content(content: bytes) -> Optional[str]:
@@ -59,6 +60,18 @@ class CachedURLTitle:
             return None  # Possibly incomplete title.
         title_text = title_text.strip()  # Required for https://www.ncbi.nlm.nih.gov/pubmed/12542348
         return title_text
+
+    def _update_content_amount_guess_for_title(self, url: str, value: int) -> None:
+        netloc = self._netloc(url)
+        old_guess = self._guess_content_amount_for_title(url)
+        if old_guess != value:
+            new_guess = int(mean((old_guess, value)))  # May need a better technique, but let's see how well this works.
+            new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
+            log.debug('Updating content amount guess for %s with observed value %s from %s to %s.',
+                      netloc, humanize_bytes(value), humanize_bytes(old_guess), humanize_bytes(new_guess))
+            self._content_amount_guesses[netloc] = new_guess
+        else:
+            log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 
     def title(self, url: str) -> str:
         # Can raise: URLTitleError

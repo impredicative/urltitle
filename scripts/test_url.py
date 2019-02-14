@@ -10,4 +10,4 @@ TEST_URL = 'https://www.google.com/'
 
 cached_url_title = CachedURLTitle()
 cached_url_title.title(TEST_URL)
-# cached_url_title.title(TEST_URL)
+cached_url_title.title(TEST_URL)

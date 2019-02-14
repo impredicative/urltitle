@@ -54,6 +54,7 @@ class CachedURLTitle:
     @staticmethod
     def _title_from_partial_content(content: bytes) -> Optional[str]:
         bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
+        # Note: Technically, the title tag within the head tag is the one that's required.
         title_tag = bs.title
         if not title_tag:
             return None

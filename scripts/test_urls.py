@@ -17,16 +17,26 @@ TEST_CASES = {
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'https://docs.python.org/2/library/unittest.html':
         '25.3. unittest — Unit testing framework — Python 2.7.15 documentation',
+    'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
+        'A simple introduction to Python’s asyncio – Hacker Noon',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
+    'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
+        'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
     'https://www.nbcnews.com/politics/donald-trump/trump-installs-state-art-golf-simulator-white-house-n971176':
         'Trump installs state-of-the-art golf simulator in the White House',
+    'https://stackoverflow.com/questions/50842144/':
+        'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
+    'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
+        'New pill can deliver insulin through the stomach -- ScienceDaily',
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
         'Introducing Uber’s Ludwig – Towards Data Science',
     'https://www.youtube.com/watch?v=53YvP6gdD7U':
         'Deep Learning State of the Art (2019) - MIT - YouTube',
+    'https://m.youtube.com/watch?v=GltlJO56S1g':
+        "Jeff Bezos In 1999 On Amazon's Plans Before The Dotcom Crash - YouTube",
 }
 
 url_title = CachedURLTitle()

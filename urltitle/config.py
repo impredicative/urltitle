@@ -46,7 +46,8 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
     },
 }
 
-NETLOC = {
+NETLOC = {  # Site-specific overrides (without www prefix).
+    'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'swansonvitamins.com': {'google_webcache': True},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
 }

@@ -15,6 +15,8 @@ TEST_CASES = {
         'Amazon.com : Crest 3D White Whitestrips Vivid Plus : Beauty',
     'https://arxiv.org/abs/1810.04805':
         '[1810.04805] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding',
+    'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':
+        'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'https://docs.python.org/2/library/unittest.html':
@@ -37,6 +39,8 @@ TEST_CASES = {
         'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
         'New pill can deliver insulin through the stomach -- ScienceDaily',
+    'https://www.tandfonline.com/doi/abs/10.1080/09637486.2018.1542666':
+        'Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 0, No 0',
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':

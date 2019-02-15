@@ -7,7 +7,7 @@ import time
 from typing import Optional
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
-from urllib.request import Request, urlopen
+from urllib.request import build_opener, HTTPCookieProcessor, Request
 
 from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
@@ -94,9 +94,10 @@ class CachedURLTitle:
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
-                start_time = time.monotonic()
+                opener = build_opener(HTTPCookieProcessor())
                 request = Request(url, headers={'User-Agent': user_agent})
-                response = urlopen(request, timeout=config.REQUEST_TIMEOUT)
+                start_time = time.monotonic()
+                response = opener.open(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
             except (ValueError, HTTPError, URLError, RareTimeoutError) as exc:
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'

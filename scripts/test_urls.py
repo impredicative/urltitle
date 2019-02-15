@@ -25,6 +25,8 @@ TEST_CASES = {
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
         'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
+    'https://jamanetwork.com/journals/jama/fullarticle/2725150':
+        'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Economics, Insurance, Payment | JAMA | JAMA Network',
     'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
         'Lycopenaemia.  - PubMed - NCBI',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/':

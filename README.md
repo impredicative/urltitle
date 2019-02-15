@@ -27,6 +27,5 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 ```
 
 ## To do
-* Handle failing sites:
-  - https://www.cell.com/cell/fulltext/S0092-8674(15)01574-3
+* Allow decreasing the guess of how many bytes to read.
 * Handle some non-HTML content types such as PDF, etc.

@@ -128,31 +128,34 @@ class CachedURLTitle:
         content = b''
         amt = self._guess_content_amount_for_title(url)
         read = True
-        while read:
-            log.debug(f'Reading %s in this iteration with a total of %s read so far.',
-                      humanize_bytes(amt), humanize_len(content))
-            start_time = time.monotonic()
-            content_new = response.read(amt)  # or b''
-            time_used = time.monotonic() - start_time
-            read &= bool(content_new)
-            content += content_new
-            content_len = len(content)
-            read &= (content_len <= config.REQUEST_SIZE_MAX)
-            log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
-                      humanize_len(content_new), time_used, humanize_bytes(content_len))
-            if not content_new:
-                break
-            title = self._title_from_partial_content(content)
-            if not title:
-                target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
-                amt = max(0, target_content_len - content_len)
-                read &= bool(amt)
-                continue
-            self._update_content_amount_guess_for_title(url, content_len)
-            log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
-            return title
-        if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
-            log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
-            url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
-            return self.title(url)
-        raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')
+        try:
+            while read:
+                log.debug(f'Reading %s in this iteration with a total of %s read so far.',
+                          humanize_bytes(amt), humanize_len(content))
+                start_time = time.monotonic()
+                content_new = response.read(amt)  # or b''
+                time_used = time.monotonic() - start_time
+                read &= bool(content_new)
+                content += content_new
+                content_len = len(content)
+                read &= (content_len <= config.REQUEST_SIZE_MAX)
+                log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
+                          humanize_len(content_new), time_used, humanize_bytes(content_len))
+                if not content_new:
+                    break
+                title = self._title_from_partial_content(content)
+                if not title:
+                    target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
+                    amt = max(0, target_content_len - content_len)
+                    read &= bool(amt)
+                    continue
+                self._update_content_amount_guess_for_title(url, content_len)
+                log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
+                return title
+            if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
+                log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
+                url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
+                return self.title(url)
+            raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')
+        finally:
+            response.close()

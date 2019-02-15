@@ -25,6 +25,8 @@ TEST_CASES = {
         'A simple introduction to Python’s asyncio – Hacker Noon',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
+    'https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15':
+        'Everything you need to know about market closures on Washington’s Birthday — the holiday you may know as Presidents Day - MarketWatch',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
         'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
     'https://jamanetwork.com/journals/jama/fullarticle/2725150':

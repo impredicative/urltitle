@@ -2,6 +2,7 @@ from datetime import timedelta
 from functools import lru_cache
 import logging
 from socket import timeout as RareTimeoutError
+from ssl import SSLCertVerificationError
 from statistics import mean
 import time
 from typing import cast, Dict, Optional
@@ -100,6 +101,18 @@ class URLTitleReader:
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
 
+        if urlparse(url).scheme == '':
+            for scheme_guess in config.URL_SCHEME_GUESSES:
+                log.info('The scheme %s will be attempted for URL %s', scheme_guess, url)
+                fixed_url = f'{scheme_guess}://{url}'
+                try:
+                    return self.title(fixed_url)
+                except URLTitleError as exc:
+                    log.warning('The scheme %s failed for URL %s. %s', scheme_guess, url, exc)
+            url_scheme_guesses_str = ', '.join(config.URL_SCHEME_GUESSES)
+            msg = f'Exhausted all scheme guesses ({url_scheme_guesses_str}) for URL {url} with a missing scheme.'
+            raise URLTitleError(msg)
+
         if overrides.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
             log.info('%s is configured to use Google web cache.', netloc)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
@@ -119,6 +132,7 @@ class URLTitleReader:
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
                 if isinstance(exc, ValueError) or \
+                        (isinstance(exc, URLError) and isinstance(exc.reason, SSLCertVerificationError)) or \
                         (isinstance(exc, HTTPError) and (exc.code in config.UNRECOVERABLE_HTTP_CODES)):
                     msg = f'Unrecoverable error processing {request_desc}. The request will not be reattempted. ' \
                         f'{exception_desc}'

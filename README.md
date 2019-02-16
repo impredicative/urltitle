@@ -6,6 +6,8 @@ Its intended primary use is the inclusion of the returned value in conversations
 * An in-memory cache is used with a default time of a week. The cache size and time are customizable.
 * Approximately only the fraction of a page required to return a title is read, up to a maximum of 1 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, or 404.
+* A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. for "cnn.com" as opposed
+to "https://cnn.com".
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/
@@ -13,7 +15,10 @@ Its intended primary use is the inclusion of the returned value in conversations
 
 
 ## Usage
-Python ≥3.7 is required. To install the package, run:
+Python ≥3.7 is required due to a reference 
+to [`SSLCertVerificationError`](https://docs.python.org/3/library/ssl.html#ssl.SSLCertVerificationError).
+
+To install the package, run:
 
     pip install urltitle
 

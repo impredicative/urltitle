@@ -14,13 +14,14 @@ MiB = KiB ** 2
 
 DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
 DEFAULT_CACHE_MAX_SIZE = 4 * KiB
-DEFAULT_REQUEST_SIZE = 4 * KiB
+DEFAULT_REQUEST_SIZE = 8 * KiB
 GOOGLE_WEBCACHE_URL_PREFIX = 'https://webcache.googleusercontent.com/search?q=cache:'
 MAX_REQUEST_ATTEMPTS = 3
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = MiB  # Amazon product links, for example, have the title between 512K and 1M.
 REQUEST_TIMEOUT = 30
 UNRECOVERABLE_HTTP_CODES = 400, 401, 404
+URL_SCHEME_GUESSES = 'https', 'http'
 USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
 
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging

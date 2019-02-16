@@ -26,12 +26,13 @@ class URLTitleError(Exception):
 
 class CachedURLTitle:
     def __init__(self,
-                 cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, cache_ttl: float = config.DEFAULT_CACHE_TTL):
-        log.debug('Max cache size of each of various caches is %s.', cache_max_size)
-        log.debug('Cache TTL of title cache is %s.', timedelta(seconds=cache_ttl))
-        self._content_amount_guesses = LFUCache(maxsize=cache_max_size)
-        self._netloc = lru_cache(maxsize=cache_max_size)(self._netloc)
-        self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)  # type: ignore
+                 title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE,
+                 title_cache_ttl: float = config.DEFAULT_CACHE_TTL):
+        log.debug('Cache parameters: config.DEFAULT_CACHE_MAX_SIZE=%s, title_cache_max_size=%s, title_cache_ttl=%s',
+                  config.DEFAULT_CACHE_TTL, title_cache_max_size, timedelta(seconds=title_cache_ttl))
+        self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
+        self._netloc = lru_cache(maxsize=title_cache_max_size)(self._netloc)
+        self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)
 
     def _guess_content_amount_for_title(self, url: str) -> int:
         netloc = self._netloc(url)

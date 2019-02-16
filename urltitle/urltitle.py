@@ -95,11 +95,12 @@ class CachedURLTitle:
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
-        overrides = config.NETLOC_OVERRIDES.get(self._netloc(url), {})
+        netloc = self._netloc(url)
+        overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
 
         if overrides.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
-            log.info('URL %s is configured to use Google web cache.', url)
+            log.info('%s is configured to use Google web cache.', netloc)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
             return self.title(url)
 

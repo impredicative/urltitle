@@ -117,7 +117,8 @@ class CachedURLTitle:
             except (ValueError, HTTPError, URLError, RareTimeoutError) as exc:
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
-                if isinstance(exc, ValueError) or (isinstance(exc, HTTPError) and (exc.code in (400, 401, 404))):
+                if isinstance(exc, ValueError) or \
+                        (isinstance(exc, HTTPError) and (exc.code in config.UNRECOVERABLE_HTTP_CODES)):
                     msg = f'Unrecoverable error processing {request_desc}. The request will not be reattempted. ' \
                         f'{exception_desc}'
                     raise URLTitleError(msg) from None

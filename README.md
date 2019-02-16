@@ -19,21 +19,21 @@ Python 3.7 is required. To install the package, run:
 
 Usage examples:
 ```python
-from urltitle import CachedURLTitle
+from urltitle import URLTitleReader
 
-cached_url_title = CachedURLTitle()
+reader = URLTitleReader()
 
-cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
+reader.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
 
 # Titles for non-HTML content showing Content-Type and Content-Length as available:
-cached_url_title.title('https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg')
+reader.title('https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg')
 '(image/jpeg) (54K)'
 
-cached_url_title.title('https://kdnuggets.com/rss')
+reader.title('https://kdnuggets.com/rss')
 '(application/rss+xml; charset=UTF-8)'
 
-cached_url_title.title('https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso')
+reader.title('https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso')
 '(application/octet-stream) (2G)'
 ```
 

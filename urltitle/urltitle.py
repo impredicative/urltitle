@@ -79,14 +79,14 @@ class CachedURLTitle:
         old_guess = self._content_amount_guesses.get(netloc)
         if old_guess is None:
             new_guess = min(observation, config.REQUEST_SIZE_MAX)
-            log.debug('Setting content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
             self._content_amount_guesses[netloc] = new_guess
+            log.info('Set content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
         elif old_guess != observation:
             new_guess = int(mean((old_guess, observation)))  # May need a better technique.
             new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
-            log.debug('Updating content amount guess for %s with observation %s from %s to %s.',
-                      netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
             self._content_amount_guesses[netloc] = new_guess
+            log.info('Updated content amount guess for %s with observation %s from %s to %s.',
+                     netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
         else:
             log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 

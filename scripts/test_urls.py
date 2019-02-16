@@ -54,6 +54,14 @@ TEST_CASES = {
     'https://m.youtube.com/watch?v=GltlJO56S1g':
         "Jeff Bezos In 1999 On Amazon's Plans Before The Dotcom Crash - YouTube",
 
+    # Missing scheme:
+    'neverssl.com':
+        'NeverSSL - helping you get online',
+    'reddit.com/r/FoodNerds/comments/arb6qj':
+        'Paternal high-fat diet transgenerationally impacts hepatic immunometabolism. - PubMed - NCBI : FoodNerds',
+    'www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275':
+        "Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters",
+
     # Non-HTML:
     'https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2017/campylobacte.jpg': '(image/jpeg)',
     'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',

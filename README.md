@@ -27,5 +27,4 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 ```
 
 ## To do
-* mypy fixes
 * Handle some non-HTML content types such as PDF, etc.

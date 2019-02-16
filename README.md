@@ -27,5 +27,5 @@ cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-stu
 ```
 
 ## To do
-* Allow decreasing the guess of how many bytes to read.
+* mypy fixes
 * Handle some non-HTML content types such as PDF, etc.

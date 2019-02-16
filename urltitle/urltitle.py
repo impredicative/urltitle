@@ -2,6 +2,7 @@ from datetime import timedelta
 from functools import lru_cache
 import logging
 from socket import timeout as RareTimeoutError
+# noinspection PyUnresolvedReferences
 from ssl import SSLCertVerificationError
 from statistics import mean
 import time

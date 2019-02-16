@@ -54,6 +54,11 @@ class URLTitleReader:
         return netloc
 
     @staticmethod
+    def _title_from_headers(content_type_header: Optional[str], content_len_humanized: Optional[str]) -> str:
+        # Note: Content-Length can sometimes be None, e.g. for https://pastebin.com/raw/KKJNBgjt
+        return ' '.join(f'({part})' for part in (content_type_header, content_len_humanized) if part is not None)
+
+    @staticmethod
     def _title_from_partial_content(content: bytes) -> Optional[str]:
         bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
         # Note: Technically, the title tag within the head tag is the one that's required.
@@ -145,15 +150,15 @@ class URLTitleReader:
             else:
                 break
 
-        content_type_header = response.headers['Content-Type']
+        content_type_header = response.headers.get('Content-Type')
+        content_type_header = cast(Optional[str], content_type_header)
         content_len_header = response.headers.get('Content-Length')
         content_len_header = cast(Optional[int], content_len_header)
-        content_len_header = humanize_bytes(content_len_header)
+        content_len_humanized = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
-                  num_attempt, content_type_header, content_len_header, time_used)
+                  num_attempt, content_type_header, content_len_humanized, time_used)
         if not cast(str, (content_type_header or '')).startswith('text/html'):
-            title = ' '.join(f'({part})' for part in (content_type_header, content_len_header) if part is not None)
-            # Note: Content-Length is None for https://pastebin.com/raw/KKJNBgjt
+            title = self._title_from_headers(content_type_header, content_len_humanized)
             log.info('Returning title "%s" for URL %s', title, url)
             return title
 
@@ -186,10 +191,16 @@ class URLTitleReader:
                 log.info('Returning title "%s" for URL %s after reading %s.', title, url,
                          humanize_bytes(content_len))
                 return title
-            if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
-                log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
-                url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
-                return self.title(url)
-            raise URLTitleError(f'Unable to find title in HTML content of length {humanize_bytes(content_len)}.')
         finally:
             response.close()
+
+        if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
+            log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
+            url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
+            return self.title(url)
+
+        log.warning('Unable to find title in HTML content of length %s for URL %s. The title will be returned from '
+                    'content headers instead.', humanize_bytes(content_len), url)
+        title = self._title_from_headers(content_type_header, content_len_humanized)
+        log.info('Returning title "%s" for URL %s', title, url)
+        return title

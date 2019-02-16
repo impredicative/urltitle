@@ -61,6 +61,7 @@ TEST_CASES = {
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
     'https://arxiv.org/pdf/1902.04704.pdf': '(application/pdf) (1M)',
     'https://distill.pub/rss.xml': '(application/xml) (6K)',
+    'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
     'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (100K)',
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',

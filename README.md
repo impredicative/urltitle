@@ -7,6 +7,7 @@ Its intended primary use is the inclusion of the returned value in conversations
 * Approximately only the fraction of a page required to return a title is read, up to a maximum of 1 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.
+* A fallback to Google web cache is used if a page presents a Distil captcha.
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/

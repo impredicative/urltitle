@@ -19,8 +19,6 @@ TEST_CASES = {
         'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
-    'https://docs.python.org/2/library/unittest.html':
-        '25.3. unittest — Unit testing framework — Python 2.7.15 documentation',
     'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
         'A simple introduction to Python’s asyncio – Hacker Noon',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':

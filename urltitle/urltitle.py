@@ -108,7 +108,7 @@ class CachedURLTitle:
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
-                opener = build_opener(HTTPCookieProcessor())
+                opener = build_opener(HTTPCookieProcessor())  # Cookies required for cell.com, tandfonline.com, etc.
                 request = Request(url, headers={'User-Agent': user_agent})
                 start_time = time.monotonic()
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)

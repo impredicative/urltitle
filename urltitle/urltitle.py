@@ -24,7 +24,7 @@ class URLTitleError(Exception):
         super().__init__(msg)
 
 
-class CachedURLTitle:
+class URLTitleReader:
     def __init__(self,
                  title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE,
                  title_cache_ttl: float = config.DEFAULT_CACHE_TTL):

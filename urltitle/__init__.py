@@ -1,1 +1,1 @@
-from .urltitle import CachedURLTitle, URLTitleError
+from .urltitle import URLTitleReader, URLTitleError

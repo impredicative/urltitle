@@ -24,6 +24,12 @@ cached_url_title = CachedURLTitle()
 
 cached_url_title.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
+
+# Titles for non-HTML content showing Content-Type and Content-Length as available:
+cached_url_title.title('https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg')
+'(image/jpeg) (54K)'
+cached_url_title.title('https://kdnuggets.com/rss')
+'(application/rss+xml; charset=UTF-8)'
 ```
 
 ## To do

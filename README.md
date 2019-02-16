@@ -13,7 +13,6 @@ to "https://cnn.com".
 * Code: https://github.com/impredicative/urltitle/
 * Release: https://pypi.org/project/urltitle/
 
-
 ## Usage
 Python ≥3.7 is required due to a reference 
 to [`SSLCertVerificationError`](https://docs.python.org/3/library/ssl.html#ssl.SSLCertVerificationError).
@@ -28,8 +27,19 @@ from urltitle import URLTitleReader
 
 reader = URLTitleReader()
 
+# Titles for HTML content
 reader.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
+
+# Titles for URLs with a missing scheme
+reader.title('www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275')
+"Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters"
+
+reader.title('reddit.com/r/FoodNerds/comments/arb6qj')
+'Paternal high-fat diet transgenerationally impacts hepatic immunometabolism. - PubMed - NCBI : FoodNerds'
+
+reader.title('neverssl.com')
+'NeverSSL - helping you get online'
 
 # Titles for non-HTML content showing Content-Type and Content-Length as available:
 reader.title('https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg')

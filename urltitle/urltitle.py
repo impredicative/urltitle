@@ -63,7 +63,8 @@ class URLTitleReader:
         title_text = title_tag.text
         title_bytes = title_text.encode(bs.original_encoding)
         if content.endswith(title_bytes):
-            return None  # Possibly incomplete title.
+            # Note: This is a check for an incomplete title, although it is not entirely an accurate check.
+            return None
         title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
         return title_text
 

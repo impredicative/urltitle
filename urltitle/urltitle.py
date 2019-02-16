@@ -4,7 +4,7 @@ import logging
 from socket import timeout as RareTimeoutError
 from statistics import mean
 import time
-from typing import Optional
+from typing import cast, Dict, Optional
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import build_opener, HTTPCookieProcessor, Request
@@ -31,7 +31,7 @@ class CachedURLTitle:
         log.debug('Cache TTL of title cache is %s.', timedelta(seconds=cache_ttl))
         self._content_amount_guesses = LFUCache(maxsize=cache_max_size)
         self._netloc = lru_cache(maxsize=cache_max_size)(self._netloc)
-        self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)  # type: ignore  # Instance level cache
+        self.title = ttl_cache(maxsize=cache_max_size, ttl=cache_ttl)(self.title)  # type: ignore
 
     def _guess_content_amount_for_title(self, url: str) -> int:
         netloc = self._netloc(url)
@@ -90,12 +90,13 @@ class CachedURLTitle:
         else:
             log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 
-    def title(self, url: str) -> str:
+    def title(self, url: str) -> str:  # type: ignore
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
         overrides = config.NETLOC_OVERRIDES.get(self._netloc(url), {})
+        overrides = cast(Dict, overrides)
 
         if overrides.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
             log.info('URL %s is configured to use Google web cache.', url)
@@ -126,15 +127,15 @@ class CachedURLTitle:
             else:
                 break
 
-        content_type = response.headers['Content-Type']
-        content_len = humanize_bytes(response.headers.get('Content-Length'))
+        content_type_header = response.headers['Content-Type']
+        content_len_header = response.headers.get('Content-Length')
+        content_len_header = cast(Optional[int], content_len_header)
+        content_len_header = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
-                  num_attempt, content_type, content_len, time_used)
-        if not content_type.startswith('text/html'):
-            # content_type = content_type.replace('; charset=utf-8', '')
-            title = f'({content_type})'
-            if content_len is not None:  # Is None for https://pastebin.com/raw/KKJNBgjt
-                title += f' ({content_len})'
+                  num_attempt, content_type_header, content_len_header, time_used)
+        if not cast(str, (content_type_header or '')).startswith('text/html'):
+            title = ''.join(f'({part})' for part in (content_type_header, content_len_header) if part is not None)
+            # Note: Content-Length is None for https://pastebin.com/raw/KKJNBgjt
             log.info('Returning title "%s" for URL %s', title, url)
             return title
 
@@ -147,7 +148,7 @@ class CachedURLTitle:
                 log.debug(f'Reading %s in this iteration with a total of %s read so far.',
                           humanize_bytes(amt), humanize_len(content))
                 start_time = time.monotonic()
-                content_new = response.read(amt)  # or b''
+                content_new = response.read(amt)
                 time_used = time.monotonic() - start_time
                 read &= bool(content_new)
                 content += content_new
@@ -157,14 +158,15 @@ class CachedURLTitle:
                           humanize_len(content_new), time_used, humanize_bytes(content_len))
                 if not content_new:
                     break
-                title = self._title_from_partial_content(content)
+                title = self._title_from_partial_content(content)  # type: ignore
                 if not title:
                     target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
                     amt = max(0, target_content_len - content_len)
                     read &= bool(amt)
                     continue
                 self._update_content_amount_guess_for_title(url, content, title)
-                log.info('Returning title "%s" for URL %s after reading %s.', title, url, humanize_bytes(content_len))
+                log.info('Returning title "%s" for URL %s after reading %s.', title, url,
+                         humanize_bytes(content_len))
                 return title
             if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
                 log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)

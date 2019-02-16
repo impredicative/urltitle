@@ -53,6 +53,20 @@ TEST_CASES = {
         'Deep Learning State of the Art (2019) - MIT - YouTube',
     'https://m.youtube.com/watch?v=GltlJO56S1g':
         "Jeff Bezos In 1999 On Amazon's Plans Before The Dotcom Crash - YouTube",
+
+    # Non-HTML:
+    'https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2017/campylobacte.jpg': '(image/jpeg)',
+    'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',
+    'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
+    'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
+    'https://arxiv.org/pdf/1902.04704.pdf': '(application/pdf) (1M)',
+    'https://distill.pub/rss.xml': '(application/xml) (6K)',
+    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (100K)',
+    'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
+    'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
+    'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
+    'https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg': '(image/jpeg) (54K)',
+    'https://pdfs.semanticscholar.org/4938/7632593299c040bf7628a27891cf0896ef9d.pdf': '(application/pdf) (350K)',
 }
 
 url_title = CachedURLTitle()

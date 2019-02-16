@@ -134,7 +134,7 @@ class CachedURLTitle:
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type_header, content_len_header, time_used)
         if not cast(str, (content_type_header or '')).startswith('text/html'):
-            title = ''.join(f'({part})' for part in (content_type_header, content_len_header) if part is not None)
+            title = ' '.join(f'({part})' for part in (content_type_header, content_len_header) if part is not None)
             # Note: Content-Length is None for https://pastebin.com/raw/KKJNBgjt
             log.info('Returning title "%s" for URL %s', title, url)
             return title

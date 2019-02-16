@@ -1,6 +1,6 @@
 import logging
 
-from urltitle import config, CachedURLTitle
+from urltitle import config, URLTitleReader
 
 config.configure_logging()
 
@@ -16,6 +16,6 @@ TEST_URLS = [
 'https://www.amazon.com/ProsourceFit-Tri-Fold-Folding-Exercise-Carrying/dp/B07NCJDHBM?',
 ]
 
-cached_url_title = CachedURLTitle()
-for TEST_URL in TEST_URLS:
-    cached_url_title.title(TEST_URL)
+reader = URLTitleReader()
+for url in TEST_URLS:
+    reader.title(url)

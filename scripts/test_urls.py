@@ -1,7 +1,7 @@
 import logging
 import unittest
 
-from urltitle import config, CachedURLTitle
+from urltitle import config, URLTitleReader
 
 config.configure_logging()
 
@@ -70,11 +70,11 @@ TEST_CASES = {
     'https://pdfs.semanticscholar.org/4938/7632593299c040bf7628a27891cf0896ef9d.pdf': '(application/pdf) (350K)',
 }
 
-url_title = CachedURLTitle()
+reader = URLTitleReader()
 
 
 class TestURLs(unittest.TestCase):
     def test_url_titles(self):
         for url, expected_title in TEST_CASES.items():
             with self.subTest(url=url):
-                self.assertEqual(expected_title, url_title.title(url))
+                self.assertEqual(expected_title, reader.title(url))

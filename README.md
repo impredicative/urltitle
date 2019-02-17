@@ -62,6 +62,9 @@ reader.title('https://download.fedoraproject.org/pub/fedora/linux/releases/29/Wo
 reader.title('https://arxiv.org/pdf/1902.04704.pdf')
 '[1902.04704] Neural network models and deep learning - a primer for biologists'
 
+reader.title('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2495396/pdf/postmedj00315-0056.pdf')
+"Features of a successful therapeutic fast of 382 days' duration"
+
 reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf')
 'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar'
 ```

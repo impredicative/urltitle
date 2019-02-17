@@ -84,6 +84,12 @@ TEST_CASES = {
         '[1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
     'https://arxiv.org/pdf/1902.04707v1':
         '[1902.04707v1] Sampling networks by nodal attributes',
+    'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3533942/pdf/1472-6920-12-117.pdf':
+        'Attitudes toward statistics in medical postgraduates: measuring, evaluating and monitoring',
+    'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5522867/pdf/':
+        'Mathematics Anxiety and Statistics Anxiety. Shared but Also Unshared Components and Antagonistic Contributions to Performance in Statistics',
+    'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3799466':
+        'Multiple alignment-free sequence comparison',
     'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':

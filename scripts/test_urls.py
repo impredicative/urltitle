@@ -41,6 +41,8 @@ TEST_CASES = {
         'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
         'New pill can deliver insulin through the stomach -- ScienceDaily',
+    'https://www.semanticscholar.org/paper/Nutrition-in-chronic-disease-Nutrition-in-the-of-Tapsell/ed29f5473a7100bbfe462301d2205f7263339564':
+        'Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease - Semantic Scholar',
     'https://www.tandfonline.com/doi/abs/10.1080/09637486.2018.1542666':
         'Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 0, No 0',
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
@@ -72,7 +74,6 @@ TEST_CASES = {
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
     'https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg': '(image/jpeg) (54K)',
-    'https://pdfs.semanticscholar.org/4938/7632593299c040bf7628a27891cf0896ef9d.pdf': '(application/pdf) (350K)',
 
     # Substituted URL:
     'https://arxiv.org/pdf/1902.04704.pdf':
@@ -83,6 +84,10 @@ TEST_CASES = {
         '[1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
     'https://arxiv.org/pdf/1902.04707v1':
         '[1902.04707v1] Sampling networks by nodal attributes',
+    'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
+        'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
+    'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
+        'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
 }
 
 reader = URLTitleReader()

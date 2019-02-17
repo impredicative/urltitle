@@ -80,9 +80,9 @@ TEST_CASES = {
     'https://arxiv.org/pdf/1902.04705':
         '[1902.04705] Self-adaptive Single and Multi-illuminant Estimation Framework based on Deep Learning',
     'https://arxiv.org/pdf/1902.04706v1.pdf':
-        '1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
+        '[1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
     'https://arxiv.org/pdf/1902.04707v1':
-        '[1902.04707] Sampling networks by nodal attributes',
+        '[1902.04707v1] Sampling networks by nodal attributes',
 }
 
 reader = URLTitleReader()

@@ -51,7 +51,8 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
     'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)*$', r'/abs/\g<id>')]},
     'cell.com': {'url_subs': [(r'cell.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)*$',
-                               r'cell.com/\g<path>/fulltext/\g<id>')]},
+                               r'cell.com/\g<path>/fulltext/\g<id>'),
+                              (r'cell.com/action/showPdf\?pii=(?P<id>.+)$', r'cell.com/cell/fulltext/\g<id>')]},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'ncbi.nlm.nih.gov': {'url_subs': [(r'/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)*$',
                                        r'/pmc/articles/PMC\g<id>/')]},

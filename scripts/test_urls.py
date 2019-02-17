@@ -85,7 +85,9 @@ TEST_CASES = {
     'https://arxiv.org/pdf/1902.04707v1':
         '[1902.04707v1] Sampling networks by nodal attributes',
 
-    'http://www.cell.com/cell/pdf/S0092-8674%2815%2900186-5.pdf':
+    'https://www.cell.com/action/showPdf?pii=S1550-4131(15)00333-2':
+        'Indoleamine 2,3-Dioxygenase Fine-Tunes Immune Homeostasis in Atherosclerosis and Colitis through Repression of Interleukin-10 Production: Cell Metabolism',
+    'http://www.cell.com/cell/pdf/S0092-8674(15)00186-5.pdf':
         'Promoting Health and Longevity through Diet: From Model Organisms to Humans: Cell',
     'http://www.cell.com/current-biology/pdf/S0960-9822(13)00363-1.pdf':
         'The evolution of human nutrition: Current Biology',

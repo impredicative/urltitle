@@ -65,7 +65,6 @@ TEST_CASES = {
     'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',
     'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
-    'https://arxiv.org/pdf/1902.04704.pdf': '(application/pdf) (1M)',
     'https://distill.pub/rss.xml': '(application/xml) (6K)',
     'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
     'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (100K)',
@@ -74,6 +73,16 @@ TEST_CASES = {
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
     'https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg': '(image/jpeg) (54K)',
     'https://pdfs.semanticscholar.org/4938/7632593299c040bf7628a27891cf0896ef9d.pdf': '(application/pdf) (350K)',
+
+    # Substituted URL:
+    'https://arxiv.org/pdf/1902.04704.pdf':
+        '[1902.04704] Neural network models and deep learning - a primer for biologists',
+    'https://arxiv.org/pdf/1902.04705':
+        '[1902.04705] Self-adaptive Single and Multi-illuminant Estimation Framework based on Deep Learning',
+    'https://arxiv.org/pdf/1902.04706v1.pdf':
+        '1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
+    'https://arxiv.org/pdf/1902.04707v1':
+        '[1902.04707] Sampling networks by nodal attributes',
 }
 
 reader = URLTitleReader()

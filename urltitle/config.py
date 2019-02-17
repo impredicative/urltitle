@@ -48,8 +48,10 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
     },
 }
 
-NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be lowercase.
+NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
+    'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(:?\.pdf)*$', r'/abs/\g<id>')]},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'swansonvitamins.com': {'google_webcache': True},
+    'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
 }

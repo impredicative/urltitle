@@ -1,6 +1,7 @@
 from datetime import timedelta
 from functools import lru_cache
 import logging
+from re import sub
 from socket import timeout as RareTimeoutError
 # noinspection PyUnresolvedReferences
 from ssl import SSLCertVerificationError
@@ -39,7 +40,7 @@ class URLTitleReader:
     def _guess_content_amount_for_title(self, url: str) -> int:
         netloc = self._netloc(url)
         guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
-        log.debug('Returning content amount guess for %s of %s.', netloc, humanize_bytes(guess))
+        log.debug('Returning HTML content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
     @staticmethod
@@ -89,15 +90,15 @@ class URLTitleReader:
         if old_guess is None:
             new_guess = min(observation, config.REQUEST_SIZE_MAX)
             self._content_amount_guesses[netloc] = new_guess
-            log.info('Set content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
+            log.info('Set HTML content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
         elif old_guess != observation:
             new_guess = int(mean((old_guess, observation)))  # May need a better technique.
             new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
             self._content_amount_guesses[netloc] = new_guess
-            log.info('Updated content amount guess for %s with observation %s from %s to %s.',
+            log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
                      netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
         else:
-            log.debug('Content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
+            log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 
     def title(self, url: str) -> str:  # type: ignore
         # Can raise: URLTitleError
@@ -108,6 +109,7 @@ class URLTitleReader:
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
 
+        # Add scheme if missing
         if urlparse(url).scheme == '':
             for scheme_guess in config.URL_SCHEME_GUESSES:
                 log.info('The scheme %s will be attempted for URL %s', scheme_guess, url)
@@ -120,11 +122,21 @@ class URLTitleReader:
             msg = f'Exhausted all scheme guesses ({url_scheme_guesses_str}) for URL {url} with a missing scheme.'
             raise URLTitleError(msg)
 
+        # Substitute path as configured
+        for pattern, replacement in overrides.get('url_subs', []):
+            original_url = url
+            url = sub(pattern, replacement, url)
+            if original_url != url:
+                log.info('Substituted URL %s with %s', original_url, url)
+                return self.title(url)
+
+        # Use Google web cache as configured
         if overrides.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
             log.info('%s is configured to use Google web cache.', netloc)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
             return self.title(url)
 
+        # Read headers
         user_agent = overrides.get('user_agent', config.USER_AGENT)
         for num_attempt in range(1, max_attempts + 1):
             # Request
@@ -151,6 +163,7 @@ class URLTitleReader:
             else:
                 break
 
+        # Log headers
         content_type_header = response.headers.get('Content-Type')
         content_type_header = cast(Optional[str], content_type_header)
         content_len_header = response.headers.get('Content-Length')
@@ -158,6 +171,8 @@ class URLTitleReader:
         content_len_humanized = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type_header, content_len_humanized, time_used)
+
+        # Return headers-based title for non-HTML
         if not cast(str, (content_type_header or '')).startswith('text/html'):
             title = self._title_from_headers(content_type_header, content_len_humanized)
             log.info('Returning title "%s" for URL %s', title, url)
@@ -195,11 +210,13 @@ class URLTitleReader:
         finally:
             response.close()
 
+        # Handle Distil captcha using Google web cache
         if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
             log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
             return self.title(url)
 
+        # Fallback to headers-based title
         log.warning('Unable to find title in HTML content of length %s for URL %s. The title will be returned from '
                     'content headers instead.', humanize_bytes(content_len), url)
         title = self._title_from_headers(content_type_header, content_len_humanized)

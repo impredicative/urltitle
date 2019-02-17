@@ -8,6 +8,10 @@ Its intended primary use is the inclusion of the returned value in conversations
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.
 * A fallback to Google web cache is used if a page presents a Distil captcha.
+* Some site-specific customizations are configurable:
+  - regular expression based URL substitutions
+  - use of Google web cache
+  - User-Agent
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/
@@ -51,6 +55,9 @@ reader.title('https://kdnuggets.com/rss')
 reader.title('https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso')
 '(application/octet-stream) (2G)'
 ```
+
+For any site-specific customizations, update `urltitle.config.NETLOC_OVERRIDES` for the relevant site per the
+preexisting examples in it. Do not add a "www." prefix to any top-level key in it.
 
 ## To do
 * Implement custom handling for some non-HTML content types such as PDF, etc.

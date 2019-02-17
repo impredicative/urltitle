@@ -54,6 +54,13 @@ reader.title('https://kdnuggets.com/rss')
 
 reader.title('https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso')
 '(application/octet-stream) (2G)'
+
+# Titles for substituted URLs as per configuration:
+reader.title('https://arxiv.org/pdf/1902.04704.pdf')
+'[1902.04704] Neural network models and deep learning - a primer for biologists'
+
+reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf')
+'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar'
 ```
 
 For any site-specific customizations, update `urltitle.config.NETLOC_OVERRIDES` for the relevant site per the

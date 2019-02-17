@@ -67,7 +67,7 @@ reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d8
 ```
 
 For any site-specific customizations, update `urltitle.config.NETLOC_OVERRIDES` for the relevant site per the
-preexisting examples in it. Do not add a "www." prefix to any top-level key in it.
+preexisting examples in it. Do not add a `www.` prefix to any top-level key in it.
 
 ## To do
 * Implement custom handling for some non-HTML content types such as PDF, etc.

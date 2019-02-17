@@ -56,11 +56,6 @@ class URLTitleReader:
         return netloc
 
     @staticmethod
-    def _title_from_headers(content_type_header: Optional[str], content_len_humanized: Optional[str]) -> str:
-        # Note: Content-Length can sometimes be None, e.g. for https://pastebin.com/raw/KKJNBgjt
-        return ' '.join(f'({part})' for part in (content_type_header, content_len_humanized) if part is not None)
-
-    @staticmethod
     def _title_from_partial_content(content: bytes) -> Optional[str]:
         bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
         # Note: Technically, the title tag within the head tag is the one that's required.
@@ -171,12 +166,12 @@ class URLTitleReader:
         content_len_humanized = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type_header, content_len_humanized, time_used)
+        headers_title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
 
         # Return headers-based title for non-HTML
         if not cast(str, (content_type_header or '')).startswith('text/html'):
-            title = self._title_from_headers(content_type_header, content_len_humanized)
-            log.info('Returning title "%s" for URL %s', title, url)
-            return title
+            log.info('Returning title "%s" for URL %s', headers_title, url)
+            return headers_title
 
         # Iterate over content
         content = b''
@@ -219,6 +214,5 @@ class URLTitleReader:
         # Fallback to headers-based title
         log.warning('Unable to find title in HTML content of length %s for URL %s. The title will be returned from '
                     'content headers instead.', humanize_bytes(content_len), url)
-        title = self._title_from_headers(content_type_header, content_len_humanized)
-        log.info('Returning title "%s" for URL %s', title, url)
-        return title
+        log.info('Returning title "%s" for URL %s', headers_title, url)
+        return headers_title

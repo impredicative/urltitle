@@ -35,6 +35,9 @@ reader = URLTitleReader()
 reader.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
 "Massive insect decline could have 'catastrophic' environmental impact, study says"
 
+reader.title('https://www.youtube.com/watch?v=53YvP6gdD7U')
+'Deep Learning State of the Art (2019) - MIT - YouTube'
+
 # Titles for URLs with a missing scheme
 reader.title('www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275')
 "Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters"

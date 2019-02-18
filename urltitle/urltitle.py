@@ -169,7 +169,7 @@ class URLTitleReader:
         headers_title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
 
         # Return headers-based title for non-HTML
-        if not cast(str, (content_type_header or '')).startswith('text/html'):
+        if not cast(str, (content_type_header or '')).startswith(config.HTML_CONTENT_TYPES):
             log.info('Returning title "%s" for URL %s', headers_title, url)
             return headers_title
 

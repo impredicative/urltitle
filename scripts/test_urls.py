@@ -31,6 +31,8 @@ TEST_CASES = {
         'Gattaca (1997) - IMDb',
     'https://jamanetwork.com/journals/jama/fullarticle/2725150':
         'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Economics, Insurance, Payment | JAMA | JAMA Network',
+    'https://www.nature.com/articles/s41586-018-0594-0.epdf':
+        'Options for keeping the food system within environmental limits | Nature',
     'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
         'Lycopenaemia.  - PubMed - NCBI',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/':

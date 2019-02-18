@@ -90,7 +90,6 @@ TEST_CASES = {
         '[1902.04706v1] Simultaneously Learning Vision and Feature-based Control Policies for Real-world Ball-in-a-Cup',
     'https://arxiv.org/pdf/1902.04707v1':
         '[1902.04707v1] Sampling networks by nodal attributes',
-
     'https://www.cell.com/action/showPdf?pii=S1550-4131(15)00333-2':
         'Indoleamine 2,3-Dioxygenase Fine-Tunes Immune Homeostasis in Atherosclerosis and Colitis through Repression of Interleukin-10 Production: Cell Metabolism',
     'http://www.cell.com/cell/pdf/S0092-8674(15)00186-5.pdf':
@@ -101,20 +100,18 @@ TEST_CASES = {
         'Mast Cell-Derived Histamine Regulates Liver Ketogenesis via Oleoylethanolamide Signaling: Cell Metabolism',
     'https://www.cell.com/cell-reports/pdfExtended/S2211-1247(18)31503-1':
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
-
+    'http://www.gastrojournal.org/article/S0016-5085(17)36302-3/pdf':
+        'Fructan, Rather Than Gluten, Induces Symptoms in Patients With Self-Reported Non-Celiac Gluten Sensitivity - Gastroenterology',
     'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':
         'Comparative analysis of environmental impacts of agricultural production systems, agricultural input efficiency, and food choice - IOPscience',
-
     'https://www.nature.com/articles/s41430-018-0326-4.pdf':
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
-
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3533942/pdf/1472-6920-12-117.pdf':
         'Attitudes toward statistics in medical postgraduates: measuring, evaluating and monitoring',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5522867/pdf/':
         'Mathematics Anxiety and Statistics Anxiety. Shared but Also Unshared Components and Antagonistic Contributions to Performance in Statistics',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3799466':
         'Multiple alignment-free sequence comparison',
-
     "https://www.researchgate.net/profile/Paola_Costa-Mallen/publication/230587812_A_Diet_Low_in_Animal_Fat_and_Rich_in_N-Hexacosanol_and_Fisetin_Is_Effective_in_Reducing_Symptoms_of_Parkinson's_Disease/links/55568cff08ae6943a873442d.pdf":
         "(PDF) A Diet Low in Animal Fat and Rich in N-Hexacosanol and Fisetin Is Effective in Reducing Symptoms of Parkinson's Disease",
     "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":

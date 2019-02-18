@@ -55,6 +55,8 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                r'cell.com/\g<path>/fulltext/\g<id>'),
                               (r'cell\.com/action/showPdf\?pii=(?P<id>.+)$',
                                r'cell.com/cell/fulltext/\g<id>')]},
+    'gastrojournal.org': {'url_subs': [('gastrojournal\.org/article/(?P<id>.+?)/pdf$',
+                                        'gastrojournal.org/article/\g<id>/')]},
     'iopscience.iop.org': {'url_subs': [('iopscience\.iop\.org/article/(?P<id>.+?)/pdf$',
                                          'iopscience.iop.org/article/\g<id>')]},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},

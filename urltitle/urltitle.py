@@ -99,7 +99,7 @@ class URLTitleReader:
             else:
                 log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
         else:
-            log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
+            log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
     def title(self, url: str) -> str:  # type: ignore
         # Can raise: URLTitleError

@@ -50,7 +50,7 @@ reader.title('reddit.com/r/FoodNerds/comments/arb6qj')
 reader.title('neverssl.com')
 'NeverSSL - helping you get online'
 
-# Titles for PDFs with available title metadata
+# Titles for PDFs having title metadata
 reader.title('https://www.diabetes.org.br/publico/images/pdf/artificial-sweeteners-induce-glucose-intolerance-by-altering-the-gut-microbiota.pdf')
 'Artificial sweeteners induce glucose intolerance by altering the gut microbiota'
 
@@ -81,7 +81,7 @@ reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d8
 For any site-specific customizations, update `urltitle.config.NETLOC_OVERRIDES` for the relevant site per the
 preexisting examples in it. Do not add a `www.` prefix to any top-level key in it.
 
-Errors are expected to raise the `urltitle.URLTitleError` exception; a title will then not be returned.
+An error is expected to raise the `urltitle.URLTitleError` exception; a title will then not be returned.
 This is by design.
 
 ## To do

@@ -5,14 +5,14 @@ Its intended primary use is the inclusion of the returned value in conversations
 ## Features
 * An in-memory cache is used with a default time of a week. The cache size and time are customizable.
 * Approximately only the fraction of a HTML page required to return a title is read, up to a customizable maximum of 1 MiB.
-* A PDF title metadata extractor is used for PDF files of up to a customizable maximum of 8 MiB.
+* A PDF title metadata extractor is used for PDF files of up to a customizable maximum size of 8 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.
 * A fallback to Google web cache is used if a page presents a Distil captcha.
 * Diagnostic logging can be optionally enabled for the logger named `urltitle` at the desired level.
 * Some site-specific customizations are configurable:
-  - multiple regular expression based URL substitutions
-  - use of Google web cache
+  - Multiple regular expression based URL substitutions
+  - Use of Google web cache
   - User-Agent
 
 ## Links

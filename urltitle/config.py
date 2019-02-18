@@ -67,6 +67,9 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                               'onlinelibrary.wiley.com/doi/\g<doi>')]},
     'pdfs.semanticscholar.org': {'url_subs': [(r'//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$',
                                                r'//semanticscholar.org/paper/\g<id1>\g<id2>')]},
+    'researchgate.net': {'url_subs':
+                             [('researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
+                               'researchgate.net/profile/\g<author>/publication/\g<pub>')]},
     'swansonvitamins.com': {'google_webcache': True},
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},

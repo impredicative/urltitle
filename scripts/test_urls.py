@@ -115,6 +115,11 @@ TEST_CASES = {
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3799466':
         'Multiple alignment-free sequence comparison',
 
+    "https://www.researchgate.net/profile/Paola_Costa-Mallen/publication/230587812_A_Diet_Low_in_Animal_Fat_and_Rich_in_N-Hexacosanol_and_Fisetin_Is_Effective_in_Reducing_Symptoms_of_Parkinson's_Disease/links/55568cff08ae6943a873442d.pdf":
+        "(PDF) A Diet Low in Animal Fat and Rich in N-Hexacosanol and Fisetin Is Effective in Reducing Symptoms of Parkinson's Disease",
+    "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":
+        "(PDF) Making Use of Advances in Answer-Set Programming for Abstract Argumentation Systems",
+
     'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':

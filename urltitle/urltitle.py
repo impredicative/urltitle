@@ -4,7 +4,7 @@ from http.client import RemoteDisconnected
 from io import BytesIO
 import logging
 from re import sub
-from socket import timeout as RareTimeoutError
+from socket import timeout as SocketTimeoutError
 # noinspection PyUnresolvedReferences
 from ssl import SSLCertVerificationError
 from statistics import mean
@@ -151,7 +151,7 @@ class URLTitleReader:
                 start_time = time.monotonic()
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
-            except (ValueError, HTTPError, URLError, RareTimeoutError, RemoteDisconnected) as exc:
+            except (ValueError, HTTPError, URLError, SocketTimeoutError, RemoteDisconnected) as exc:
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
                 if isinstance(exc, ValueError) or \

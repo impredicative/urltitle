@@ -119,6 +119,8 @@ TEST_CASES = {
 
     'http://onlinelibrary.wiley.com/doi/10.1002/ptr.5583/pdf':
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
+    'https://onlinelibrary.wiley.com/doi/pdf/10.1002/ptr.5583':
+        'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
 }
 
 reader = URLTitleReader()

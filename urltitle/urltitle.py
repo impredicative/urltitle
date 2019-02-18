@@ -17,6 +17,7 @@ from cachetools.func import LFUCache, ttl_cache
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
+from .util.math import ceil_to_kib
 
 log = logging.getLogger(__name__)
 
@@ -78,9 +79,10 @@ class URLTitleReader:
         padding = config.KiB  # For whitespace, closing title tag, and any minor randomness leading up to the title.
         observation = (observation + len(title) + padding) if (observation != -1) else content_len
         observation = min(observation, content_len + padding)
+        observation = ceil_to_kib(observation)
 
         netloc = self._netloc(url)
-        # This section is not thread safe, but that's okay as these are just estimates.
+        # This section is not thread safe, but that's okay as these are just estimates, and it won't crash.
         old_guess = self._content_amount_guesses.get(netloc)
         if old_guess is None:
             new_guess = min(observation, config.REQUEST_SIZE_MAX)
@@ -88,10 +90,14 @@ class URLTitleReader:
             log.info('Set HTML content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
         elif old_guess != observation:
             new_guess = int(mean((old_guess, observation)))  # May need a better technique.
+            new_guess = ceil_to_kib(new_guess)
             new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
-            self._content_amount_guesses[netloc] = new_guess
-            log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
-                     netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
+            if old_guess != new_guess:
+                self._content_amount_guesses[netloc] = new_guess
+                log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
+                         netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
+            else:
+                log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
         else:
             log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
 
@@ -192,7 +198,7 @@ class URLTitleReader:
                           humanize_len(content_new), time_used, humanize_bytes(content_len))
                 if not content_new:
                     break
-                title = self._title_from_partial_content(content)  # type: ignore
+                title = self._title_from_partial_content(content)
                 if not title:
                     target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
                     amt = max(0, target_content_len - content_len)

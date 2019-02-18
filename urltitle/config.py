@@ -19,7 +19,7 @@ GOOGLE_WEBCACHE_URL_PREFIX = 'https://webcache.googleusercontent.com/search?q=ca
 CONTENT_TYPE_PREFIXES = {'html': ('text/html', '*/*'),  # Nature.com EPDFs are HTML but use */*
                          'pdf': 'application/pdf'}
 MAX_REQUEST_ATTEMPTS = 3
-MAX_REQUEST_SIZES = {'html': MiB, 'pdf': 16 * MiB}
+MAX_REQUEST_SIZES = {'html': MiB, 'pdf': 8 * MiB}
 #   Note: Amazon product links, for example, have the title between 512K and 1M in the HTML content.
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = MiB

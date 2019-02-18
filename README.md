@@ -1,5 +1,5 @@
 # urltitle
-**urltitle** uses Python 3.7 to return the page title or other description for a given URL.
+**urltitle** uses Python 3.7 to return the page title or header-based description for a given URL.
 Its intended primary use is the inclusion of the returned value in conversations.
 
 ## Features

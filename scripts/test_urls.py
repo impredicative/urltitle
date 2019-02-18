@@ -102,6 +102,9 @@ TEST_CASES = {
     'https://www.cell.com/cell-reports/pdfExtended/S2211-1247(18)31503-1':
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
 
+    'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':
+        'Comparative analysis of environmental impacts of agricultural production systems, agricultural input efficiency, and food choice - IOPscience',
+
     'https://www.nature.com/articles/s41430-018-0326-4.pdf':
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
 
@@ -122,6 +125,7 @@ TEST_CASES = {
     'https://onlinelibrary.wiley.com/doi/pdf/10.1002/ptr.5583':
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
 }
+URL_FILTER = ''
 
 reader = URLTitleReader()
 
@@ -129,5 +133,7 @@ reader = URLTitleReader()
 class TestURLs(unittest.TestCase):
     def test_url_titles(self):
         for url, expected_title in TEST_CASES.items():
+            if URL_FILTER and (URL_FILTER not in url):
+                continue
             with self.subTest(url=url):
                 self.assertEqual(expected_title, reader.title(url))

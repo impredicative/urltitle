@@ -87,7 +87,7 @@ class URLTitleReader:
         if old_guess is None:
             new_guess = min(observation, config.REQUEST_SIZE_MAX)
             self._content_amount_guesses[netloc] = new_guess
-            log.info('Set HTML content amount guess for %s to observation %s.', netloc, humanize_bytes(new_guess))
+            log.info('Set HTML content amount guess for %s to %s.', netloc, humanize_bytes(new_guess))
         elif old_guess != observation:
             new_guess = int(mean((old_guess, observation)))  # May need a better technique.
             new_guess = ceil_to_kib(new_guess)

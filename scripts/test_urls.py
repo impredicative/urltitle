@@ -134,12 +134,14 @@ TEST_CASES = {
         '1F. Born to Be Healthy 8.21.15',
     'https://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf':  # Content-Length=20M
         '(application/pdf) (20M)',
+    'https://www.omicsonline.org/open-access/detection-of-glyphosate-in-malformed-piglets-2161-0525.1000230.pdf':
+        'Detection of Glyphosate in Malformed Piglets',
     'http://www.pnas.org/content/pnas/suppl/2018/10/09/1809045115.DCSupplemental/pnas.1809045115.sapp.pdf':  # No Content-Length.
         'Microsoft Word - EN_PNAS_supportive information modified _9-26-18.docx',
     'https://extension.oregonstate.edu/sites/default/files/documents/1/glycemicindex.pdf':
         '(application/pdf) (461K)',
 }
-URL_FILTER = ''
+URL_FILTER = '.pdf'
 
 reader = URLTitleReader()
 

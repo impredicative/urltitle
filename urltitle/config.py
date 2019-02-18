@@ -16,10 +16,13 @@ DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
 DEFAULT_CACHE_MAX_SIZE = 4 * KiB
 DEFAULT_REQUEST_SIZE = 8 * KiB
 GOOGLE_WEBCACHE_URL_PREFIX = 'https://webcache.googleusercontent.com/search?q=cache:'
-HTML_CONTENT_TYPE_PREFIXES = 'text/html', '*/*'  # Nature.com EPDFs use */*
+CONTENT_TYPE_PREFIXES = {'html': ('text/html', '*/*'),  # Nature.com EPDFs are HTML but use */*
+                         'pdf': 'application/pdf'}
 MAX_REQUEST_ATTEMPTS = 3
+MAX_REQUEST_SIZES = {'html': MiB, 'pdf': 16 * MiB}
+#   Note: Amazon product links, for example, have the title between 512K and 1M in the HTML content.
 PACKAGE_NAME = Path(__file__).parent.stem
-REQUEST_SIZE_MAX = MiB  # Amazon product links, for example, have the title between 512K and 1M.
+REQUEST_SIZE_MAX = MiB
 REQUEST_TIMEOUT = 30
 UNRECOVERABLE_HTTP_CODES = 400, 401, 404
 URL_SCHEME_GUESSES = 'https', 'http'

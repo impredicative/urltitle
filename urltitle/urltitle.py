@@ -1,5 +1,6 @@
 from datetime import timedelta
 from functools import lru_cache
+from io import BytesIO
 import logging
 from re import sub
 from socket import timeout as RareTimeoutError
@@ -14,6 +15,7 @@ from urllib.request import build_opener, HTTPCookieProcessor, Request
 
 from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
+import pikepdf
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
@@ -85,13 +87,13 @@ class URLTitleReader:
         # This section is not thread safe, but that's okay as these are just estimates, and it won't crash.
         old_guess = self._content_amount_guesses.get(netloc)
         if old_guess is None:
-            new_guess = min(observation, config.REQUEST_SIZE_MAX)
+            new_guess = min(observation, config.MAX_REQUEST_SIZES['html'])
             self._content_amount_guesses[netloc] = new_guess
             log.info('Set HTML content amount guess for %s to %s.', netloc, humanize_bytes(new_guess))
         elif old_guess != observation:
             new_guess = int(mean((old_guess, observation)))  # May need a better technique.
             new_guess = ceil_to_kib(new_guess)
-            new_guess = min(new_guess, config.REQUEST_SIZE_MAX)
+            new_guess = min(new_guess, config.MAX_REQUEST_SIZES['html'])
             if old_guess != new_guess:
                 self._content_amount_guesses[netloc] = new_guess
                 log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
@@ -167,58 +169,67 @@ class URLTitleReader:
         # Log headers
         content_type_header = response.headers.get('Content-Type')
         content_type_header = cast(Optional[str], content_type_header)
+        content_type_header_str = content_type_header if content_type_header is not None else ''
         content_len_header = response.headers.get('Content-Length')
         content_len_header = cast(Optional[int], content_len_header)
         content_len_humanized = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type_header, content_len_humanized, time_used)
-        headers_title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
 
-        # Return headers-based title for non-HTML
-        if not cast(str, (content_type_header or '')).startswith(config.HTML_CONTENT_TYPE_PREFIXES):
-            log.info('Returning title "%s" for URL %s', headers_title, url)
-            return headers_title
+        # Return title from HTML
+        if content_type_header_str.startswith(config.CONTENT_TYPE_PREFIXES['html']):
+            # Iterate over content
+            content = b''
+            amt = self._guess_content_amount_for_title(url)
+            read = True
+            max_request_size = config.MAX_REQUEST_SIZES['html']
+            try:
+                while read:
+                    log.debug(f'Reading %s in this iteration with a total of %s read so far.',
+                              humanize_bytes(amt), humanize_len(content))
+                    start_time = time.monotonic()
+                    content_new = response.read(amt)
+                    time_used = time.monotonic() - start_time
+                    read &= bool(content_new)
+                    content += content_new
+                    content_len = len(content)
+                    read &= (content_len <= max_request_size)
+                    log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
+                              humanize_len(content_new), time_used, humanize_bytes(content_len))
+                    if not content_new:
+                        break
+                    title = self._title_from_partial_content(content)
+                    if not title:
+                        target_content_len = min(max_request_size, content_len * 2)
+                        amt = max(0, target_content_len - content_len)
+                        read &= bool(amt)
+                        continue
+                    self._update_content_amount_guess_for_title(url, content, title)
+                    log.info('Returning HTML title "%s" for URL %s after reading %s.', title, url,
+                             humanize_bytes(content_len))
+                    return title
+            finally:
+                response.close()
+            # Handle Distil captcha using Google web cache
+            if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
+                log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
+                url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
+                return self.title(url)
+            log.warning('Unable to find title in HTML content of length %s for URL %s', humanize_bytes(content_len),
+                        url)
 
-        # Iterate over content
-        content = b''
-        amt = self._guess_content_amount_for_title(url)
-        read = True
-        try:
-            while read:
-                log.debug(f'Reading %s in this iteration with a total of %s read so far.',
-                          humanize_bytes(amt), humanize_len(content))
-                start_time = time.monotonic()
-                content_new = response.read(amt)
-                time_used = time.monotonic() - start_time
-                read &= bool(content_new)
-                content += content_new
-                content_len = len(content)
-                read &= (content_len <= config.REQUEST_SIZE_MAX)
-                log.debug('Read %s in this iteration in %.1fs with a total of %s read so far.',
-                          humanize_len(content_new), time_used, humanize_bytes(content_len))
-                if not content_new:
-                    break
-                title = self._title_from_partial_content(content)
-                if not title:
-                    target_content_len = min(config.REQUEST_SIZE_MAX, content_len * 2)
-                    amt = max(0, target_content_len - content_len)
-                    read &= bool(amt)
-                    continue
-                self._update_content_amount_guess_for_title(url, content, title)
-                log.info('Returning title "%s" for URL %s after reading %s.', title, url,
-                         humanize_bytes(content_len))
+        # Return title from small PDF
+        elif content_type_header_str.startswith(config.CONTENT_TYPE_PREFIXES['pdf']) and \
+            isinstance(content_len_header, int) and content_len_header <= config.MAX_REQUEST_SIZES['pdf']:
+            content = response.read(config.MAX_REQUEST_SIZES['pdf'])
+            title = str(pikepdf.open(BytesIO(content)).docinfo['/Title']).strip()
+            if title:
+                log.info('Returning PDF title "%s" for URL %s.', title, url)
                 return title
-        finally:
-            response.close()
+            else:
+                log.info('Unable to find title in PDF content for URL %s', url)
 
-        # Handle Distil captcha using Google web cache
-        if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
-            log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
-            url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
-            return self.title(url)
-
-        # Fallback to headers-based title
-        log.warning('Unable to find title in HTML content of length %s for URL %s. The title will be returned from '
-                    'content headers instead.', humanize_bytes(content_len), url)
-        log.info('Returning title "%s" for URL %s', headers_title, url)
-        return headers_title
+        # Return headers-based title
+        title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
+        log.info('Returning headers title "%s" for URL %s', title, url)
+        return title

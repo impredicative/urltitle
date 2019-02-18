@@ -59,6 +59,8 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'nature.com': {'url_subs': [('nature\.com/articles/(?P<id>.+?)\.pdf$', 'nature.com/articles/\g<id>')]},
     'ncbi.nlm.nih.gov': {'url_subs': [(r'/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)*$',
                                        r'/pmc/articles/PMC\g<id>/')]},
+    'onlinelibrary.wiley.com': {'url_subs': [('onlinelibrary\.wiley\.com/doi/(?P<doi>.+?)/pdf$',
+                                              'onlinelibrary.wiley.com/doi/\g<doi>')]},
     'pdfs.semanticscholar.org': {'url_subs': [(r'//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$',
                                                r'//semanticscholar.org/paper/\g<id1>\g<id2>')]},
     'swansonvitamins.com': {'google_webcache': True},

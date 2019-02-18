@@ -53,6 +53,8 @@ TEST_CASES = {
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
         'Introducing Uber’s Ludwig – Towards Data Science',
+    'https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1365-2672.2006.03171.x':
+        'Residence time and food contact time effects on transfer of Salmonella Typhimurium from tile, wood and carpet: testing the five‐second rule - Dawson - 2007 - Journal of Applied Microbiology - Wiley Online Library',
     'https://www.youtube.com/watch?v=53YvP6gdD7U':
         'Deep Learning State of the Art (2019) - MIT - YouTube',
     'https://m.youtube.com/watch?v=GltlJO56S1g':
@@ -114,6 +116,9 @@ TEST_CASES = {
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
         'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
+
+    'http://onlinelibrary.wiley.com/doi/10.1002/ptr.5583/pdf':
+        'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
 }
 
 reader = URLTitleReader()

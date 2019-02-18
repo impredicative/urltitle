@@ -18,7 +18,7 @@ setup(
     author='Ouroboros Chrysopoeia',
     author_email='impredicative@users.nomail.github.com',
     version='0.0.1',
-    description='Get page title or other description for URL',
+    description='Get page title or header-based description for URL',
     keywords='url title',
     long_description=Path(__file__).with_name('README.md').read_text().strip(),
     long_description_content_type='text/markdown',

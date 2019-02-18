@@ -6,13 +6,8 @@
 #
 beautifulsoup4==4.7.1
 cachetools==3.1.0
-certifi==2018.11.29       # via requests
-chardet==3.0.4            # via requests
 defusedxml==0.5.0         # via pikepdf
 humanize==0.5.1
-idna==2.8                 # via requests
 lxml==4.3.1               # via pikepdf
 pikepdf==1.0.5
-requests==2.21.0
 soupsieve==1.7.3          # via beautifulsoup4
-urllib3==1.24.1           # via requests

@@ -141,7 +141,7 @@ TEST_CASES = {
     'https://extension.oregonstate.edu/sites/default/files/documents/1/glycemicindex.pdf':
         '(application/pdf) (461K)',
 }
-URL_FILTER = '.pdf'
+URL_FILTER = ''
 
 reader = URLTitleReader()
 

@@ -83,6 +83,3 @@ preexisting examples in it. Do not add a `www.` prefix to any top-level key in i
 
 An error is expected to raise the `urltitle.URLTitleError` exception; a title will then not be returned.
 This is by design.
-
-## To do
-* Implement custom handling for some non-HTML content types such as PDF, etc.

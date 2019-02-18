@@ -68,7 +68,7 @@ TEST_CASES = {
     'www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275':
         "Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters",
 
-    # Non-HTML:
+    # Unhandled types:
     'https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2017/campylobacte.jpg': '(image/jpeg)',
     'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',
     'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
@@ -126,6 +126,14 @@ TEST_CASES = {
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
     'https://onlinelibrary.wiley.com/doi/pdf/10.1002/ptr.5583':
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
+
+    # PDF
+    'https://www.diabetes.org.br/publico/images/pdf/artificial-sweeteners-induce-glucose-intolerance-by-altering-the-gut-microbiota.pdf':
+        "Artificial sweeteners induce glucose intolerance by altering the gut microbiota",
+    'http://www.pnas.org/content/pnas/suppl/2018/10/09/1809045115.DCSupplemental/pnas.1809045115.sapp.pdf':  # No Content-Length.
+        'Microsoft Word - EN_PNAS_supportive information modified _9-26-18.docx',
+    'https://extension.oregonstate.edu/sites/default/files/documents/1/glycemicindex.pdf':
+        '(application/pdf) (461K)',
 }
 URL_FILTER = ''
 

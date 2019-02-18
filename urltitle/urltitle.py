@@ -225,12 +225,12 @@ class URLTitleReader:
             if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
                 content = response.read(max_request_size)
                 if len(content) < max_request_size:  # Very likely an incomplete PDF if both sizes are equal.
-                    title = str(pikepdf.open(BytesIO(content)).docinfo['/Title']).strip()
+                    title = str(pikepdf.open(BytesIO(content)).docinfo.get('/Title', '')).strip()
                     if title:
                         log.info('Returning PDF title "%s" for URL %s.', title, url)
                         return title
                     else:
-                        log.debug('Unable to find title in PDF content for URL %s', url)
+                        log.debug('Unable to find title in PDF content for URL %s', url)  # Quite common.
                 else:
                     log.debug('Undeclared and unknown content length of PDF for URL %s likely exceeds the configured '
                               'max of %s for reading it fully.',
@@ -242,5 +242,5 @@ class URLTitleReader:
 
         # Return headers-based title
         title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
-        log.info('Returning headers title "%s" for URL %s', title, url)
+        log.info('Returning headers-derived title "%s" for URL %s', title, url)
         return title

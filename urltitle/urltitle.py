@@ -8,7 +8,7 @@ from socket import timeout as RareTimeoutError
 from ssl import SSLCertVerificationError
 from statistics import mean
 import time
-from typing import cast, Dict, Optional
+from typing import cast, Dict, Optional, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import build_opener, HTTPCookieProcessor, Request
@@ -177,7 +177,7 @@ class URLTitleReader:
                   num_attempt, content_type_header, content_len_humanized, time_used)
 
         # Return title from HTML
-        if content_type_header_str.startswith(config.CONTENT_TYPE_PREFIXES['html']):
+        if content_type_header_str.startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
             # Iterate over content
             content = b''
             amt = self._guess_content_amount_for_title(url)
@@ -219,7 +219,7 @@ class URLTitleReader:
                         url)
 
         # Return title from small PDF
-        elif content_type_header_str.startswith(config.CONTENT_TYPE_PREFIXES['pdf']) and \
+        elif content_type_header_str.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])) and \
             isinstance(content_len_header, int) and content_len_header <= config.MAX_REQUEST_SIZES['pdf']:
             content = response.read(config.MAX_REQUEST_SIZES['pdf'])
             title = str(pikepdf.open(BytesIO(content)).docinfo['/Title']).strip()

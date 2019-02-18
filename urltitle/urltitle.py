@@ -8,7 +8,7 @@ from socket import timeout as RareTimeoutError
 from ssl import SSLCertVerificationError
 from statistics import mean
 import time
-from typing import cast, Dict, Optional, Tuple
+from typing import cast, Dict, Optional, Tuple, Union
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import build_opener, HTTPCookieProcessor, Request
@@ -171,7 +171,8 @@ class URLTitleReader:
         content_type_header = cast(Optional[str], content_type_header)
         content_type_header_str = content_type_header if content_type_header is not None else ''
         content_len_header = response.headers.get('Content-Length')
-        content_len_header = cast(Optional[int], content_len_header)
+        content_len_header = cast(Union[int, str, None], content_len_header)
+        content_len_header = int(content_len_header) if content_len_header is not None else None
         content_len_humanized = humanize_bytes(content_len_header)
         log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
                   num_attempt, content_type_header, content_len_humanized, time_used)
@@ -219,15 +220,24 @@ class URLTitleReader:
                         url)
 
         # Return title from small PDF
-        elif content_type_header_str.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])) and \
-            isinstance(content_len_header, int) and content_len_header <= config.MAX_REQUEST_SIZES['pdf']:
-            content = response.read(config.MAX_REQUEST_SIZES['pdf'])
-            title = str(pikepdf.open(BytesIO(content)).docinfo['/Title']).strip()
-            if title:
-                log.info('Returning PDF title "%s" for URL %s.', title, url)
-                return title
+        elif content_type_header_str.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
+            max_request_size = config.MAX_REQUEST_SIZES['pdf']
+            if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
+                content = response.read(max_request_size)
+                if len(content) != max_request_size:  # Likely incomplete PDF if equal.
+                    title = str(pikepdf.open(BytesIO(content)).docinfo['/Title']).strip()
+                    if title:
+                        log.info('Returning PDF title "%s" for URL %s.', title, url)
+                        return title
+                    else:
+                        log.debug('Unable to find title in PDF content for URL %s', url)
+                else:
+                    log.debug('PDF content length for URL %s likely exceeds the configured max %s for reading it '
+                              'fully.',
+                              url, humanize_bytes(max_request_size))
             else:
-                log.info('Unable to find title in PDF content for URL %s', url)
+                log.debug('PDF content length %s for URL %s exceeds the configured max of %s for reading it.',
+                          url, content_len_humanized, humanize_bytes(max_request_size))
 
         # Return headers-based title
         title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)

@@ -23,14 +23,16 @@ TEST_CASES = {
         'A simple introduction to Python’s asyncio – Hacker Noon',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
-    'https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15':
-        'Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch',
-    'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
-        'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
     'https://www.imdb.com/title/tt0119177/':
         'Gattaca (1997) - IMDb',
     'https://jamanetwork.com/journals/jama/fullarticle/2725150':
         'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Economics, Insurance, Payment | JAMA | JAMA Network',
+    'https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15':
+        'Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch',
+    'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
+        'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
+    'https://www.nature.com/articles/s41430-018-0326-4':
+        'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
     'https://www.nature.com/articles/s41586-018-0594-0.epdf':
         'Options for keeping the food system within environmental limits | Nature',
     'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
@@ -97,6 +99,9 @@ TEST_CASES = {
         'Mast Cell-Derived Histamine Regulates Liver Ketogenesis via Oleoylethanolamide Signaling: Cell Metabolism',
     'https://www.cell.com/cell-reports/pdfExtended/S2211-1247(18)31503-1':
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
+
+    'https://www.nature.com/articles/s41430-018-0326-4.pdf':
+        'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
 
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3533942/pdf/1472-6920-12-117.pdf':
         'Attitudes toward statistics in medical postgraduates: measuring, evaluating and monitoring',

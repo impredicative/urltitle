@@ -129,7 +129,7 @@ TEST_CASES = {
 
     # PDF
     'https://www.diabetes.org.br/publico/images/pdf/artificial-sweeteners-induce-glucose-intolerance-by-altering-the-gut-microbiota.pdf':
-        "Artificial sweeteners induce glucose intolerance by altering the gut microbiota",
+        'Artificial sweeteners induce glucose intolerance by altering the gut microbiota',
     'https://drdanenberg.com/wp-content/uploads/2015/09/Born-to-Be-Healthy.pdf':
         '1F. Born to Be Healthy 8.21.15',
     'https://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf':  # Content-Length=20M

@@ -1,11 +1,8 @@
-import logging
 import unittest
 
 from urltitle import config, URLTitleReader
 
 config.configure_logging()
-
-log = logging.getLogger(__name__)
 
 
 TEST_CASES = {

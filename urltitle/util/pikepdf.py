@@ -6,10 +6,9 @@ pikepdf==1.0.5 is not thread safe. Refer to https://github.com/pikepdf/pikepdf/i
 from concurrent.futures import ProcessPoolExecutor
 from io import BytesIO
 
-import pikepdf
-
 
 def _get_pdf_title(pdf_bytes: bytes) -> str:
+    import pikepdf  # This must be imported only here, or else it won't work.
     return str(pikepdf.open(BytesIO(pdf_bytes)).docinfo.get('/Title', '')).strip()
 
 

@@ -129,6 +129,8 @@ TEST_CASES = {
         'Artificial sweeteners induce glucose intolerance by altering the gut microbiota',
     'https://drdanenberg.com/wp-content/uploads/2015/09/Born-to-Be-Healthy.pdf':
         '1F. Born to Be Healthy 8.21.15',
+    'https://www.fda.gov/downloads/ucm380325.pdf':  # Content-Type="Application/pdf"
+        '1755 POC',
     'https://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf':  # Content-Length=20M
         '(application/pdf) (20M)',
     'https://www.omicsonline.org/open-access/detection-of-glyphosate-in-malformed-piglets-2161-0525.1000230.pdf':

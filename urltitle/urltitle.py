@@ -239,6 +239,12 @@ class URLTitleReader:
                 log.debug('Declared content length %s of PDF for URL %s exceeds the configured max of %s for reading '
                           'it.',
                           content_len_humanized, url, humanize_bytes(max_request_size))
+            # Try using Google web cache
+            log.debug('A Google cache version of the PDF URL %s will be attempted.', url)
+            try:
+                return self.title(f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}')
+            except URLTitleError as exc:
+                log.debug('The Google cache version failed for the PDF URL %s. %s', url, exc)
 
         # Return headers-based title
         title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)

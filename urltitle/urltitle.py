@@ -1,7 +1,6 @@
 from datetime import timedelta
 from functools import lru_cache
 from http.client import RemoteDisconnected
-from io import BytesIO
 import logging
 from re import sub
 from socket import timeout as SocketTimeoutError
@@ -16,11 +15,11 @@ from urllib.request import build_opener, HTTPCookieProcessor, Request
 
 from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
-import pikepdf
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
 from .util.math import ceil_to_kib
+from .util.pikepdf import get_pdf_title
 
 log = logging.getLogger(__name__)
 
@@ -41,7 +40,7 @@ class URLTitleReader:
         self._netloc = lru_cache(maxsize=title_cache_max_size)(self._netloc)
         self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)  # type: ignore
 
-    def _guess_content_amount_for_title(self, url: str) -> int:
+    def _guess_html_content_amount_for_title(self, url: str) -> int:
         netloc = self._netloc(url)
         guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
         log.debug('Returning HTML content amount guess for %s of %s.', netloc, humanize_bytes(guess))
@@ -60,7 +59,7 @@ class URLTitleReader:
         return netloc
 
     @staticmethod
-    def _title_from_partial_content(content: bytes) -> Optional[str]:
+    def _title_from_partial_html_content(content: bytes) -> Optional[str]:
         bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
         # Note: Technically, the title tag within the head tag is the one that's required.
         title_tag = bs.title
@@ -74,7 +73,7 @@ class URLTitleReader:
         title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
         return title_text
 
-    def _update_content_amount_guess_for_title(self, url: str, content: bytes, title: str) -> None:
+    def _update_html_content_amount_guess_for_title(self, url: str, content: bytes, title: str) -> None:
         content_len = len(content)
         title = title.encode()
 
@@ -182,7 +181,7 @@ class URLTitleReader:
         if content_type_header_str.lower().startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
             # Iterate over content
             content = b''
-            amt = self._guess_content_amount_for_title(url)
+            amt = self._guess_html_content_amount_for_title(url)
             read = True
             max_request_size = config.MAX_REQUEST_SIZES['html']
             try:
@@ -200,13 +199,13 @@ class URLTitleReader:
                               humanize_len(content_new), time_used, humanize_bytes(content_len))
                     if not content_new:
                         break
-                    title = self._title_from_partial_content(content)
+                    title = self._title_from_partial_html_content(content)
                     if not title:
                         target_content_len = min(max_request_size, content_len * 2)
                         amt = max(0, target_content_len - content_len)
                         read &= bool(amt)
                         continue
-                    self._update_content_amount_guess_for_title(url, content, title)
+                    self._update_html_content_amount_guess_for_title(url, content, title)
                     log.info('Returning HTML title "%s" for URL %s after reading %s.', title, url,
                              humanize_bytes(content_len))
                     return title
@@ -226,7 +225,7 @@ class URLTitleReader:
             if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
                 content = response.read(max_request_size)
                 if len(content) < max_request_size:  # Very likely an incomplete PDF if both sizes are equal.
-                    title = str(pikepdf.open(BytesIO(content)).docinfo.get('/Title', '')).strip()
+                    title = get_pdf_title(content)
                     if title:
                         log.info('Returning PDF title "%s" for URL %s.', title, url)
                         return title

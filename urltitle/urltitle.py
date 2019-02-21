@@ -51,7 +51,7 @@ class URLTitleReader:
         is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
         if is_webcache:
             url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
-        netloc = urlparse(url).netloc.lower()
+        netloc = urlparse(url).netloc.casefold()
         if netloc.startswith('www.'):
             netloc = netloc[4:]
         if is_webcache:
@@ -178,7 +178,7 @@ class URLTitleReader:
                   num_attempt, content_type_header, content_len_humanized, time_used)
 
         # Return title from HTML
-        if content_type_header_str.lower().startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
+        if content_type_header_str.casefold().startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
             # Iterate over content
             content = b''
             amt = self._guess_html_content_amount_for_title(url)
@@ -220,7 +220,7 @@ class URLTitleReader:
                         url)
 
         # Return title from small PDF
-        elif content_type_header_str.lower().startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
+        elif content_type_header_str.casefold().startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
             max_request_size = config.MAX_REQUEST_SIZES['pdf']
             if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
                 content = response.read(max_request_size)

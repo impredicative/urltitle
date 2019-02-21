@@ -139,8 +139,12 @@ TEST_CASES = {
         'Microsoft Word - EN_PNAS_supportive information modified _9-26-18.docx',
     'https://extension.oregonstate.edu/sites/default/files/documents/1/glycemicindex.pdf':  # Google web cache used.
         'Glycemic index and glycemic load for 100+ foods',
+
+    # Whitespace
+    ' https://github.com/pikepdf/pikepdf/issues/26  ':
+        'docinfo from incomplete PDF · Issue #26 · pikepdf/pikepdf · GitHub',
 }
-URL_FILTER = '.pdf'
+URL_FILTER = 'pikepdf'
 
 reader = URLTitleReader()
 

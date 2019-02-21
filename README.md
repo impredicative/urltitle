@@ -8,6 +8,7 @@ Its intended primary use is the inclusion of the returned value in conversations
 * A PDF title metadata extractor is used for PDF files of up to a customizable maximum size of 8 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.
+* SSL verification for https sites can optionally be disabled.
 * A fallback to Google web cache is used if a HTML page presents a Distil captcha.
 It is also used for a PDF which is too large or doesn't have title metadata.
 * Diagnostic logging can be optionally enabled for the logger named `urltitle` at the desired level.
@@ -32,7 +33,7 @@ Usage examples:
 ```python
 from urltitle import URLTitleReader
 
-reader = URLTitleReader()
+reader = URLTitleReader(verify_ssl=True)
 
 # Titles for HTML content
 reader.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')

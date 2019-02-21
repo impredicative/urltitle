@@ -144,14 +144,30 @@ TEST_CASES = {
     ' https://github.com/pikepdf/pikepdf/issues/26  ':
         'docinfo from incomplete PDF · Issue #26 · pikepdf/pikepdf · GitHub',
 }
-URL_FILTER = ''
+TEST_CASES_WITH_BAD_SSL = {
+    'https://badssl.com': 'badssl.com',  # Baseline with good SSL.
+    'https://expired.badssl.com/': 'expired.badssl.com',
+    'https://wrong.host.badssl.com/': 'wrong.host.badssl.com',
+    'https://self-signed.badssl.com/': 'self-signed.badssl.com',
+    'https://neverssl.com/': 'NeverSSL - helping you get online',
+    'https://verizon.net': 'Pay Bill, See Offers with My Verizon Fios Login',
+}
 
-reader = URLTitleReader()
+URL_FILTER = ''
 
 
 class TestURLs(unittest.TestCase):
     def test_url_titles(self):
+        reader = URLTitleReader()
         for url, expected_title in TEST_CASES.items():
+            if URL_FILTER and (URL_FILTER not in url):
+                continue
+            with self.subTest(url=url):
+                self.assertEqual(expected_title, reader.title(url))
+
+    def test_url_titles_without_ssl_verification(self):
+        reader = URLTitleReader(verify_ssl=False)
+        for url, expected_title in TEST_CASES_WITH_BAD_SSL.items():
             if URL_FILTER and (URL_FILTER not in url):
                 continue
             with self.subTest(url=url):

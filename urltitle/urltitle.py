@@ -4,6 +4,7 @@ from http.client import RemoteDisconnected
 import logging
 from re import sub
 from socket import timeout as SocketTimeoutError
+import ssl
 # noinspection PyUnresolvedReferences
 from ssl import SSLCertVerificationError
 from statistics import mean
@@ -11,7 +12,7 @@ import time
 from typing import cast, Dict, Optional, Tuple, Union
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
-from urllib.request import build_opener, HTTPCookieProcessor, Request
+from urllib.request import build_opener, HTTPCookieProcessor, HTTPSHandler, Request
 
 from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
@@ -31,14 +32,27 @@ class URLTitleError(Exception):
 
 
 class URLTitleReader:
-    def __init__(self,
+    def __init__(self, *,
                  title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE,
-                 title_cache_ttl: float = config.DEFAULT_CACHE_TTL):
+                 title_cache_ttl: float = config.DEFAULT_CACHE_TTL,
+                 verify_ssl: bool = True):
         log.debug('Cache parameters: config.DEFAULT_CACHE_MAX_SIZE=%s, title_cache_max_size=%s, title_cache_ttl=%s',
                   config.DEFAULT_CACHE_MAX_SIZE, title_cache_max_size, timedelta(seconds=title_cache_ttl))
+
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
         self._netloc = lru_cache(maxsize=title_cache_max_size)(self._netloc)
         self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)  # type: ignore
+
+        if verify_ssl:
+            self._ssl_context = ssl.create_default_context()
+            assert self._ssl_context.verify_mode == ssl.CERT_REQUIRED
+            assert self._ssl_context.check_hostname
+        else:
+            self._ssl_context = ssl.SSLContext()
+            assert self._ssl_context.verify_mode == ssl.CERT_NONE
+            assert not self._ssl_context.check_hostname
+            log.warning('SSL verification is disabled for all requests made using this instance of %s.',
+                        self.__class__.__qualname__)
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
         netloc = self._netloc(url)
@@ -146,7 +160,9 @@ class URLTitleReader:
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
-                opener = build_opener(HTTPCookieProcessor())  # Cookies required for cell.com, tandfonline.com, etc.
+                opener = build_opener(HTTPCookieProcessor(),  # Cookies are required for cell.com, tandfonline.com, etc.
+                                      HTTPSHandler(context=self._ssl_context),  # Required for https://verizon.net, etc.
+                                      )
                 request = Request(url, headers={'User-Agent': user_agent})
                 start_time = time.monotonic()
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)

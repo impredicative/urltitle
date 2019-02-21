@@ -1,6 +1,7 @@
 # urltitle
 **urltitle** uses Python 3.7 to return the page title or header-based description for a given URL.
 Its intended primary use is the inclusion of the returned value in conversations.
+As a disclaimer, note that the returned title is not guaranteed to be accurate due to many possible factors.
 
 ## Features
 * An in-memory cache is used with a default time of a week. The cache size and time are customizable.

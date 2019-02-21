@@ -144,7 +144,7 @@ TEST_CASES = {
     ' https://github.com/pikepdf/pikepdf/issues/26  ':
         'docinfo from incomplete PDF · Issue #26 · pikepdf/pikepdf · GitHub',
 }
-URL_FILTER = 'pikepdf'
+URL_FILTER = ''
 
 reader = URLTitleReader()
 

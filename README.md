@@ -36,7 +36,7 @@ reader = URLTitleReader()
 
 # Titles for HTML content
 reader.title('https://www.cnn.com/2019/02/11/health/insect-decline-study-intl/index.html')
-"Massive insect decline could have 'catastrophic' environmental impact, study says"
+"Insect numbers in precipitous decline could have 'catastrophic' consequences, warns study - CNN"
 
 reader.title('https://www.youtube.com/watch?v=53YvP6gdD7U')
 'Deep Learning State of the Art (2019) - MIT - YouTube'

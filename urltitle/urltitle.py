@@ -169,7 +169,7 @@ class URLTitleReader:
         # Log headers
         content_type_header = response.headers.get('Content-Type')
         content_type_header = cast(Optional[str], content_type_header)
-        content_type_header_str = content_type_header if content_type_header is not None else ''
+        content_type_header_str_cf = content_type_header.casefold() if content_type_header is not None else ''
         content_len_header = response.headers.get('Content-Length')
         content_len_header = cast(Union[int, str, None], content_len_header)
         content_len_header = int(content_len_header) if content_len_header is not None else None
@@ -178,7 +178,7 @@ class URLTitleReader:
                   num_attempt, content_type_header, content_len_humanized, time_used)
 
         # Return title from HTML
-        if content_type_header_str.casefold().startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
+        if content_type_header_str_cf.startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
             # Iterate over content
             content = b''
             amt = self._guess_html_content_amount_for_title(url)
@@ -219,8 +219,8 @@ class URLTitleReader:
             log.warning('Unable to find title in HTML content of length %s for URL %s', humanize_bytes(content_len),
                         url)
 
-        # Return title from small PDF
-        elif content_type_header_str.casefold().startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
+        # Return title from PDF
+        elif content_type_header_str_cf.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
             max_request_size = config.MAX_REQUEST_SIZES['pdf']
             if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
                 content = response.read(max_request_size)

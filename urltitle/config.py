@@ -17,7 +17,7 @@ DEFAULT_CACHE_MAX_SIZE = 4 * KiB
 DEFAULT_REQUEST_SIZE = 8 * KiB
 GOOGLE_WEBCACHE_URL_PREFIX = 'https://webcache.googleusercontent.com/search?q=cache:'
 CONTENT_TYPE_PREFIXES = {'html': ('text/html', '*/*'),  # Nature.com EPDFs are HTML but use */*
-                         'pdf': 'application/pdf'}
+                         'pdf': 'application/pdf'}  # Values must be lowercase.
 MAX_REQUEST_ATTEMPTS = 3
 MAX_REQUEST_SIZES = {'html': MiB, 'pdf': 8 * MiB}
 #   Note: Amazon product links, for example, have the title between 512K and 1M in the HTML content.

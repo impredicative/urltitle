@@ -106,6 +106,7 @@ class URLTitleReader:
     def title(self, url: str) -> str:  # type: ignore
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
+        url = url.strip()
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
         netloc = self._netloc(url)

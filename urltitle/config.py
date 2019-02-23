@@ -23,7 +23,7 @@ MAX_REQUEST_SIZES = {'html': MiB, 'pdf': 8 * MiB}
 #   Note: Amazon product links, for example, have the title between 512K and 1M in the HTML content.
 PACKAGE_NAME = Path(__file__).parent.stem
 REQUEST_SIZE_MAX = MiB
-REQUEST_TIMEOUT = 30
+REQUEST_TIMEOUT = 15
 UNRECOVERABLE_HTTP_CODES = 400, 401, 404
 URL_SCHEME_GUESSES = 'https', 'http'
 USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'

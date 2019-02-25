@@ -40,7 +40,7 @@ class URLTitleReader:
                   config.DEFAULT_CACHE_MAX_SIZE, title_cache_max_size, timedelta(seconds=title_cache_ttl))
 
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
-        self._netloc = lru_cache(maxsize=title_cache_max_size)(self._netloc)
+        self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)
         self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)  # type: ignore
 
         if verify_ssl:
@@ -55,13 +55,13 @@ class URLTitleReader:
                         self.__class__.__qualname__)
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
-        netloc = self._netloc(url)
+        netloc = self.netloc(url)
         guess = self._content_amount_guesses.get(netloc,  config.DEFAULT_REQUEST_SIZE)
         log.debug('Returning HTML content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
     @staticmethod
-    def _netloc(url: str) -> str:
+    def netloc(url: str) -> str:
         is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
         if is_webcache:
             url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
@@ -78,7 +78,7 @@ class URLTitleReader:
         url = url.strip()
         request_desc = f'request for title of URL {url}'
         log.debug('Received %s with up to %s attempts.', request_desc, max_attempts)
-        netloc = self._netloc(url)
+        netloc = self.netloc(url)
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
 
@@ -248,7 +248,7 @@ class URLTitleReader:
         observation = min(observation, content_len + padding)
         observation = ceil_to_kib(observation)
 
-        netloc = self._netloc(url)
+        netloc = self.netloc(url)
         # This section is not thread safe, but that's okay as these are just estimates, and it won't crash.
         old_guess = self._content_amount_guesses.get(netloc)
         if old_guess is None:
@@ -269,7 +269,7 @@ class URLTitleReader:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
     def title(self, url: str) -> str:  # type: ignore
-        netloc = self._netloc(url)
+        netloc = self.netloc(url)
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
         title = self._title(url)

@@ -76,6 +76,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                              [('researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
                                'researchgate.net/profile/\g<author>/publication/\g<pub>')]},
     'swansonvitamins.com': {'google_webcache': True},
+    'trends.google.com': {'url_subs': [('^https://(?P<url>.+)$', 'http://\g<url>')]},
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
 }

@@ -113,12 +113,12 @@ TEST_CASES = {
         "(PDF) A Diet Low in Animal Fat and Rich in N-Hexacosanol and Fisetin Is Effective in Reducing Symptoms of Parkinson's Disease",
     "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":
         "(PDF) Making Use of Advances in Answer-Set Programming for Abstract Argumentation Systems",
-
     'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
         'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
-
+    'https://trends.google.com/trends/explore?date=all&q=soup':
+        'soup - Google Trends',
     'http://onlinelibrary.wiley.com/doi/10.1002/ptr.5583/pdf':
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
     'https://onlinelibrary.wiley.com/doi/pdf/10.1002/ptr.5583':

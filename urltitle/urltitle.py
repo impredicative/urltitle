@@ -60,18 +60,6 @@ class URLTitleReader:
         log.debug('Returning HTML content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
-    @staticmethod
-    def netloc(url: str) -> str:
-        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
-        if is_webcache:
-            url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
-        netloc = urlparse(url).netloc.casefold()
-        if netloc.startswith('www.'):
-            netloc = netloc[4:]
-        if is_webcache:
-            netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
-        return netloc
-
     def _title(self, url: str) -> str:
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
@@ -267,6 +255,18 @@ class URLTitleReader:
                 log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
         else:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
+
+    @staticmethod
+    def netloc(url: str) -> str:
+        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
+        if is_webcache:
+            url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
+        netloc = urlparse(url).netloc.casefold()
+        if netloc.startswith('www.'):
+            netloc = netloc[4:]
+        if is_webcache:
+            netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
+        return netloc
 
     def title(self, url: str) -> str:  # type: ignore
         netloc = self.netloc(url)

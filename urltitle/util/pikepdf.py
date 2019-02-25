@@ -13,8 +13,8 @@ def _get_pdf_title(pdf_bytes: bytes) -> str:
 
     title = str(pdf.docinfo.get('/Title', '')).strip()
     if not title:
-        with pdf.open_metadata() as metadata:
-            title = str(metadata.get('dc:title', '')).strip()
+        metadata = pdf.open_metadata()
+        title = str(metadata.get('dc:title') or '').strip()
     return title
 
 

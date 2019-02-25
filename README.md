@@ -14,7 +14,7 @@ As a disclaimer, note that the returned title is not guaranteed to be accurate d
 It is also used for a PDF which is too large or doesn't have title metadata.
 * Diagnostic logging can be optionally enabled for the logger named `urltitle` at the desired level.
 * Some site-specific customizations are configurable:
-  - Multiple regular expression based URL substitutions
+  - Multiple regular expression based URL and title substitutions
   - Use of Google web cache
   - User-Agent
 

@@ -97,6 +97,8 @@ TEST_CASES = {
         'Mast Cell-Derived Histamine Regulates Liver Ketogenesis via Oleoylethanolamide Signaling: Cell Metabolism',
     'https://www.cell.com/cell-reports/pdfExtended/S2211-1247(18)31503-1':
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
+    'https://colab.research.google.com/drive/13XbrSQhBORkKel0LQ6pJEzoil5w9zUzj':
+        'OHLCV.ipynb - Colaboratory',
     'http://www.gastrojournal.org/article/S0016-5085(17)36302-3/pdf':
         'Fructan, Rather Than Gluten, Induces Symptoms in Patients With Self-Reported Non-Celiac Gluten Sensitivity - Gastroenterology',
     'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':

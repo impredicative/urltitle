@@ -72,52 +72,7 @@ class URLTitleReader:
             netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
         return netloc
 
-    @staticmethod
-    def _title_from_partial_html_content(content: bytes) -> Optional[str]:
-        bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
-        # Note: Technically, the title tag within the head tag is the one that's required.
-        title_tag = bs.title
-        if not title_tag:
-            return None
-        title_text = title_tag.text
-        title_bytes = title_text.encode(bs.original_encoding)
-        if content.endswith(title_bytes):
-            # Note: This is a check for an incomplete title, although it is not entirely an accurate check.
-            return None
-        title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
-        return title_text
-
-    def _update_html_content_amount_guess_for_title(self, url: str, content: bytes, title: str) -> None:
-        content_len = len(content)
-        title = title.encode()
-
-        observation = content.rfind(title)
-        padding = config.KiB  # For whitespace, closing title tag, and any minor randomness leading up to the title.
-        observation = (observation + len(title) + padding) if (observation != -1) else content_len
-        observation = min(observation, content_len + padding)
-        observation = ceil_to_kib(observation)
-
-        netloc = self._netloc(url)
-        # This section is not thread safe, but that's okay as these are just estimates, and it won't crash.
-        old_guess = self._content_amount_guesses.get(netloc)
-        if old_guess is None:
-            new_guess = min(observation, config.MAX_REQUEST_SIZES['html'])
-            self._content_amount_guesses[netloc] = new_guess
-            log.info('Set HTML content amount guess for %s to %s.', netloc, humanize_bytes(new_guess))
-        elif old_guess != observation:
-            new_guess = int(mean((old_guess, observation)))  # May need a better technique.
-            new_guess = ceil_to_kib(new_guess)
-            new_guess = min(new_guess, config.MAX_REQUEST_SIZES['html'])
-            if old_guess != new_guess:
-                self._content_amount_guesses[netloc] = new_guess
-                log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
-                         netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
-            else:
-                log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
-        else:
-            log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
-
-    def title(self, url: str) -> str:  # type: ignore
+    def _title(self, url: str) -> str:
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         url = url.strip()
@@ -266,4 +221,64 @@ class URLTitleReader:
         # Return headers-based title
         title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
         log.info('Returning headers-derived title "%s" for URL %s', title, url)
+        return title
+
+    @staticmethod
+    def _title_from_partial_html_content(content: bytes) -> Optional[str]:
+        bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
+        # Note: Technically, the title tag within the head tag is the one that's required.
+        title_tag = bs.title
+        if not title_tag:
+            return None
+        title_text = title_tag.text
+        title_bytes = title_text.encode(bs.original_encoding)
+        if content.endswith(title_bytes):
+            # Note: This is a check for an incomplete title, although it is not entirely an accurate check.
+            return None
+        title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
+        return title_text
+
+    def _update_html_content_amount_guess_for_title(self, url: str, content: bytes, title: str) -> None:
+        content_len = len(content)
+        title = title.encode()
+
+        observation = content.rfind(title)
+        padding = config.KiB  # For whitespace, closing title tag, and any minor randomness leading up to the title.
+        observation = (observation + len(title) + padding) if (observation != -1) else content_len
+        observation = min(observation, content_len + padding)
+        observation = ceil_to_kib(observation)
+
+        netloc = self._netloc(url)
+        # This section is not thread safe, but that's okay as these are just estimates, and it won't crash.
+        old_guess = self._content_amount_guesses.get(netloc)
+        if old_guess is None:
+            new_guess = min(observation, config.MAX_REQUEST_SIZES['html'])
+            self._content_amount_guesses[netloc] = new_guess
+            log.info('Set HTML content amount guess for %s to %s.', netloc, humanize_bytes(new_guess))
+        elif old_guess != observation:
+            new_guess = int(mean((old_guess, observation)))  # May need a better technique.
+            new_guess = ceil_to_kib(new_guess)
+            new_guess = min(new_guess, config.MAX_REQUEST_SIZES['html'])
+            if old_guess != new_guess:
+                self._content_amount_guesses[netloc] = new_guess
+                log.info('Updated HTML content amount guess for %s with observation %s from %s to %s.',
+                         netloc, humanize_bytes(observation), humanize_bytes(old_guess), humanize_bytes(new_guess))
+            else:
+                log.debug('HTML content amount guess for %s of %s is unchanged.', netloc, humanize_bytes(old_guess))
+        else:
+            log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
+
+    def title(self, url: str) -> str:  # type: ignore
+        netloc = self._netloc(url)
+        overrides = config.NETLOC_OVERRIDES.get(netloc, {})
+        overrides = cast(Dict, overrides)
+        title = self._title(url)
+
+        # Substitute title as configured
+        for pattern, replacement in overrides.get('title_subs', []):
+            original_title = title
+            title = sub(pattern, replacement, title)
+            if original_title != title:
+                log.info('Substituted title "%s" with "%s".', original_title, title)
+
         return title

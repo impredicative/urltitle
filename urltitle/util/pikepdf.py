@@ -1,20 +1,22 @@
-"""Get PDF title using pikepdf in a separate process.
-
-pikepdf==1.0.5 is not thread safe. Refer to https://github.com/pikepdf/pikepdf/issues/27
-"""
+"""Get PDF title using pikepdf in a separate process."""
 
 from concurrent.futures import ProcessPoolExecutor
 from io import BytesIO
 
 
 def _get_pdf_title(pdf_bytes: bytes) -> str:
-    import pikepdf  # This must be imported only here, or else it won't work.
+    import pikepdf  # This must be imported only here. Workaround for https://github.com/pikepdf/pikepdf/issues/27
     pdf = pikepdf.open(BytesIO(pdf_bytes))
 
     title = str(pdf.docinfo.get('/Title', '')).strip()
     if not title:
         metadata = pdf.open_metadata()
-        title = str(metadata.get('dc:title') or '').strip()
+        try:
+            title = metadata.get('dc:title')
+        except AttributeError:  # Workaround for https://github.com/pikepdf/pikepdf/issues/23
+            pass
+        else:
+            title = str(title or '').strip()  # Workaround for https://github.com/pikepdf/pikepdf/issues/28
     return title
 
 

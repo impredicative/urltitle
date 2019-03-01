@@ -58,6 +58,8 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                'cell.com/\g<path>/fulltext/\g<id>'),
                               (r'cell\.com/action/showPdf\?pii=(?P<id>.+)$',
                                'cell.com/cell/fulltext/\g<id>')]},
+    'citeseerx.ist.psu.edu': {'url_subs': [(r'/viewdoc/download\?doi=(?P<doi>.+?)\&.+$',
+                                           '/viewdoc/summary?doi=\g<doi>')]},
     'colab.research.google.com': {'url_subs': [(r'//colab\.research\.google\.com/drive/(?P<id>\w+)$',
                                                 '//drive.google.com/file/d/\g<id>')],
                                   'title_subs': [(r'(?P<name>.+?) \- Google Drive$',

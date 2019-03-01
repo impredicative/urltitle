@@ -97,6 +97,8 @@ TEST_CASES = {
         'Mast Cell-Derived Histamine Regulates Liver Ketogenesis via Oleoylethanolamide Signaling: Cell Metabolism',
     'https://www.cell.com/cell-reports/pdfExtended/S2211-1247(18)31503-1':
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
+    'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8364&rep=rep1&type=pdf':
+        'CiteSeerX — Image registration methods: a survey',
     'https://colab.research.google.com/drive/13XbrSQhBORkKel0LQ6pJEzoil5w9zUzj':
         'OHLCV.ipynb - Colaboratory',
     'http://www.gastrojournal.org/article/S0016-5085(17)36302-3/pdf':

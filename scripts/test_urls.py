@@ -101,6 +101,8 @@ TEST_CASES = {
         'CiteSeerX — Image registration methods: a survey',
     'https://colab.research.google.com/drive/13XbrSQhBORkKel0LQ6pJEzoil5w9zUzj':
         'OHLCV.ipynb - Colaboratory',
+    'https://colab.research.google.com/drive/1e-nlYXumUw0og8z301okf6GlERYcOduV':
+        'OHLCV 30day window.ipynb - Colaboratory',
     'http://www.gastrojournal.org/article/S0016-5085(17)36302-3/pdf':
         'Fructan, Rather Than Gluten, Induces Symptoms in Patients With Self-Reported Non-Celiac Gluten Sensitivity - Gastroenterology',
     'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':

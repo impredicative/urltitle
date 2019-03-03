@@ -23,7 +23,7 @@ TEST_CASES = {
     'https://www.imdb.com/title/tt0119177/':
         'Gattaca (1997) - IMDb',
     'https://jamanetwork.com/journals/jama/fullarticle/2725150':
-        'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Economics, Insurance, Payment | JAMA | JAMA Network',
+        'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Reform | JAMA | JAMA Network',
     'https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15':
         'Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
@@ -72,7 +72,7 @@ TEST_CASES = {
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
     'https://distill.pub/rss.xml': '(application/xml) (6K)',
     'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
-    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (100K)',
+    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (99K)',
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',

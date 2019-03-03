@@ -9,5 +9,5 @@ cachetools==3.1.0
 defusedxml==0.5.0         # via pikepdf
 humanize==0.5.1
 lxml==4.3.1               # via pikepdf
-pikepdf==1.0.5
+pikepdf==1.1.0
 soupsieve==1.7.3          # via beautifulsoup4

@@ -82,9 +82,14 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'researchgate.net': {'url_subs':
                              [(r'researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
                                'researchgate.net/profile/\g<author>/publication/\g<pub>')]},
-    'swansonvitamins.com': {'google_webcache': True},
+    #'swansonvitamins.com': {'google_webcache': True},
+    'swansonvitamins.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'trends.google.com': {'url_subs': [(r'^https://(?P<url>.+)$',
                                         'http://\g<url>')]},
+    #'usnews.com': {'google_webcache': True},
+    'usnews.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
-}
+}  # Refer to https://support.google.com/webmasters/answer/1061943?hl=en for Google user agents.
+
+# For

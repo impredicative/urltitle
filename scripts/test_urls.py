@@ -28,6 +28,8 @@ TEST_CASES = {
         'Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
         'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
+    'https://www.medscape.com/viewarticle/909941':
+        'What Do You Think of Medicare for All?',
     'https://www.nature.com/articles/s41430-018-0326-4':
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
     'https://www.nature.com/articles/s41586-018-0594-0.epdf':

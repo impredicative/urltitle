@@ -53,8 +53,8 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 }
 
 NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
-    'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)*$', '/abs/\g<id>')]},
-    'cell.com': {'url_subs': [(r'cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)*$',
+    'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)?$', '/abs/\g<id>')]},
+    'cell.com': {'url_subs': [(r'cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)?$',
                                'cell.com/\g<path>/fulltext/\g<id>'),
                               (r'cell\.com/action/showPdf\?pii=(?P<id>.+)$',
                                'cell.com/cell/fulltext/\g<id>')]},
@@ -72,7 +72,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'nature.com': {'url_subs': [(r'nature\.com/articles/(?P<id>.+?)\.pdf$',
                                  'nature.com/articles/\g<id>')]},
-    'ncbi.nlm.nih.gov': {'url_subs': [(r'/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)*$',
+    'ncbi.nlm.nih.gov': {'url_subs': [(r'/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$',
                                        '/pmc/articles/PMC\g<id>/')]},
     'onlinelibrary.wiley.com': {'url_subs': [(r'onlinelibrary\.wiley\.com/doi/(?P<doi>.+?)/pdf$',
                                               'onlinelibrary.wiley.com/doi/\g<doi>'),
@@ -87,7 +87,6 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'swansonvitamins.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'trends.google.com': {'url_subs': [(r'^https://(?P<url>.+)$',
                                         'http://\g<url>')]},
-    #'usnews.com': {'google_webcache': True},
     'usnews.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},

@@ -92,5 +92,3 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
 }  # Refer to https://support.google.com/webmasters/answer/1061943?hl=en for Google user agents.
-
-# For

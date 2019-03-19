@@ -10,6 +10,8 @@ TEST_CASES = {
         'Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty',
     'https://www.amazon.com/gp/product/B077YCC84H/':
         'Amazon.com : Crest 3D White Whitestrips Vivid Plus : Beauty',
+    'https://www.annemergmed.com/article/S0196-0644(99)70271-4/abstract':
+        'Agricultural Avermectins: An Uncommon But Potentially Fatal Cause of Pesticide Poisoning - Annals of Emergency Medicine',
     'https://arxiv.org/abs/1810.04805':
         '[1810.04805] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding',
     'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':

@@ -260,22 +260,14 @@ class URLTitleReader:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
     def netloc(self, url: str) -> str:  # type: ignore
-
         # Handle missing scheme, without which the returned netloc is erroneous
         if urlparse(url).scheme == '':
             return self.netloc(f'https://{url}')
-
-        # Handle Google Webcache
-        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)  # Approximate check.
-        if is_webcache:
-            url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
 
         # Return netloc
         netloc = urlparse(url).netloc.casefold()
         if netloc.startswith('www.'):
             netloc = netloc[4:]
-        if is_webcache:
-            netloc = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{netloc}'
         return netloc
 
     def title(self, url: str) -> str:  # type: ignore

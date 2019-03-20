@@ -41,7 +41,7 @@ class URLTitleReader:
                   config.DEFAULT_CACHE_MAX_SIZE, title_cache_max_size, timedelta(seconds=title_cache_ttl))
 
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
-        self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)
+        self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)  # type: ignore
         self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)  # type: ignore
 
         if verify_ssl:
@@ -259,11 +259,18 @@ class URLTitleReader:
         else:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
-    @staticmethod
-    def netloc(url: str) -> str:
-        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)
+    def netloc(self, url: str) -> str:  # type: ignore
+
+        # Handle missing scheme, without which the returned netloc is erroneous
+        if urlparse(url).scheme == '':
+            return self.netloc(f'https://{url}')
+
+        # Handle Google Webcache
+        is_webcache = url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)  # Approximate check.
         if is_webcache:
             url = url.replace(config.GOOGLE_WEBCACHE_URL_PREFIX, '', 1)
+
+        # Return netloc
         netloc = urlparse(url).netloc.casefold()
         if netloc.startswith('www.'):
             netloc = netloc[4:]

@@ -149,8 +149,10 @@ TEST_CASES = {
         '1755 POC',
     'https://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf':  # Content-Length=20M. Google web cache used.
         'Apollo 17 Flight Plan',
-    'https://www.omicsonline.org/open-access/detection-of-glyphosate-in-malformed-piglets-2161-0525.1000230.pdf':
-        'Detection of Glyphosate in Malformed Piglets',
+    'https://www.omicsonline.org/open-access/pathophysiology-of-osgoodschlatter-disease-does-vitamin-d-have-a-role-2376-1318-1000177-102873.html':
+        'Pathophysiology of Osgood-Schlatter Disease: Does Vitamin D have a Role?',
+    'https://www.omicsonline.org/open-access/pathophysiology-of-osgoodschlatter-disease-does-vitamin-d-have-a-role-2376-1318-1000177.pdf':
+        'Pathophysiology of Osgood-Schlatter Disease: Does Vitamin D have a Role?',
     'http://www.pnas.org/content/pnas/suppl/2018/10/09/1809045115.DCSupplemental/pnas.1809045115.sapp.pdf':  # No Content-Length.
         'Microsoft Word - EN_PNAS_supportive information modified _9-26-18.docx',
     'https://extension.oregonstate.edu/sites/default/files/documents/1/glycemicindex.pdf':  # Google web cache used.

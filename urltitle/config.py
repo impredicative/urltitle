@@ -74,6 +74,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                  'nature.com/articles/\g<id>')]},
     'ncbi.nlm.nih.gov': {'url_subs': [(r'/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$',
                                        '/pmc/articles/PMC\g<id>/')]},
+    'omicsonline.org': {'google_webcache': True},
     'onlinelibrary.wiley.com': {'url_subs': [(r'onlinelibrary\.wiley\.com/doi/(?P<doi>.+?)/pdf$',
                                               'onlinelibrary.wiley.com/doi/\g<doi>'),
                                              (r'onlinelibrary\.wiley\.com/doi/pdf/(?P<doi>.+)$',
@@ -83,7 +84,6 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'researchgate.net': {'url_subs':
                              [(r'researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
                                'researchgate.net/profile/\g<author>/publication/\g<pub>')]},
-    #'swansonvitamins.com': {'google_webcache': True},
     'swansonvitamins.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'trends.google.com': {'url_subs': [(r'^https://(?P<url>.+)$',
                                         'http://\g<url>')]},

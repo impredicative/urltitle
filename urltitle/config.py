@@ -53,8 +53,6 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 }
 
 NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
-    'annemergmed.com':  {'url_subs': [(r'^(?P<url>.+)$',  # Ref: https://bugs.python.org/issue36372
-                                       'https://secure.jbs.elsevierhealth.com/action/getSharedSiteSession?redirect=\g<url>')]},
     'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)?$', '/abs/\g<id>')]},
     'cell.com': {'url_subs': [(r'cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)?$',
                                'cell.com/\g<path>/fulltext/\g<id>'),

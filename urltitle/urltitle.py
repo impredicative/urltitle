@@ -21,6 +21,7 @@ from . import config
 from .util.humanize import humanize_bytes, humanize_len
 from .util.math import ceil_to_kib
 from .util.pikepdf import get_pdf_title
+from .util.urllib import CustomHTTPRedirectHandler
 
 log = logging.getLogger(__name__)
 
@@ -103,9 +104,11 @@ class URLTitleReader:
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)
             try:
-                opener = build_opener(HTTPCookieProcessor(),  # Cookies are required for cell.com, tandfonline.com, etc.
-                                      HTTPSHandler(context=self._ssl_context),  # Required for https://verizon.net, etc.
-                                      )
+                opener = build_opener(
+                    CustomHTTPRedirectHandler(),  # Required for annemergmed.com
+                    HTTPCookieProcessor(),  # Required for cell.com, tandfonline.com, etc.
+                    HTTPSHandler(context=self._ssl_context),  # Required for https://verizon.net, etc.
+                )
                 request = Request(url, headers={'User-Agent': user_agent})
                 start_time = time.monotonic()
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)

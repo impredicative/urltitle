@@ -260,11 +260,8 @@ class URLTitleReader:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
     def netloc(self, url: str) -> str:  # type: ignore
-        # Handle missing scheme, without which the returned netloc is erroneous
         if urlparse(url).scheme == '':
-            return self.netloc(f'https://{url}')
-
-        # Return netloc
+            return self.netloc(f'https://{url}')  # Without this, the returned netloc is erroneous
         netloc = urlparse(url).netloc.casefold()
         if netloc.startswith('www.'):
             netloc = netloc[4:]

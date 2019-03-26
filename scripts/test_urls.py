@@ -76,12 +76,12 @@ TEST_CASES = {
     'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',
     'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
-    'https://distill.pub/rss.xml': '(application/xml) (6K)',
     'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
     'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (99K)',
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
+    'https://tv.mathrubhumi.com/sitemap.xml': '(text/xml;charset=UTF-8) (1K)',
     'https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg': '(image/jpeg) (54K)',
 
     # Substituted URL:

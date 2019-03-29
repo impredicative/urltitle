@@ -88,8 +88,7 @@ This is by design.
 
 ### Customizations
 For any site-specific customizations, update (but ideally not replace) `urltitle.config.NETLOC_OVERRIDES` with the
-relevant site using the preexisting entries in it as examples. Refer to [`config.py`](urltitle/config.py).
-
+relevant sites using the preexisting entries in it as examples. Refer to [`config.py`](urltitle/config.py).
 The site of a URL is as defined and returned by the `URLTitleReader().netloc(url)` method in
 [`urltitle.py`](urltitle/urltitle.py).
 

@@ -23,6 +23,7 @@ It is also used for a PDF which is too large or doesn't have title metadata.
 * Release: https://pypi.org/project/urltitle/
 
 ## Usage
+### Installation
 Python ≥3.7 is required due to a reference 
 to [`SSLCertVerificationError`](https://docs.python.org/3/library/ssl.html#ssl.SSLCertVerificationError).
 
@@ -30,7 +31,7 @@ To install the package, run:
 
     pip install urltitle
 
-Usage examples:
+### Examples
 ```python
 from urltitle import URLTitleReader
 
@@ -81,8 +82,31 @@ reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d8
 'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar'
 ```
 
-For any site-specific customizations, update `urltitle.config.NETLOC_OVERRIDES` for the relevant site per the
-preexisting examples in it. Do not add a `www.` prefix to any top-level key in it.
-
+### Exceptions
 An error is expected to raise the `urltitle.URLTitleError` exception; a title will then not be returned.
 This is by design.
+
+### Customizations
+For any site-specific customizations, update (but ideally not replace) `urltitle.config.NETLOC_OVERRIDES` with the
+relevant site using the preexisting entries in it as examples. Refer to [`config.py`](urltitle/config.py).
+
+The site of a URL is as defined and returned by the `URLTitleReader().netloc(url)` method in
+[`urltitle.py`](urltitle/urltitle.py).
+
+The following examples show various URLs and their corresponding sites for the purpose of entering site-specific
+customizations:
+
+| URL | Site |
+| --- | ---- |
+| `https://www.google.com/search?q=asdf` | `google.com` |
+| `https://google.com/search?q=hjkl` | `google.com` |
+| `google.com/search?q=qwer` | `google.com` |
+| `google.com` | `google.com` |
+| `GOOGLE.COM` | `google.com` |
+| `gOogLE.com` | `google.com` |
+| `https://drive.google.com/drive/my-drive` | `drive.google.com` |
+| `https://help.github.com/en/` | `help.github.com` |
+| `https://github.com/pytorch/pytorch` | `github.com`
+| `https://www.amazon.com/gp/product/B01F8POA7U` | `amazon.com`
+| `https://rise.cs.berkeley.edu/blog/` | `rise.cs.berkeley.edu` |
+| `https://www.swansonvitamins.com/web-specials` | `swansonvitamins.com` |

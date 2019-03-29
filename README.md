@@ -83,8 +83,7 @@ reader.title('https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d8
 ```
 
 ### Exceptions
-An error is expected to raise the `urltitle.URLTitleError` exception; a title will then not be returned.
-This is by design.
+An error is expected to raise the `urltitle.URLTitleError` exception.
 
 ### Customizations
 For any site-specific customizations, update (but ideally not replace) `urltitle.config.NETLOC_OVERRIDES` with the

@@ -98,8 +98,12 @@ class URLTitleReader:
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
             return self.title(url)
 
-        # Read headers
+        # Set user agent as configured
         user_agent = overrides.get('user_agent', config.USER_AGENT)
+        if user_agent != config.USER_AGENT:
+            log.info('Using custom user agent for %s: %s', netloc, user_agent)
+
+        # Read headers
         for num_attempt in range(1, max_attempts + 1):
             # Request
             log.debug('Starting attempt %s processing %s', num_attempt, request_desc)

@@ -2,6 +2,8 @@ import logging
 import time
 from urltitle import config, URLTitleReader
 
+TEST_URL = 'https://www.ft.com/content/85c1b152-5452-11e9-a3db-1fe89bedc16e'
+
 config.LOGGING['loggers'] = {
     config.PACKAGE_NAME: {
         'level': 'WARNING',
@@ -17,8 +19,6 @@ config.LOGGING['loggers'] = {
 
 config.configure_logging()
 log = logging.getLogger(__name__)
-
-TEST_URL = 'https://www.ft.com/content/c20c79ae-5384-11e9-a3db-1fe89bedc16e'
 
 USER_AGENTS = [
     # Promising
@@ -45,6 +45,18 @@ USER_AGENTS = [
     'compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html',
     'AdsBot-Google-Mobile-Apps',
     'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)',
+
+    # https://www.bing.com/webmaster/help/which-crawlers-does-bing-use-8c184ec0
+    'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'msnbot/2.0b (+http://search.msn.com/msnbot.htm)',
+    'msnbot-media/1.1 (+http://search.msn.com/msnbot.htm)',
+    'Mozilla/5.0 (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b',
+    'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko BingPreview/1.0b',
 ]
 
 USER_AGENTS = list(dict.fromkeys(USER_AGENTS))
@@ -60,4 +72,7 @@ for user_agent in USER_AGENTS:
     if title not in titles.values():
         titles[user_agent] = title
         log.info('Found title: %s', title)
+        if len(titles) == 2:
+            log.info('Aborting title search because two unique titles have been found.')
+            break
     time.sleep(1)

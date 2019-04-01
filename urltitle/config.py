@@ -64,6 +64,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                                 '//drive.google.com/file/d/\g<id>')],
                                   'title_subs': [(r'(?P<name>.+?) \- Google Drive$',
                                                   '\g<name> - Colaboratory')]},
+    'ft.com': {'user_agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'},  # Iffy.
     'gastrojournal.org': {'url_subs': [(r'gastrojournal\.org/article/(?P<id>.+?)/pdf$',
                                         'gastrojournal.org/article/\g<id>/')]},
     'iopscience.iop.org': {'url_subs': [(r'iopscience\.iop\.org/article/(?P<id>.+?)/pdf$',
@@ -90,4 +91,4 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'usnews.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
     'youtu.be': {'user_agent': 'Mozilla/5.0'},
     'youtube.com': {'user_agent': 'Mozilla/5.0'},
-}  # Refer to https://support.google.com/webmasters/answer/1061943?hl=en for Google user agents.
+}

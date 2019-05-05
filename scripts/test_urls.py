@@ -25,7 +25,7 @@ TEST_CASES = {
     'https://www.imdb.com/title/tt0119177/':
         'Gattaca (1997) - IMDb',
     'https://jamanetwork.com/journals/jama/fullarticle/2725150':
-        'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs. | Health Care Reform | JAMA | JAMA Network',
+        'Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs | Health Care Reform | JAMA | JAMA Network',
     'https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15':
         'Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch',
     'https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html':
@@ -69,7 +69,7 @@ TEST_CASES = {
     'reddit.com/r/FoodNerds/comments/arb6qj':
         'Paternal high-fat diet transgenerationally impacts hepatic immunometabolism. - PubMed - NCBI : FoodNerds',
     'www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275':
-        "Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters",
+        "Army calls base housing hazards 'unconscionable,' details steps to protect families - Reuters",
 
     # Unhandled types:
     'https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2017/campylobacte.jpg': '(image/jpeg)',
@@ -145,8 +145,8 @@ TEST_CASES = {
         'Artificial sweeteners induce glucose intolerance by altering the gut microbiota',
     'https://drdanenberg.com/wp-content/uploads/2015/09/Born-to-Be-Healthy.pdf':
         '1F. Born to Be Healthy 8.21.15',
-    'https://www.fda.gov/downloads/ucm380325.pdf':  # Content-Type="Application/pdf" (not lowercase)
-        '1755 POC',
+    'https://www.fda.gov/media/86193/download':
+        'Contract Manufacturing Arrangements for Drugs: Quality Agreements Guidance for Industry',
     'https://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf':  # Content-Length=20M. Google web cache used.
         'Apollo 17 Flight Plan',
     'https://www.omicsonline.org/open-access/pathophysiology-of-osgoodschlatter-disease-does-vitamin-d-have-a-role-2376-1318-1000177-102873.html':

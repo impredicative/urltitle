@@ -1,8 +1,11 @@
 import logging
 import time
-from urltitle import config, URLTitleReader
+from urltitle import config, URLTitleError, URLTitleReader
 
-TEST_URL = 'https://www.ft.com/content/85c1b152-5452-11e9-a3db-1fe89bedc16e'
+TEST_URL = 'https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118'
+
+config.MAX_REQUEST_ATTEMPTS = 1
+config.REQUEST_TIMEOUT = 30
 
 config.LOGGING['loggers'] = {
     config.PACKAGE_NAME: {
@@ -68,7 +71,10 @@ for user_agent in USER_AGENTS:
     log.debug('Trying user agent: %s', user_agent)
     config.NETLOC_OVERRIDES[netloc] = {'user_agent': user_agent}
     reader = URLTitleReader()  # Fresh instance avoids cache.
-    title = reader.title(TEST_URL)
+    try:
+        title = reader.title(TEST_URL)
+    except URLTitleError:
+        continue
     if title not in titles.values():
         titles[user_agent] = title
         log.info('Found title: %s', title)

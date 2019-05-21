@@ -125,6 +125,8 @@ TEST_CASES = {
         'Mathematics Anxiety and Statistics Anxiety. Shared but Also Unshared Components and Antagonistic Contributions to Performance in Statistics',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3799466':
         'Multiple alignment-free sequence comparison',
+    'https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118':
+        'Effectiveness of Commercial and Homemade Washing Agents in Removing Pesticide Residues on and in Apples - Journal of Agricultural and Food Chemistry (ACS Publications)',
     "https://www.researchgate.net/profile/Paola_Costa-Mallen/publication/230587812_A_Diet_Low_in_Animal_Fat_and_Rich_in_N-Hexacosanol_and_Fisetin_Is_Effective_in_Reducing_Symptoms_of_Parkinson's_Disease/links/55568cff08ae6943a873442d.pdf":
         "(PDF) A Diet Low in Animal Fat and Rich in N-Hexacosanol and Fisetin Is Effective in Reducing Symptoms of Parkinson's Disease",
     "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":

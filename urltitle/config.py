@@ -82,6 +82,8 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                               'onlinelibrary.wiley.com/doi/\g<doi>')]},
     'pdfs.semanticscholar.org': {'url_subs': [(r'//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$',
                                                '//semanticscholar.org/paper/\g<id1>\g<id2>')]},
+    'pubs.acs.org': {'url_subs': [(r'^https://(?P<url>.+)$',
+                                   'http://\g<url>')]},
     'researchgate.net': {'url_subs':
                              [(r'researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
                                'researchgate.net/profile/\g<author>/publication/\g<pub>')]},

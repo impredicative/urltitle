@@ -13,6 +13,11 @@ config.LOGGING['loggers'] = {
         'handlers': ['console'],
         'propagate': False,
     },
+    'chardet.charsetprober': {
+        'level': 'WARNING',
+        'handlers': ['console'],
+        'propagate': False,
+    },
     '': {
         'level': 'DEBUG',
         'handlers': ['console'],
@@ -73,7 +78,7 @@ for user_agent in USER_AGENTS:
     reader = URLTitleReader()  # Fresh instance avoids cache.
     try:
         title = reader.title(TEST_URL)
-    except URLTitleError:
+    except (URLTitleError, ConnectionResetError):
         continue
     if title not in titles.values():
         titles[user_agent] = title

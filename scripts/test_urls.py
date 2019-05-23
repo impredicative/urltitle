@@ -71,6 +71,10 @@ TEST_CASES = {
     'www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275':
         "Army calls base housing hazards 'unconscionable,' details steps to protect families - Reuters",
 
+    # Non-ASCII:
+    'https://en.wikipedia.org/wiki/Amanattō': 'Amanattō - Wikipedia',
+    'https://fr.wikipedia.org/wiki/Wikipédia:Accueil_principal': "Wikipédia, l'encyclopédie libre",
+
     # Unhandled types:
     'https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2017/campylobacte.jpg': '(image/jpeg)',
     'https://export.arxiv.org/rss/eess.IV/recent': '(text/xml)',
@@ -82,7 +86,7 @@ TEST_CASES = {
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
     'https://tv.mathrubhumi.com/sitemap.xml': '(text/xml;charset=UTF-8) (1K)',
-    'https://www.sciencedaily.com/images/2019/02/190213142720_1_540x360.jpg': '(image/jpeg) (54K)',
+    'https://www.sciencedaily.com/images/2019/05/190522141747_1_540x360.jpg': '(image/jpeg) (26K)',
 
     # Substituted URL:
     'https://arxiv.org/pdf/1902.04704.pdf':
@@ -126,7 +130,7 @@ TEST_CASES = {
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3799466':
         'Multiple alignment-free sequence comparison',
     'https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118':
-        'Effectiveness of Commercial and Homemade Washing Agents in Removing Pesticide Residues on and in Apples - Journal of Agricultural and Food Chemistry (ACS Publications)',
+        'Effectiveness of Commercial and Homemade Washing Agents in Removing Pesticide Residues on and in Apples | Journal of Agricultural and Food Chemistry',
     "https://www.researchgate.net/profile/Paola_Costa-Mallen/publication/230587812_A_Diet_Low_in_Animal_Fat_and_Rich_in_N-Hexacosanol_and_Fisetin_Is_Effective_in_Reducing_Symptoms_of_Parkinson's_Disease/links/55568cff08ae6943a873442d.pdf":
         "(PDF) A Diet Low in Animal Fat and Rich in N-Hexacosanol and Fisetin Is Effective in Reducing Symptoms of Parkinson's Disease",
     "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":

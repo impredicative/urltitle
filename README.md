@@ -54,6 +54,13 @@ reader.title('reddit.com/r/FoodNerds/comments/arb6qj')
 reader.title('neverssl.com')
 'NeverSSL - helping you get online'
 
+# Titles for non-ASCII URLs
+reader.title('https://en.wikipedia.org/wiki/Amanattō')
+'Amanattō - Wikipedia'
+
+reader.title('https://fr.wikipedia.org/wiki/Wikipédia:Accueil_principal')
+"Wikipédia, l'encyclopédie libre"
+
 # Titles for PDFs having title metadata
 reader.title('https://www.diabetes.org.br/publico/images/pdf/artificial-sweeteners-induce-glucose-intolerance-by-altering-the-gut-microbiota.pdf')
 'Artificial sweeteners induce glucose intolerance by altering the gut microbiota'

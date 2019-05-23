@@ -11,7 +11,7 @@ from statistics import mean
 import time
 from typing import cast, Dict, Optional, Tuple, Union
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 from urllib.request import build_opener, HTTPCookieProcessor, HTTPSHandler, Request
 
 from bs4 import BeautifulSoup, SoupStrainer
@@ -90,6 +90,14 @@ class URLTitleReader:
             url = sub(pattern, replacement, url)
             if original_url != url:
                 log.info('Substituted URL %s with %s', original_url, url)
+                return self.title(url)
+
+        # Percent-encode Unicode to ASCII, preventing UnicodeEncodeError
+        if not url.isascii():
+            original_url = url
+            url = quote(url, safe=':/')  # Approximation.
+            if original_url != url:
+                log.info('ASCII encoded URL %s as %s', original_url, url)
                 return self.title(url)
 
         # Use Google web cache as configured

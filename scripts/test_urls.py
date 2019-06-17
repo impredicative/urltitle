@@ -16,6 +16,8 @@ TEST_CASES = {
         '[1810.04805] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding',
     'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':
         'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
+    'https://www.childstats.gov/americaschildren/tables/pop1.asp':
+        'POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2017 and projected 2018–2050',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
@@ -47,9 +49,9 @@ TEST_CASES = {
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
         'New pill can deliver insulin through the stomach -- ScienceDaily',
     'https://www.semanticscholar.org/paper/Nutrition-in-chronic-disease-Nutrition-in-the-of-Tapsell/ed29f5473a7100bbfe462301d2205f7263339564':
-        'Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease - Semantic Scholar',
+        '[PDF] Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease - Semantic Scholar',
     'https://www.tandfonline.com/doi/abs/10.1080/09637486.2018.1542666':
-        'Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 0, No 0',
+        'Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 70, No 5',
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
@@ -65,7 +67,7 @@ TEST_CASES = {
 
     # Missing scheme:
     'neverssl.com':
-        'NeverSSL - helping you get online',
+        'NeverSSL - Connecting ...',
     'reddit.com/r/FoodNerds/comments/arb6qj':
         'Paternal high-fat diet transgenerationally impacts hepatic immunometabolism. - PubMed - NCBI : FoodNerds',
     'www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275':
@@ -81,7 +83,7 @@ TEST_CASES = {
     'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
     'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
-    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (99K)',
+    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (101K)',
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
@@ -138,7 +140,7 @@ TEST_CASES = {
     'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
-        'Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
+        '[PDF] Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
     'https://trends.google.com/trends/explore?date=all&q=soup':
         'soup - Google Trends',
     'http://onlinelibrary.wiley.com/doi/10.1002/ptr.5583/pdf':
@@ -173,7 +175,7 @@ TEST_CASES_WITH_BAD_SSL = {
     'https://expired.badssl.com/': 'expired.badssl.com',
     'https://wrong.host.badssl.com/': 'wrong.host.badssl.com',
     'https://self-signed.badssl.com/': 'self-signed.badssl.com',
-    'https://neverssl.com/': 'NeverSSL - helping you get online',
+    'https://neverssl.com/': 'NeverSSL - Connecting ...',
     'https://verizon.net': 'Pay Bill, See Offers with My Verizon Fios Login',
 }
 

@@ -234,9 +234,9 @@ class URLTitleReader:
         if not title_tag:
             return None
         title_text = title_tag.text
-        title_bytes = title_text.encode(bs.original_encoding)
-        if content.endswith(title_bytes):
-            # Note: This is a check for an incomplete title, although it is not entirely an accurate check.
+        if content.decode(bs.original_encoding).endswith(title_text):
+            # Note: Encoding title_text instead fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
+            # Note: This is an inexact check for an incomplete title.
             return None
         title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
         return title_text

@@ -38,12 +38,14 @@ TEST_CASES = {
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
     'https://www.nature.com/articles/s41586-018-0594-0.epdf':
         'Options for keeping the food system within environmental limits | Nature',
+    'https://www.nbcnews.com/politics/donald-trump/trump-installs-state-art-golf-simulator-white-house-n971176':
+        'Trump installs state-of-the-art golf simulator in the White House',
     'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
         'Lycopenaemia.  - PubMed - NCBI',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/':
         'Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient',
-    'https://www.nbcnews.com/politics/donald-trump/trump-installs-state-art-golf-simulator-white-house-n971176':
-        'Trump installs state-of-the-art golf simulator in the White House',
+    'https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/':
+        'Ships fooled in GPS spoofing attack suggest Russian cyberweapon | New Scientist',
     'https://stackoverflow.com/questions/50842144/':
         'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
@@ -83,7 +85,7 @@ TEST_CASES = {
     'https://static.arxiv.org/icons/cu/cornell-reduced-white-SMALL.svg': '(image/svg+xml) (10K)',
     'https://static.arxiv.org/icons/social/bibsonomy.png': '(image/png) (612B)',
     'https://download.fedoraproject.org/pub/fedora/linux/releases/29/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-29-1.2.iso': '(application/octet-stream) (2G)',
-    'https://raw.githubusercontent.com/python/cpython/master/setup.py': '(text/plain; charset=utf-8) (101K)',
+    'https://raw.githubusercontent.com/python/cpython/v3.7.3/setup.py': '(text/plain; charset=utf-8) (100K)',
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',

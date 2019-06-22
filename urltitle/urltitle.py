@@ -13,6 +13,7 @@ from typing import cast, Dict, Optional, Tuple, Union
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlparse
 from urllib.request import build_opener, HTTPCookieProcessor, HTTPSHandler, Request
+import zlib
 
 from bs4 import BeautifulSoup, SoupStrainer
 from cachetools.func import LFUCache, ttl_cache
@@ -145,12 +146,14 @@ class URLTitleReader:
         content_type_header = response.headers.get('Content-Type')
         content_type_header = cast(Optional[str], content_type_header)
         content_type_header_str_cf = content_type_header.casefold() if content_type_header is not None else ''
+        content_encoding_header = response.headers.get('Content-Encoding')
         content_len_header = response.headers.get('Content-Length')
         content_len_header = cast(Union[int, str, None], content_len_header)
         content_len_header = int(content_len_header) if content_len_header is not None else None
         content_len_humanized = humanize_bytes(content_len_header)
-        log.debug('Received response in attempt %s with declared content type "%s" and content length %s in %.1fs.',
-                  num_attempt, content_type_header, content_len_humanized, time_used)
+        log.debug('Received response in attempt %s with declared content type %s, encoding %s, and content length %s '
+                  'in %.1fs.',
+                  num_attempt, repr(content_type_header), content_encoding_header, content_len_humanized, time_used)
 
         # Return title from HTML
         if content_type_header_str_cf.startswith(cast(Tuple[str], config.CONTENT_TYPE_PREFIXES['html'])):
@@ -174,13 +177,15 @@ class URLTitleReader:
                               humanize_len(content_new), time_used, humanize_bytes(content_len))
                     if not content_new:
                         break
-                    title = self._title_from_partial_html_content(content)
+                    content_decoded = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content) if \
+                        (content_encoding_header == 'gzip') else content  # https://stackoverflow.com/a/56719274/
+                    title = self._title_from_partial_html_content(content_decoded)
                     if not title:
                         target_content_len = min(max_request_size, content_len * 2)
                         amt = max(0, target_content_len - content_len)
                         read &= bool(amt)
                         continue
-                    self._update_html_content_amount_guess_for_title(url, content, title)
+                    self._update_html_content_amount_guess_for_title(url, content, title)  # Don't use content_decoded.
                     log.info('Returning HTML title "%s" for URL %s after reading %s.', title, url,
                              humanize_bytes(content_len))
                     return title
@@ -222,7 +227,8 @@ class URLTitleReader:
                 log.debug('The Google cache version failed for the PDF URL %s. %s', url, exc)
 
         # Return headers-based title
-        title = ' '.join(f'({h})' for h in (content_type_header, content_len_humanized) if h is not None)
+        title_headers = content_type_header, content_encoding_header, content_len_humanized
+        title = ' '.join(f'({h})' for h in title_headers if h is not None)
         log.info('Returning headers-derived title "%s" for URL %s', title, url)
         return title
 

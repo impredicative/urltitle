@@ -46,6 +46,10 @@ TEST_CASES = {
         'Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient',
     'https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/':
         'Ships fooled in GPS spoofing attack suggest Russian cyberweapon | New Scientist',
+    'https://seekingalpha.com/news/3473699-wayfair-minus-5-percent-employees-plan-walkout':
+        'Wayfair -5% as some employees plan walkout - Wayfair Inc. (NYSE:W) | Seeking Alpha',
+    'https://seekingalpha.com/symbol/GOOG':
+        'GOOG Analysis & News - Alphabet Inc. | Seeking Alpha',
     'https://stackoverflow.com/questions/50842144/':
         'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':

@@ -122,7 +122,7 @@ class URLTitleReader:
                     HTTPCookieProcessor(),  # Required for cell.com, tandfonline.com, etc.
                     HTTPSHandler(context=self._ssl_context),  # Required for https://verizon.net, etc.
                 )
-                request = Request(url, headers={'User-Agent': user_agent})
+                request = Request(url, headers={'User-Agent': user_agent, **overrides.get('extra_headers', {})})
                 start_time = time.monotonic()
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time

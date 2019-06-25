@@ -17,6 +17,7 @@ It is also used for a PDF which is too large or doesn't have title metadata.
   - Multiple regular expression based URL and title substitutions
   - Use of Google web cache
   - User-Agent
+  - Additional headers
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/

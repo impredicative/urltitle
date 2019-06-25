@@ -42,8 +42,8 @@ class URLTitleReader:
                   config.DEFAULT_CACHE_MAX_SIZE, title_cache_max_size, timedelta(seconds=title_cache_ttl))
 
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
+        self._title_outer = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self._title_outer)  # type: ignore
         self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)  # type: ignore
-        self.title = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self.title)  # type: ignore
 
         if verify_ssl:
             self._ssl_context = ssl.create_default_context()
@@ -62,7 +62,7 @@ class URLTitleReader:
         log.debug('Returning HTML content amount guess for %s of %s.', netloc, humanize_bytes(guess))
         return guess
 
-    def _title(self, url: str) -> str:
+    def _title_inner(self, url: str) -> str:
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         url = url.strip()
@@ -78,7 +78,7 @@ class URLTitleReader:
                 log.info('The scheme %s will be attempted for URL %s', scheme_guess, url)
                 fixed_url = f'{scheme_guess}://{url}'
                 try:
-                    return self.title(fixed_url)
+                    return self._title_outer(fixed_url)
                 except URLTitleError as exc:
                     log.warning('The scheme %s failed for URL %s. %s', scheme_guess, url, exc)
             url_scheme_guesses_str = ', '.join(config.URL_SCHEME_GUESSES)
@@ -91,7 +91,7 @@ class URLTitleReader:
             url = sub(pattern, replacement, url)
             if original_url != url:
                 log.info('Substituted URL %s with %s', original_url, url)
-                return self.title(url)
+                return self._title_outer(url)
 
         # Percent-encode Unicode to ASCII, preventing UnicodeEncodeError
         if not url.isascii():
@@ -99,13 +99,13 @@ class URLTitleReader:
             url = quote(url, safe=':/')  # Approximation.
             if original_url != url:
                 log.info('ASCII encoded URL %s as %s', original_url, url)
-                return self.title(url)
+                return self._title_outer(url)
 
         # Use Google web cache as configured
         if overrides.get('google_webcache') and not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
             log.info('%s is configured to use Google web cache.', netloc)
             url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
-            return self.title(url)
+            return self._title_outer(url)
 
         # Set user agent as configured
         user_agent = overrides.get('user_agent', config.USER_AGENT)
@@ -186,8 +186,12 @@ class URLTitleReader:
                         read &= bool(amt)
                         continue
                     self._update_html_content_amount_guess_for_title(url, content, title)  # Don't use content_decoded.
-                    log.info('Returning HTML title "%s" for URL %s after reading %s.', title, url,
-                             humanize_bytes(content_len))
+
+                    if overrides.get('substitute_url_with_title'):
+                        log.info('Substituted URL %s with %s', url, title)
+                        return self._title_outer(title)
+                    log.debug('Returning HTML title %s for URL %s after reading %s.', repr(title), url,
+                              humanize_bytes(content_len))
                     return title
             finally:
                 response.close()
@@ -195,7 +199,7 @@ class URLTitleReader:
             if not(url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)) and (b'distil_r_captcha.html' in content):
                 log.info('Content of URL %s has a Distil captcha. A Google cache version will be attempted.', url)
                 url = f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}'
-                return self.title(url)
+                return self._title_outer(url)
             log.warning('Unable to find title in HTML content of length %s for URL %s', humanize_bytes(content_len),
                         url)
 
@@ -207,7 +211,7 @@ class URLTitleReader:
                 if len(content) < max_request_size:  # Very likely an incomplete PDF if both sizes are equal.
                     title = get_pdf_title(content)
                     if title:
-                        log.info('Returning PDF title "%s" for URL %s.', title, url)
+                        log.debug('Returning PDF title %s for URL %s', repr(title), url)
                         return title
                     else:
                         log.debug('Unable to find title in PDF content for URL %s', url)  # Quite common.
@@ -222,14 +226,35 @@ class URLTitleReader:
             # Try using Google web cache
             log.debug('A Google cache version of the PDF URL %s will be attempted.', url)
             try:
-                return self.title(f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}')
+                return self._title_outer(f'{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}')
             except URLTitleError as exc:
                 log.debug('The Google cache version failed for the PDF URL %s. %s', url, exc)
 
         # Return headers-based title
         title_headers = content_type_header, content_encoding_header, content_len_humanized
         title = ' '.join(f'({h})' for h in title_headers if h is not None)
-        log.info('Returning headers-derived title "%s" for URL %s', title, url)
+        log.debug('Returning headers-derived title %s for URL %s', repr(title), url)
+        return title
+
+    def _title_outer(self, url: str) -> str:  # type: ignore
+        netloc = self.netloc(url)
+        overrides = config.NETLOC_OVERRIDES.get(netloc, {})
+        overrides = cast(Dict, overrides)
+        title = self._title_inner(url)
+
+        # Note: This method is separate from self._title because the actions below would have to otherwise be performed
+        # at multiple locations in self._title.
+
+        # Replace consecutive whitespaces
+        title = ' '.join(title.split())  # e.g. for https://t.co/wyGR7438TH
+
+        # Substitute title as configured
+        for pattern, replacement in overrides.get('title_subs', []):
+            original_title = title
+            title = sub(pattern, replacement, title)
+            if original_title != title:
+                log.info('Substituted title "%s" with "%s".', original_title, title)
+
         return title
 
     @staticmethod
@@ -286,17 +311,7 @@ class URLTitleReader:
             netloc = netloc[4:]
         return netloc
 
-    def title(self, url: str) -> str:  # type: ignore
-        netloc = self.netloc(url)
-        overrides = config.NETLOC_OVERRIDES.get(netloc, {})
-        overrides = cast(Dict, overrides)
-        title = self._title(url)
-
-        # Substitute title as configured
-        for pattern, replacement in overrides.get('title_subs', []):
-            original_title = title
-            title = sub(pattern, replacement, title)
-            if original_title != title:
-                log.info('Substituted title "%s" with "%s".', original_title, title)
-
+    def title(self, url: str) -> str:
+        title = self._title_outer(url)
+        log.info('Returning title %s for URL %s', repr(title), url)
         return title

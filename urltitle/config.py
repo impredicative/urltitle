@@ -88,6 +88,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                              [(r'researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$',
                                'researchgate.net/profile/\g<author>/publication/\g<pub>')]},
     'swansonvitamins.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},
+    't.co': {'substitute_url_with_title': True},
     'trends.google.com': {'url_subs': [(r'^https://(?P<url>.+)$',
                                         'http://\g<url>')]},
     'usnews.com': {'user_agent': 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'},

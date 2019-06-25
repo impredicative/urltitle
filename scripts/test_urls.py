@@ -41,7 +41,7 @@ TEST_CASES = {
     'https://www.nbcnews.com/politics/donald-trump/trump-installs-state-art-golf-simulator-white-house-n971176':
         'Trump installs state-of-the-art golf simulator in the White House',
     'https://www.ncbi.nlm.nih.gov/pubmed/11204525':
-        'Lycopenaemia.  - PubMed - NCBI',
+        'Lycopenaemia. - PubMed - NCBI',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/':
         'Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient',
     'https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/':
@@ -58,6 +58,10 @@ TEST_CASES = {
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
         'Introducing Uber’s Ludwig – Towards Data Science',
+    'https://twitter.com/joycewhitevance/status/1143161956309884928':
+        'Joyce Alene on Twitter: "$775 per day, per kid & it doesn’t even cover a toothbrush, soap, a bed. https://t.co/CGiRNBbWIC"',
+    'https://twitter.com/SenSanders/status/1143334860687388672/photo/1':
+        'Bernie Sanders on Twitter: "I don\'t often use this phrase, but today, we offered a truly revolutionary proposal to transform and improve our country in many ways. All of our people regardless of income deserve the education they need. #CollegeForAll #CancelStudentDebt… https://t.co/GER0DSFjf6"',
     'https://www.usnews.com/news/national-news/articles/2019-02-27/study-deep-sleep-best-for-brain-cleaning-emphasizes-link-between-sleep-and-alzheimers':
         'Study: Deep Sleep Best for Brain ‘Cleaning,’ Emphasizes Link Between Sleep and Alzheimer’s | National News | US News',
     'https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1365-2672.2006.03171.x':
@@ -143,6 +147,10 @@ TEST_CASES = {
         'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
         '[PDF] Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
+    'https://t.co/QjgZZVx4Nf':
+        'Joyce Alene on Twitter: "$775 per day, per kid & it doesn’t even cover a toothbrush, soap, a bed. https://t.co/CGiRNBbWIC"',
+    'https://t.co/wyGR7438TH':
+        'Bernie Sanders on Twitter: "I don\'t often use this phrase, but today, we offered a truly revolutionary proposal to transform and improve our country in many ways. All of our people regardless of income deserve the education they need. #CollegeForAll #CancelStudentDebt… https://t.co/GER0DSFjf6"',
     'https://trends.google.com/trends/explore?date=all&q=soup':
         'soup - Google Trends',
     'http://onlinelibrary.wiley.com/doi/10.1002/ptr.5583/pdf':

@@ -9,7 +9,7 @@ config.REQUEST_TIMEOUT = 30
 
 config.LOGGING['loggers'] = {
     config.PACKAGE_NAME: {
-        'level': 'WARNING',
+        'level': 'CRITICAL',
         'handlers': ['console'],
         'propagate': False,
     },
@@ -29,13 +29,14 @@ config.configure_logging()
 log = logging.getLogger(__name__)
 
 USER_AGENTS = [
-    # Promising
-    'Googlebot-News',
-    'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)',
-
     # Basic
     config.USER_AGENT,
     'Mozilla/5.0',
+    config.PACKAGE_NAME,
+
+    # Promising
+    'Googlebot-News',
+    'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)',
 
     # https://support.google.com/webmasters/answer/1061943?hl=en
     'APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)',
@@ -78,11 +79,12 @@ for user_agent in USER_AGENTS:
     reader = URLTitleReader()  # Fresh instance avoids cache.
     try:
         title = reader.title(TEST_URL)
-    except (URLTitleError, ConnectionResetError):
+    except URLTitleError as exc:
+        log.error('Ignoring exception with user agent %s: %s', repr(user_agent), exc)
         continue
     if title not in titles.values():
         titles[user_agent] = title
-        log.info('Found title: %s', title)
+        log.info('Found title with user agent %s: %s', repr(user_agent), title)
         if len(titles) == 2:
             log.info('Aborting title search because two unique titles have been found.')
             break

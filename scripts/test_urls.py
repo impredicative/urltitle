@@ -14,6 +14,10 @@ TEST_CASES = {
         'Agricultural Avermectins: An Uncommon But Potentially Fatal Cause of Pesticide Poisoning - Annals of Emergency Medicine',
     'https://arxiv.org/abs/1810.04805':
         '[1810.04805] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding',
+    'https://bloomberg.com/opinion/articles/2019-06-25/allergan-deal-is-abbvie-s-63-billion-botox-job':
+        'Allergan Deal Is AbbVie’s $63 Billion Botox Job - Bloomberg',
+    'https://www.bloomberg.com/news/articles/2019-06-25/trump-picks-stephanie-grisham-as-next-white-house-spokeswoman?srnd=premium':
+        "Stephanie Grisham Named Trump's Next White House Press Secretary - Bloomberg",
     'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':
         'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
     'https://www.childstats.gov/americaschildren/tables/pop1.asp':

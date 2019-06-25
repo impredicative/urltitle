@@ -54,6 +54,7 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 
 NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
     'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)?$', '/abs/\g<id>')]},
+    'bloomberg.com': {'extra_headers': {'Referer': 'https://google.com/', 'DNT': 1}},
     'cell.com': {'url_subs': [(r'cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)?$',
                                'cell.com/\g<path>/fulltext/\g<id>'),
                               (r'cell\.com/action/showPdf\?pii=(?P<id>.+)$',

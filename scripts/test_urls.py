@@ -74,6 +74,8 @@ TEST_CASES = {
         'Study: Deep Sleep Best for Brain ‘Cleaning,’ Emphasizes Link Between Sleep and Alzheimer’s | National News | US News',
     'https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1365-2672.2006.03171.x':
         'Residence time and food contact time effects on transfer of Salmonella Typhimurium from tile, wood and carpet: testing the five‐second rule - Dawson - 2007 - Journal of Applied Microbiology - Wiley Online Library',
+    'https://www.wsj.com/articles/iran-says-new-sanctions-close-the-door-on-diplomacy-with-u-s-11561449138?mod=hp_lead_pos3':
+        'U.S., Iran Step Up Rhetoric After Washington’s Sanctions Threat - WSJ',
     'https://www.youtube.com/watch?v=53YvP6gdD7U':
         'Deep Learning State of the Art (2019) - MIT - YouTube',
     'https://m.youtube.com/watch?v=GltlJO56S1g':

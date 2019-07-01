@@ -74,6 +74,8 @@ TEST_CASES = {
         'Bernie Sanders on Twitter: "I don\'t often use this phrase, but today, we offered a truly revolutionary proposal to transform and improve our country in many ways. All of our people regardless of income deserve the education they need. #CollegeForAll #CancelStudentDebt… https://t.co/GER0DSFjf6"',
     'https://www.usnews.com/news/national-news/articles/2019-02-27/study-deep-sleep-best-for-brain-cleaning-emphasizes-link-between-sleep-and-alzheimers':
         'Study: Deep Sleep Best for Brain ‘Cleaning,’ Emphasizes Link Between Sleep and Alzheimer’s | National News | US News',
+    'https://money.usnews.com/investing/news/articles/2019-06-30/preserve-your-ammunition-bis-urges-top-central-banks':
+        'Preserve Your Ammunition, BIS Urges Top Central Banks | Investing News | US News',
     'https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1365-2672.2006.03171.x':
         'Residence time and food contact time effects on transfer of Salmonella Typhimurium from tile, wood and carpet: testing the five‐second rule - Dawson - 2007 - Journal of Applied Microbiology - Wiley Online Library',
     'https://www.wsj.com/articles/iran-says-new-sanctions-close-the-door-on-diplomacy-with-u-s-11561449138?mod=hp_lead_pos3':

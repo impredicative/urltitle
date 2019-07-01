@@ -71,6 +71,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'iopscience.iop.org': {'url_subs': [(r'iopscience\.iop\.org/article/(?P<id>.+?)/pdf$',
                                          'iopscience.iop.org/article/\g<id>')]},
     'medscape.com': {'user_agent': 'Googlebot-News'},
+    'money.usnews.com': {'extra_headers': {'Cookie': '', 'Accept': '*/*', 'Accept-Language': ''}},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'nature.com': {'url_subs': [(r'nature\.com/articles/(?P<id>.+?)\.pdf$',
                                  'nature.com/articles/\g<id>')]},

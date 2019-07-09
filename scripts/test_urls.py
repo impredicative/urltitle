@@ -26,6 +26,8 @@ TEST_CASES = {
         'POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2017 and projected 2018–2050',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
+    'http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans':
+        'Piraeus Bank offloads 507 mln euros of impaired corporate loans | Business | ekathimerini.com',
     'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
         'A simple introduction to Python’s asyncio – Hacker Noon',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':

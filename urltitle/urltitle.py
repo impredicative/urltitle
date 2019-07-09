@@ -271,7 +271,7 @@ class URLTitleReader:
         if not title_tag:
             return None
         title_text = title_tag.text
-        if content.decode(bs.original_encoding).endswith(title_text):
+        if content.decode(bs.original_encoding, errors='ignore').endswith(title_text):
             # Note: Encoding title_text instead fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
             # Note: This is an inexact check for an incomplete title.
             return None

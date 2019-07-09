@@ -127,6 +127,12 @@ class URLTitleReader:
                 response = opener.open(request, timeout=config.REQUEST_TIMEOUT)
                 time_used = time.monotonic() - start_time
             except (ValueError, HTTPError, URLError, SocketTimeoutError, RemoteDisconnected) as exc:
+                if isinstance(exc, HTTPError) and (exc.code == 308):  # Permanent Redirect
+                    original_url = url
+                    url = exc.headers['Location']
+                    if url and (original_url != url):
+                        log.info('Due to a permanent direct (code 308), substituted URL %s with %s', original_url, url)
+                        return self._title_outer(url)
                 exception_desc = f'The error is: {exc.__class__.__qualname__}: {exc}'
                 log.warning('Error in attempt %s processing %s. %s', num_attempt, request_desc, exception_desc)
                 if isinstance(exc, ValueError) or \

@@ -18,6 +18,8 @@ TEST_CASES = {
         'Allergan Deal Is AbbVie’s $63 Billion Botox Job - Bloomberg',
     'https://www.bloomberg.com/news/articles/2019-06-25/trump-picks-stephanie-grisham-as-next-white-house-spokeswoman?srnd=premium':
         "Stephanie Grisham Named Trump's Next White House Press Secretary - Bloomberg",
+    'https://www.businessinsider.com/cocaine-ship-jpmorgan-owns-vessel-seized-by-us-cbp-2019-7':
+        'US Customs just seized a ship owned by JPMorgan after authorities found $1 billion worth of drugs on it | Markets Insider',
     'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':
         'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
     'https://www.childstats.gov/americaschildren/tables/pop1.asp':

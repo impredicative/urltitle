@@ -1,5 +1,7 @@
 import logging
 import time
+from typing import Dict
+
 from urltitle import config, URLTitleError, URLTitleReader
 
 TEST_URL = 'https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118'
@@ -72,7 +74,7 @@ USER_AGENTS = list(dict.fromkeys(USER_AGENTS))
 netloc = URLTitleReader().netloc(TEST_URL)
 log.info('Netloc for %s is %s.', TEST_URL, netloc)
 
-titles = {}
+titles: Dict[str, str] = {}
 for user_agent in USER_AGENTS:
     log.debug('Trying user agent: %s', user_agent)
     config.NETLOC_OVERRIDES[netloc] = {'user_agent': user_agent}
@@ -86,6 +88,6 @@ for user_agent in USER_AGENTS:
         titles[user_agent] = title
         log.info('Found title with user agent %s: %s', repr(user_agent), title)
         if len(titles) == 2:
-            log.info('Aborting title search because two unique titles have been found.')
+            log.info('Aborting title search because two unique titles have been found: %s', titles)
             break
     time.sleep(1)

@@ -242,7 +242,7 @@ class URLTitleReader:
         log.debug('Returning headers-derived title %s for URL %s', repr(title), url)
         return title
 
-    def _title_outer(self, url: str) -> str:  # type: ignore
+    def _title_outer(self, url: str) -> str:
         netloc = self.netloc(url)
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
@@ -308,7 +308,7 @@ class URLTitleReader:
         else:
             log.debug('HTML content amount guess for %s of %s remains unchanged.', netloc, humanize_bytes(old_guess))
 
-    def netloc(self, url: str) -> str:  # type: ignore
+    def netloc(self, url: str) -> str:
         parse_result = urlparse(url)
         if parse_result.scheme == '':
             return self.netloc(f'https://{url}')  # Without this, the returned netloc is erroneous.

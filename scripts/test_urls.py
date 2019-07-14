@@ -42,6 +42,8 @@ TEST_CASES = {
         'Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body',
     'https://www.medscape.com/viewarticle/909941':
         'What Do You Think of Medicare for All?',
+    'https://www.nationalgeographic.com/environment/2019/07/major-us-cities-will-face-unprecedente-climates-2050':
+        'By 2050, many world cities will have weather like they’ve never seen, new study says',
     'https://www.nature.com/articles/s41430-018-0326-4':
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
     'https://www.nature.com/articles/s41586-018-0594-0.epdf':

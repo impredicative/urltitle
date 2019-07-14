@@ -7,7 +7,7 @@ from urltitle import config, URLTitleError, URLTitleReader
 TEST_URL = 'https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118'
 
 config.MAX_REQUEST_ATTEMPTS = 1
-config.REQUEST_TIMEOUT = 30
+config.REQUEST_TIMEOUT = 15
 
 config.LOGGING['loggers'] = {
     config.PACKAGE_NAME: {

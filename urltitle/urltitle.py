@@ -185,7 +185,7 @@ class URLTitleReader:
                         break
                     content_decoded = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content) if \
                         (content_encoding_header == 'gzip') else content  # https://stackoverflow.com/a/56719274/
-                    title = self._title_from_partial_html_content(content_decoded)
+                    title = self._title_from_partial_html_content(content_decoded, overrides.get('bs_title_selector'))
                     if not title:
                         target_content_len = min(max_request_size, content_len * 2)
                         amt = max(0, target_content_len - content_len)
@@ -264,13 +264,20 @@ class URLTitleReader:
         return title
 
     @staticmethod
-    def _title_from_partial_html_content(content: bytes) -> Optional[str]:
-        bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
-        # Note: The title tag is expected within the head tag.
-        title_tag = bs.title
-        if not title_tag:
-            return None
-        title_text = title_tag.text
+    def _title_from_partial_html_content(content: bytes, title_selector: Optional[str] = None) -> Optional[str]:
+        if title_selector:
+            bs = BeautifulSoup(content, features='html.parser')
+            try:
+                title_text = eval(f'bs.select_one{title_selector}', {}, {'bs': bs})
+            except (AttributeError, KeyError, TypeError):
+                return None
+        else:
+            bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
+            tag = bs.title
+            if not tag:
+                return None
+            title_text = tag.text
+
         if content.decode(bs.original_encoding, errors='ignore').endswith(title_text):
             # Note: Encoding title_text instead fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
             # Note: This is an inexact check for an incomplete title.

@@ -58,8 +58,6 @@ TEST_CASES = {
         'Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient',
     'https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/':
         'Ships fooled in GPS spoofing attack suggest Russian cyberweapon | New Scientist',
-    'https://outline.com/sAfBVT':
-        "Men's fertility irreversibly damaged by age of 18 thanks to Western junk food diet, study finds",
     'https://seekingalpha.com/news/3473699-wayfair-minus-5-percent-employees-plan-walkout':
         'Wayfair -5% as some employees plan walkout - Wayfair Inc. (NYSE:W) | Seeking Alpha',
     'https://seekingalpha.com/symbol/GOOG':

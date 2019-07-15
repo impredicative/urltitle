@@ -31,7 +31,7 @@ TEST_CASES = {
     'http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans':
         'Piraeus Bank offloads 507 mln euros of impaired corporate loans | Business | ekathimerini.com',
     'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
-        'A simple introduction to Python’s asyncio – Hacker Noon',
+        'A simple introduction to Python’s asyncio - By Apoorv Garg',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':
         'How AI can help solve some of humanity’s greatest challenges – and why we might fail',
     'https://www.imdb.com/title/tt0119177/':
@@ -75,7 +75,7 @@ TEST_CASES = {
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
         'Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products',
     'https://towardsdatascience.com/introducing-ubers-ludwig-5bd275a73eda':
-        'Introducing Uber’s Ludwig – Towards Data Science',
+        'Introducing Uber’s Ludwig - Towards Data Science',
     'https://twitter.com/joycewhitevance/status/1143161956309884928':
         'Joyce Alene on Twitter: "$775 per day, per kid & it doesn’t even cover a toothbrush, soap, a bed. https://t.co/CGiRNBbWIC"',
     'https://twitter.com/SenSanders/status/1143334860687388672/photo/1':
@@ -87,7 +87,7 @@ TEST_CASES = {
     'https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1365-2672.2006.03171.x':
         'Residence time and food contact time effects on transfer of Salmonella Typhimurium from tile, wood and carpet: testing the five‐second rule - Dawson - 2007 - Journal of Applied Microbiology - Wiley Online Library',
     'https://www.wsj.com/articles/iran-says-new-sanctions-close-the-door-on-diplomacy-with-u-s-11561449138?mod=hp_lead_pos3':
-        'U.S., Iran Step Up Rhetoric After Washington’s Sanctions Threat - WSJ',
+        'Trump, Iran Step Up Rhetoric After Washington’s Sanctions Threat - WSJ',
     'https://www.youtube.com/watch?v=53YvP6gdD7U':
         'Deep Learning State of the Art (2019) - MIT - YouTube',
     'https://m.youtube.com/watch?v=GltlJO56S1g':

@@ -64,3 +64,5 @@ for h_key, h_val in EXTRA_HEADERS.items():
             log.info('Aborting title search because two unique titles have been found: %s', titles)
             break
     time.sleep(1)
+else:
+    log.info('Found %s unique titles: %s', len(titles), titles)

@@ -266,7 +266,7 @@ class URLTitleReader:
     @staticmethod
     def _title_from_partial_html_content(content: bytes) -> Optional[str]:
         bs = BeautifulSoup(content, features='html.parser', parse_only=SoupStrainer('title'))
-        # Note: Technically, the title tag within the head tag is the one that's required.
+        # Note: The title tag is expected within the head tag.
         title_tag = bs.title
         if not title_tag:
             return None

@@ -30,6 +30,8 @@ TEST_CASES = {
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans':
         'Piraeus Bank offloads 507 mln euros of impaired corporate loans | Business | ekathimerini.com',
+    'https://forum.effectivealtruism.org/posts/dCjz5mgQdiv57wWGz/ingredients-for-creating-disruptive-research-teams':
+        'Ingredients for creating disruptive research teams - EA Forum',
     'https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c':
         'A simple introduction to Python’s asyncio - By Apoorv Garg',
     'https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html':

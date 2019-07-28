@@ -71,6 +71,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                                 '//drive.google.com/file/d/\g<id>')],
                                   'title_subs': [(r'(?P<name>.+?) \- Google Drive$',
                                                   '\g<name> - Colaboratory')]},
+    'eudl.eu': {'url_subs': [(r'/pdf/(?P<id>.+?)$', '/doi/\g<id>')]},
     'ft.com': {'user_agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'},  # Iffy.
     'forum.effectivealtruism.org': {'extra_headers': {'Accept': '*/*'}},
     'gastrojournal.org': {'url_subs': [(r'gastrojournal\.org/article/(?P<id>.+?)/pdf$',

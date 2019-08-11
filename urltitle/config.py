@@ -79,6 +79,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                         'gastrojournal.org/article/\g<id>/')]},
     'iopscience.iop.org': {'url_subs': [(r'iopscience\.iop\.org/article/(?P<id>.+?)/pdf$',
                                          'iopscience.iop.org/article/\g<id>')]},
+    'jstor.org': {'user_agent': 'Mozilla/5.0'},
     'medscape.com': {'user_agent': 'Googlebot-News'},
     'money.usnews.com': {'extra_headers': {'Cookie': '', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5'}},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},

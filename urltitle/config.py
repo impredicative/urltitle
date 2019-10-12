@@ -83,6 +83,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
     'medscape.com': {'user_agent': 'Googlebot-News'},
     'miamiherald.com': {'extra_headers': {'Accept': '*/*', 'Accept-Encoding': 'gzip'}},
     'money.usnews.com': {'extra_headers': {'Cookie': '', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5'}},
+    'm.slashdot.org': {'url_subs': [(r'm\.slashdot\.org/(?P<path>.+)$', 'slashdot.org/\g<path>/')]},
     'm.youtube.com': {'user_agent': 'Mozilla/5.0'},
     'nationalgeographic.com': {'user_agent': 'Googlebot-News'},  # Seems to prevent timeout.
     'nature.com': {'url_subs': [(r'nature\.com/articles/(?P<id>.+?)\.pdf$',

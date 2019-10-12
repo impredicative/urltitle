@@ -153,6 +153,8 @@ TEST_CASES = {
         'Fructan, Rather Than Gluten, Induces Symptoms in Patients With Self-Reported Non-Celiac Gluten Sensitivity - Gastroenterology',
     'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':
         'Comparative analysis of environmental impacts of agricultural production systems, agricultural input efficiency, and food choice - IOPscience',
+    'https://m.slashdot.org/story/361844':
+        'Supreme Court Allows Blind People To Sue Retailers If Their Websites Are Not Accessible - Slashdot',
     'https://www.nature.com/articles/s41430-018-0326-4.pdf':
         'Can legal restrictions of prenatal exposure to industrial trans-fatty acids reduce risk of childhood hematopoietic neoplasms? A population-based study | European Journal of Clinical Nutrition',
     'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3533942/pdf/1472-6920-12-117.pdf':

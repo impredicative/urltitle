@@ -25,7 +25,7 @@ TEST_CASES = {
     'https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2':
         'Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism',
     'https://www.childstats.gov/americaschildren/tables/pop1.asp':
-        'POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2017 and projected 2018–2050',
+        'POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2018 and projected 2019–2050',
     'https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html':
         "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
     'http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans':
@@ -65,7 +65,7 @@ TEST_CASES = {
     'https://seekingalpha.com/news/3473699-wayfair-minus-5-percent-employees-plan-walkout':
         'Wayfair -5% as some employees plan walkout - Wayfair Inc. (NYSE:W) | Seeking Alpha',
     'https://seekingalpha.com/symbol/GOOG':
-        'GOOG Analysis & News - Alphabet Inc. | Seeking Alpha',
+        'Alphabet Inc. (GOOG) Stock Analysis & News | Seeking Alpha',
     'https://stackoverflow.com/questions/50842144/':
         'python - Requirements.txt greater than equal to and then less than? - Stack Overflow',
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
@@ -117,8 +117,9 @@ TEST_CASES = {
     'https://i.imgur.com/2Bs7Xo6.jpg': '(image/jpeg) (980K)',
     'https://i.imgur.com/QkbaYDH.gif': '(image/gif) (553K)',
     'https://kdnuggets.com/rss': '(application/rss+xml; charset=UTF-8)',
+    'https://stmedia.stimg.co/ows_142533352086049.jpg': '(image/jpeg) (181K)',
+    'https://storage.ning.com/topology/rest/1.0/file/get/3641314354?profile=RESIZE_710x': '(image/png;charset=UTF-8) (11K)',
     'https://tv.mathrubhumi.com/sitemap.xml': '(text/xml;charset=UTF-8) (1K)',
-    'https://www.sciencedaily.com/images/2019/05/190522141747_1_540x360.jpg': '(image/jpeg) (26K)',
 
     # Substituted URL:
     'https://arxiv.org/pdf/1902.04704.pdf':

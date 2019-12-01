@@ -9,7 +9,7 @@ TEST_CASES = {
     'https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/':
         'Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty',
     'https://www.amazon.com/gp/product/B077YCC84H/':
-        'Amazon.com : Crest 3D White Whitestrips Vivid Plus : Beauty',
+        'Amazon.com: Crest 3D White Whitestrips Vivid Plus: Beauty',
     'https://www.annemergmed.com/article/S0196-0644(99)70271-4/abstract':
         'Agricultural Avermectins: An Uncommon But Potentially Fatal Cause of Pesticide Poisoning - Annals of Emergency Medicine',
     'https://arxiv.org/abs/1810.04805':
@@ -71,7 +71,7 @@ TEST_CASES = {
     'https://www.sciencedaily.com/releases/2019/02/190207142206.htm':
         'New pill can deliver insulin through the stomach -- ScienceDaily',
     'https://www.semanticscholar.org/paper/Nutrition-in-chronic-disease-Nutrition-in-the-of-Tapsell/ed29f5473a7100bbfe462301d2205f7263339564':
-        '[PDF] Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease - Semantic Scholar',
+        '[PDF] Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease | Semantic Scholar',
     'https://www.tandfonline.com/doi/abs/10.1080/09637486.2018.1542666':
         'Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 70, No 5',
     'https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps':
@@ -142,14 +142,10 @@ TEST_CASES = {
         'Salt-Responsive Metabolite, β-Hydroxybutyrate, Attenuates Hypertension: Cell Reports',
     'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.86.8364&rep=rep1&type=pdf':
         'CiteSeerX — Image registration methods: a survey',
-    'https://colab.research.google.com/drive/13XbrSQhBORkKel0LQ6pJEzoil5w9zUzj':
-        'OHLCV.ipynb - Colaboratory',
-    'https://colab.research.google.com/drive/1e-nlYXumUw0og8z301okf6GlERYcOduV':
-        'OHLCV 30day window.ipynb - Colaboratory',
-    'https://colab.research.google.com/drive/1e-nlYXumUw0og8z301okf6GlERYcOduV#scrollTo=b0MJgJz32fXs':
-        'OHLCV 30day window.ipynb - Colaboratory',
-    'https://colab.research.google.com/drive/1e-nlYXumUw0og8z301okf6GlERYcOduV#scrollTo=WDZ7U_crgNOK&line=6&uniqifier=1':
-        'OHLCV 30day window.ipynb - Colaboratory',
+    'https://colab.research.google.com/drive/1QB9IaXWsCHWfC94DzcZz-M4cTO2eczGY':
+        'deepnude.ipynb - Colaboratory',
+    'https://colab.research.google.com/drive/1QB9IaXWsCHWfC94DzcZz-M4cTO2eczGY#scrollTo=5NQctFLJMEy4':
+        'deepnude.ipynb - Colaboratory',
     'http://www.gastrojournal.org/article/S0016-5085(17)36302-3/pdf':
         'Fructan, Rather Than Gluten, Induces Symptoms in Patients With Self-Reported Non-Celiac Gluten Sensitivity - Gastroenterology',
     'https://iopscience.iop.org/article/10.1088/1748-9326/aa6cd5/pdf':
@@ -171,9 +167,9 @@ TEST_CASES = {
     "https://www.researchgate.net/profile/Wolfgang_Dvoak/publication/51932977_Making_Use_of_Advances_in_Answer-Set_Programming_for_AbstractArgumentation_Systems/links/0c96052cff4bc7ed40000000/Making-Use-of-Advances-in-Answer-Set-Programming-for-Abstract-Argumentation-Systems.pdf":
         "(PDF) Making Use of Advances in Answer-Set Programming for Abstract Argumentation Systems",
     'https://pdfs.semanticscholar.org/deb3/8d87e4259c3b70a56be05efc611d11e85911.pdf':
-        'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). - Semantic Scholar',
+        'Definition and classification of chronic kidney disease: a position statement from Kidney Disease: Improving Global Outcomes (KDIGO). | Semantic Scholar',
     'https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf':
-        '[PDF] Nutrition and health. The issue is not food, nor nutrients, so much as processing. - Semantic Scholar',
+        '[PDF] Nutrition and health. The issue is not food, nor nutrients, so much as processing. | Semantic Scholar',
     'https://t.co/QjgZZVx4Nf':
         'Joyce Alene on Twitter: "$775 per day, per kid & it doesn’t even cover a toothbrush, soap, a bed. https://t.co/CGiRNBbWIC"',
     'https://t.co/wyGR7438TH':
@@ -185,6 +181,15 @@ TEST_CASES = {
     'https://onlinelibrary.wiley.com/doi/pdf/10.1002/ptr.5583':
         'A Review of Natural Stimulant and Non‐stimulant Thermogenic Agents - Stohs - 2016 - Phytotherapy Research - Wiley Online Library',
 
+    # IPYNB
+    'https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/tf2_image_retraining.ipynb':
+        'TF Hub for TF2: Image Module Retraining (preview) (Python 3)',
+    'https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/object_detection.ipynb':
+        'Object detection (Python 3)',
+    'https://raw.githubusercontent.com/tensorflow/hub/master/examples/colab/tf2_image_retraining.ipynb':
+        'TF Hub for TF2: Image Module Retraining (preview) (Python 3)',
+    'https://raw.githubusercontent.com/tensorflow/hub/master/examples/colab/object_detection.ipynb':
+        'Object detection (Python 3)',
     # PDF
     'https://www.diabetes.org.br/publico/images/pdf/artificial-sweeteners-induce-glucose-intolerance-by-altering-the-gut-microbiota.pdf':
         'Artificial sweeteners induce glucose intolerance by altering the gut microbiota',

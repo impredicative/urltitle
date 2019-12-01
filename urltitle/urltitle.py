@@ -20,6 +20,7 @@ from cachetools.func import LFUCache, ttl_cache
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
+from .util.json import get_ipynb_title
 from .util.math import ceil_to_kib
 from .util.pikepdf import get_pdf_title
 from .util.urllib import CustomHTTPRedirectHandler
@@ -212,9 +213,9 @@ class URLTitleReader:
         # Return title from PDF
         elif content_type_header_str_cf.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['pdf'])):
             max_request_size = config.MAX_REQUEST_SIZES['pdf']
-            if (content_len_header or 0) <= config.MAX_REQUEST_SIZES['pdf']:
+            if (content_len_header or 0) <= max_request_size:
                 content = response.read(max_request_size)
-                if len(content) < max_request_size:  # Very likely an incomplete PDF if both sizes are equal.
+                if len(content) < max_request_size:  # Is very likely an incomplete file if both sizes are equal.
                     title = get_pdf_title(content)
                     if title:
                         log.debug('Returning PDF title %s for URL %s', repr(title), url)
@@ -222,11 +223,11 @@ class URLTitleReader:
                     else:
                         log.debug('Unable to find title in PDF content for URL %s', url)  # Quite common.
                 else:
-                    log.debug('Undeclared and unknown content length of PDF for URL %s likely exceeds the configured '
-                              'max of %s for reading it fully.',
+                    log.debug('Undeclared and unknown content length for URL %s likely exceeds the configured PDF max '
+                              'of %s for reading it fully.',
                               url, humanize_bytes(max_request_size))
             else:
-                log.debug('Declared content length %s of PDF for URL %s exceeds the configured max of %s for reading '
+                log.debug('Declared content length of %s for URL %s exceeds the configured PDF max of %s for reading '
                           'it.',
                           content_len_humanized, url, humanize_bytes(max_request_size))
             # Try using Google web cache
@@ -236,7 +237,29 @@ class URLTitleReader:
             except URLTitleError as exc:
                 log.debug('The Google cache version failed for the PDF URL %s. %s', url, exc)
 
-        # Return headers-based title
+        # Return title from IPYNB
+        elif (url.endswith('.ipynb') and
+              content_type_header_str_cf.startswith(cast(str, config.CONTENT_TYPE_PREFIXES['ipynb']))):
+            max_request_size = config.MAX_REQUEST_SIZES['ipynb']
+            if (content_len_header or 0) <= max_request_size:
+                content = response.read(max_request_size)
+                if len(content) < max_request_size:  # Is very likely an incomplete file if both sizes are equal.
+                    title = get_ipynb_title(content)
+                    if title:
+                        log.debug('Returning IPYNB title %s for URL %s', repr(title), url)
+                        return title
+                    else:
+                        log.warning('Unable to find an IPYNB title for URL %s', url)
+                else:
+                    log.debug('Undeclared and unknown content length for URL %s likely exceeds the configured IPYNB '
+                              'max of %s for reading it fully.',
+                              url, humanize_bytes(max_request_size))
+            else:
+                log.debug('Declared content length of %s for URL %s exceeds the configured IPYNB max of %s for reading '
+                          'it.',
+                          content_len_humanized, url, humanize_bytes(max_request_size))
+
+        # Fallback to return headers-based title
         title_headers = content_type_header, content_encoding_header, content_len_humanized
         title = ' '.join(f'({h})' for h in title_headers if h is not None)
         log.debug('Returning headers-derived title %s for URL %s', repr(title), url)

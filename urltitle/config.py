@@ -72,7 +72,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                            '/viewdoc/summary?doi=\g<doi>')]},
     'colab.research.google.com': {'url_subs': [(r'//colab\.research\.google\.com/drive/(?P<id>[\w\-]+)(?:\#.*)?$',
                                                 '//drive.google.com/file/d/\g<id>'),
-                                               (r'//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>.*?\.ipynb)?$',
+                                               (r'//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$',
                                                 '//raw.githubusercontent.com/\g<repo>/\g<file>')],
                                   'title_subs': [(r'(?P<name>.+?) \- Google Drive$',
                                                   '\g<name> - Colaboratory')]},

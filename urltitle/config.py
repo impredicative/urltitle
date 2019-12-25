@@ -29,7 +29,7 @@ REQUEST_SIZE_MAX = MiB
 REQUEST_TIMEOUT = 15
 UNRECOVERABLE_HTTP_CODES = 400, 401, 404
 URL_SCHEME_GUESSES = 'https', 'http'
-USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:67.0) Gecko/20100101 Firefox/67.0'
+USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:71.0) Gecko/20100101 Firefox/71.0'
 
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging
     'version': 1,

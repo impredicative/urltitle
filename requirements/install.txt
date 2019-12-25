@@ -4,9 +4,9 @@
 #
 #    pip-compile ./requirements/install.in
 #
-beautifulsoup4==4.8.1
-cachetools==3.1.1
+beautifulsoup4==4.8.2
+cachetools==4.0.0
 humanize==0.5.1
-lxml==4.4.1               # via pikepdf
-pikepdf==1.6.4
-soupsieve==1.9.4          # via beautifulsoup4
+lxml==4.4.2               # via pikepdf
+pikepdf==1.8.1
+soupsieve==1.9.5          # via beautifulsoup4

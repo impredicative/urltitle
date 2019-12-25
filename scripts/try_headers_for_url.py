@@ -60,9 +60,9 @@ for h_key, h_val in EXTRA_HEADERS.items():
     if title not in titles.values():
         titles[h_key] = title
         log.info('Found title after adding header %s=%s: %s', h_key, h_val, title)
-        if len(titles) == 3:
-            log.info('Aborting title search because two unique titles have been found: %s', titles)
-            break
+        # if len(titles) == 3:
+        #     log.info('Aborting title search because two unique titles have been found: %s', titles)
+        #     break
     time.sleep(1)
 else:
     log.info('Found %s unique titles: %s', len(titles), titles)

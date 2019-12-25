@@ -18,6 +18,7 @@ It is also used for a PDF which is too large or doesn't have title metadata.
   - Use of Google web cache
   - User-Agent
   - Additional headers
+  - Title selector
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/

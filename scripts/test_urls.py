@@ -193,13 +193,13 @@ TEST_CASES = {
 
     # IPYNB
     'https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/tf2_image_retraining.ipynb':
-        'TF Hub for TF2: Image Module Retraining (preview) (Python 3)',
+        'TF Hub for TF2: Retraining an image classifier (Python 3)',
     'https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/tf2_image_retraining.ipynb#scrollTo=dlauq-4FWGZM':
-        'TF Hub for TF2: Image Module Retraining (preview) (Python 3)',
+        'TF Hub for TF2: Retraining an image classifier (Python 3)',
     'https://colab.research.google.com/github/tensorflow/hub/blob/master/examples/colab/object_detection.ipynb':
         'Object detection (Python 3)',
     'https://raw.githubusercontent.com/tensorflow/hub/master/examples/colab/tf2_image_retraining.ipynb':
-        'TF Hub for TF2: Image Module Retraining (preview) (Python 3)',
+        'TF Hub for TF2: Retraining an image classifier (Python 3)',
     'https://raw.githubusercontent.com/tensorflow/hub/master/examples/colab/object_detection.ipynb':
         'Object detection (Python 3)',
 

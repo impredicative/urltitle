@@ -291,7 +291,8 @@ class URLTitleReader:
         if title_selector:
             bs = BeautifulSoup(content, features='html.parser')
             try:
-                title_text = eval(f'bs.select_one{title_selector}', {}, {'bs': bs})
+                title_text = eval(title_selector, {}, {'bs': bs})
+                # Note: eval takes expression, globals, and locals, all as positional args.
             except (AttributeError, KeyError, TypeError):
                 return None
         else:

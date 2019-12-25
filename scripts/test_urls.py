@@ -10,6 +10,16 @@ TEST_CASES = {
         'Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty',
     'https://www.amazon.com/gp/product/B077YCC84H/':
         'Amazon.com: Crest 3D White Whitestrips Vivid Plus: Beauty',
+    'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/postgresql-kerberos-setting-up.html':
+        'Setting Up Kerberos Authentication for PostgreSQL DB Instances - Amazon Relational Database Service',
+    'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html':
+        'What Is Amazon Relational Database Service (Amazon RDS)? - Amazon Relational Database Service',
+    'https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html':
+        'Creating a Multi-node Parallel Job Definition - AWS Batch',
+    'https://docs.aws.amazon.com/codepipeline/latest/APIReference/Welcome.html':
+        'Welcome - AWS CodePipeline',
+    'https://docs.aws.amazon.com/snowball/latest/developer-guide/transfer-petabytes.html':
+        'How to Transfer Petabytes of Data Efficiently - AWS Snowball',
     'https://www.annemergmed.com/article/S0196-0644(99)70271-4/abstract':
         'Agricultural Avermectins: An Uncommon But Potentially Fatal Cause of Pesticide Poisoning - Annals of Emergency Medicine',
     'https://arxiv.org/abs/1810.04805':

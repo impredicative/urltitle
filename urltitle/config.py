@@ -63,7 +63,7 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
 NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must be in lowercase.
     'arxiv.org': {'url_subs': [(r'/pdf/(?P<id>.+?)(?:\.pdf)?$', '/abs/\g<id>')]},
     'bloomberg.com': {'extra_headers': {'Referer': 'https://google.com/', 'DNT': 1}},
-    'cbc.ca': {'bs_title_selector': '''('meta[property="og:title"]')['content']'''},
+    'cbc.ca': {'bs_title_selector': '''bs.select_one('meta[property="og:title"]')['content']'''},
     'cell.com': {'url_subs': [(r'cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)?$',
                                'cell.com/\g<path>/fulltext/\g<id>'),
                               (r'cell\.com/action/showPdf\?pii=(?P<id>.+)$',
@@ -76,6 +76,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
                                                 '//raw.githubusercontent.com/\g<repo>/\g<file>')],
                                   'title_subs': [(r'(?P<name>.+?) \- Google Drive$',
                                                   '\g<name> - Colaboratory')]},
+    'docs.aws.amazon.com': {'bs_title_selector': '''bs.select_one(".topictitle").text + " - " + bs.select_one('meta[name="product"]')['content']'''},
     'eudl.eu': {'url_subs': [(r'/pdf/(?P<id>.+?)$', '/doi/\g<id>')]},
     'ft.com': {'user_agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'},  # Iffy.
     'forum.effectivealtruism.org': {'extra_headers': {'Accept': '*/*'}},

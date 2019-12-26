@@ -1,1 +1,1 @@
-from .urltitle import URLTitleReader, URLTitleError
+from .urltitle import URLTitleError, URLTitleReader

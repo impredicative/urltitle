@@ -1,9 +1,11 @@
+"""Package configuration."""
 import datetime
 import logging.config
 from pathlib import Path
 
 
 def configure_logging() -> None:
+    """Configure logging."""
     logging.config.dictConfig(LOGGING)
     log = logging.getLogger(__name__)
     log.debug("Logging is configured.")

@@ -1,3 +1,4 @@
+"""Read the title of a URL using a variety of user agent strings."""
 import logging
 import time
 from typing import Dict
@@ -18,6 +19,7 @@ config.LOGGING["loggers"] = {
 config.configure_logging()
 log = logging.getLogger(__name__)
 
+# pylint: disable=line-too-long
 USER_AGENTS = [
     # Basic
     config.USER_AGENT,
@@ -54,15 +56,16 @@ USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b",
     "Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko BingPreview/1.0b",
 ]
+# pylint: enable=line-too-long
 
 USER_AGENTS = list(dict.fromkeys(USER_AGENTS))
-netloc = URLTitleReader().netloc(TEST_URL)
-log.info("Netloc for %s is %s.", TEST_URL, netloc)
+NETLOC = URLTitleReader().netloc(TEST_URL)
+log.info("Netloc for %s is %s.", TEST_URL, NETLOC)
 
 titles: Dict[str, str] = {}
 for user_agent in USER_AGENTS:
     log.debug("Trying user agent: %s", user_agent)
-    config.NETLOC_OVERRIDES[netloc] = {"user_agent": user_agent}
+    config.NETLOC_OVERRIDES[NETLOC] = {"user_agent": user_agent}
     reader = URLTitleReader()  # Fresh instance avoids cache.
     try:
         title = reader.title(TEST_URL)

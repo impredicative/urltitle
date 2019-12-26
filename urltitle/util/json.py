@@ -1,7 +1,9 @@
+"""json utilities."""
 import json
 
 
 def get_ipynb_title(json_bytes: bytes) -> str:
+    """Return the title from the bytes representing a JSON representation of an IPYNB notebook."""
     obj = json.loads(json_bytes)
     metadata = obj.get("metadata", {})
     title = metadata.get("colab", {}).get("name", "").strip()

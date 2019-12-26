@@ -1,3 +1,4 @@
+"""URL title reader."""
 import logging
 import ssl
 import time
@@ -28,12 +29,16 @@ log = logging.getLogger(__name__)
 
 
 class URLTitleError(Exception):
+    """URL title exception."""
+
     def __init__(self, msg: str):
         log.error(msg)
         super().__init__(msg)
 
 
 class URLTitleReader:
+    """URL title reader."""
+
     def __init__(
         self,
         *,
@@ -49,9 +54,9 @@ class URLTitleReader:
         )
 
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
-        self._title_outer = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(
+        self._title_outer = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(  # type: ignore
             self._title_outer
-        )  # type: ignore
+        )
         self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)  # type: ignore
 
         if verify_ssl:
@@ -73,7 +78,9 @@ class URLTitleReader:
         log.debug("Returning HTML content amount guess for %s of %s.", netloc, humanize_bytes(guess))
         return guess
 
-    def _title_inner(self, url: str) -> str:
+    def _title_inner(  # pylint: disable=too-many-locals,too-many-return-statements,too-many-branches,too-many-statements
+        self, url: str
+    ) -> str:
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         url = url.strip()
@@ -113,7 +120,7 @@ class URLTitleReader:
                 return self._title_outer(url)
 
         # Use Google web cache as configured
-        if overrides.get("google_webcache") and not (url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX)):
+        if overrides.get("google_webcache") and not url.startswith(config.GOOGLE_WEBCACHE_URL_PREFIX):
             log.info("%s is configured to use Google web cache.", netloc)
             url = f"{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}"
             return self._title_outer(url)
@@ -252,7 +259,7 @@ class URLTitleReader:
                 content = response.read(max_request_size)
                 if len(content) < max_request_size:  # Is very likely an incomplete file if both sizes are equal.
                     title = get_pdf_title(content)
-                    if title:
+                    if title:  # pylint: disable=no-else-return
                         log.debug("Returning PDF title %s for URL %s", repr(title), url)
                         return title
                     else:
@@ -287,7 +294,7 @@ class URLTitleReader:
                 content = response.read(max_request_size)
                 if len(content) < max_request_size:  # Is very likely an incomplete file if both sizes are equal.
                     title = get_ipynb_title(content)
-                    if title:
+                    if title:  # pylint: disable=no-else-return
                         log.debug("Returning IPYNB title %s for URL %s", repr(title), url)
                         return title
                     else:
@@ -314,7 +321,7 @@ class URLTitleReader:
         log.debug("Returning headers-derived title %s for URL %s", repr(title), url)
         return title
 
-    def _title_outer(self, url: str) -> str:
+    def _title_outer(self, url: str) -> str:  # pylint: disable=method-hidden
         netloc = self.netloc(url)
         overrides = config.NETLOC_OVERRIDES.get(netloc, {})
         overrides = cast(Dict, overrides)
@@ -338,20 +345,20 @@ class URLTitleReader:
     @staticmethod
     def _title_from_partial_html_content(content: bytes, title_selector: Optional[str] = None) -> Optional[str]:
         if title_selector:
-            bs = BeautifulSoup(content, features="html.parser")
+            bsoup = BeautifulSoup(content, features="html.parser")
             try:
-                title_text = eval(title_selector, {}, {"bs": bs})
+                title_text = eval(title_selector, {}, {"bs": bsoup})  # pylint: disable=eval-used
                 # Note: eval takes expression, globals, and locals, all as positional args.
             except (AttributeError, KeyError, TypeError):
                 return None
         else:
-            bs = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("title"))
-            tag = bs.title
+            bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("title"))
+            tag = bsoup.title
             if not tag:
                 return None
             title_text = tag.text
 
-        if content.decode(bs.original_encoding, errors="ignore").endswith(title_text):
+        if content.decode(bsoup.original_encoding, errors="ignore").endswith(title_text):
             # Note: Encoding title_text instead fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
             # Note: This is an inexact check for an incomplete title.
             return None
@@ -393,7 +400,8 @@ class URLTitleReader:
         else:
             log.debug("HTML content amount guess for %s of %s remains unchanged.", netloc, humanize_bytes(old_guess))
 
-    def netloc(self, url: str) -> str:
+    def netloc(self, url: str) -> str:  # pylint: disable=method-hidden
+        """Return the netloc for the given URL."""
         parse_result = urlparse(url)
         if parse_result.scheme == "":
             return self.netloc(f"https://{url}")  # Without this, the returned netloc is erroneous.
@@ -403,6 +411,7 @@ class URLTitleReader:
         return netloc
 
     def title(self, url: str) -> str:
+        """Return the title for the given URL."""
         title = self._title_outer(url)
         log.info("Returning title %s for URL %s", repr(title), url)
         return title

@@ -1,3 +1,4 @@
+"""Read the title of a URL after incrementally adding a header at each read."""
 import logging
 import time
 from typing import Dict
@@ -30,15 +31,15 @@ EXTRA_HEADERS = {
     "Pragma": "no-cache",
     "Cache-Control": "no-cache",
 }
-netloc = URLTitleReader().netloc(TEST_URL)
-log.info("Netloc for %s is %s.", TEST_URL, netloc)
+NETLOC = URLTitleReader().netloc(TEST_URL)
+log.info("Netloc for %s is %s.", TEST_URL, NETLOC)
 
 titles: Dict[str, str] = {}
-config.NETLOC_OVERRIDES[netloc] = {"extra_headers": {}}
-extra_headers = config.NETLOC_OVERRIDES[netloc]["extra_headers"]  # type: ignore
+config.NETLOC_OVERRIDES[NETLOC] = {"extra_headers": {}}
+EXTRA_CONFIG_HEADERS = config.NETLOC_OVERRIDES[NETLOC]["extra_headers"]  # type: ignore
 for h_key, h_val in EXTRA_HEADERS.items():
     log.debug("Adding header: %s=%s", h_key, h_val)
-    extra_headers[h_key] = h_val
+    EXTRA_CONFIG_HEADERS[h_key] = h_val
     reader = URLTitleReader()  # Fresh instance avoids cache.
     try:
         title = reader.title(TEST_URL)
@@ -52,5 +53,4 @@ for h_key, h_val in EXTRA_HEADERS.items():
         #     log.info('Aborting title search because two unique titles have been found: %s', titles)
         #     break
     time.sleep(1)
-else:
-    log.info("Found %s unique titles: %s", len(titles), titles)
+log.info("Found %s unique titles: %s", len(titles), titles)

@@ -1,10 +1,11 @@
+"""Test the titles of various URLs."""
 import unittest
 
 from urltitle import URLTitleReader, config
 
 config.configure_logging()
 
-
+# pylint: disable=line-too-long
 TEST_CASES = {
     "https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/": "Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty",
     "https://www.amazon.com/gp/product/B077YCC84H/": "Amazon.com: Crest 3D White Whitestrips Vivid Plus: Beauty",
@@ -25,6 +26,7 @@ TEST_CASES = {
     "http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans": "Piraeus Bank offloads 507 mln euros of impaired corporate loans | Business | ekathimerini.com",
     "https://forum.effectivealtruism.org/posts/dCjz5mgQdiv57wWGz/ingredients-for-creating-disruptive-research-teams": "Ingredients for creating disruptive research teams - EA Forum",
     "https://eudl.eu/pdf/10.4108/eai.7-12-2018.159405": "Predictive Analytics In Weather Forecasting Using Machine Learning Algorithms - EUDL",
+    "https://google.com": "Google",
     "https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c": "A simple introduction to Python’s asyncio - By Apoorv Garg",
     "https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html": "How AI can help solve some of humanity’s greatest challenges – and why we might fail",
     "https://www.imdb.com/title/tt0119177/": "Gattaca (1997) - IMDb",
@@ -134,10 +136,12 @@ TEST_CASES_WITH_BAD_SSL = {
     "https://neverssl.com/": "NeverSSL - Connecting ...",
     "https://verizon.net": "Pay Bill, See Offers with My Verizon Fios Login",
 }
+# pylint: enable=line-too-long
 
-URL_FILTER = ""
+URL_FILTER = "https://google.com"
 
 
+# pylint: disable=missing-class-docstring,missing-function-docstring
 class TestURLs(unittest.TestCase):
     def test_url_titles(self):
         reader = URLTitleReader()

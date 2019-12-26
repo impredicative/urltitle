@@ -1,4 +1,4 @@
-beautifulsoup4>=4.7.1
-cachetools>=3.1.1
+beautifulsoup4>=4.8.2
+cachetools>=4.0.0
 humanize>=0.5.1
-pikepdf>=1.4.0
+pikepdf>=1.8.1

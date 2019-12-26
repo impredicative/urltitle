@@ -7,8 +7,6 @@ from functools import lru_cache
 from http.client import RemoteDisconnected
 from re import sub
 from socket import timeout as SocketTimeoutError
-
-# noinspection PyUnresolvedReferences
 from ssl import SSLCertVerificationError
 from statistics import mean
 from typing import Dict, Optional, Tuple, Union, cast

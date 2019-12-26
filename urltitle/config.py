@@ -43,7 +43,7 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
         },
     },
     "loggers": {
-        "": {"level": "WARNING", "handlers": ["console"], "propagate": False, },
+        "": {"level": "WARNING", "handlers": ["console"], "propagate": False},
         PACKAGE_NAME: {"level": "DEBUG", "handlers": ["console"], "propagate": False},
     },
 }

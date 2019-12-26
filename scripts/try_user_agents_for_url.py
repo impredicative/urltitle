@@ -10,9 +10,9 @@ config.MAX_REQUEST_ATTEMPTS = 1
 config.REQUEST_TIMEOUT = 15
 
 config.LOGGING["loggers"] = {
-    config.PACKAGE_NAME: {"level": "CRITICAL", "handlers": ["console"], "propagate": False, },
-    "chardet.charsetprober": {"level": "WARNING", "handlers": ["console"], "propagate": False, },
-    "": {"level": "DEBUG", "handlers": ["console"], "propagate": False, },
+    config.PACKAGE_NAME: {"level": "CRITICAL", "handlers": ["console"], "propagate": False},
+    "chardet.charsetprober": {"level": "WARNING", "handlers": ["console"], "propagate": False},
+    "": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
 }
 
 config.configure_logging()

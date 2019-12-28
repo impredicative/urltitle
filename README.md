@@ -3,6 +3,8 @@
 Its intended primary use is the inclusion of the returned value in conversations.
 As a disclaimer, note that the returned title is not guaranteed to be accurate due to many possible factors.
 
+[![Build badge](https://github.com/impredicative/urltitle/workflows/build/badge.svg?branch=master)](https://github.com/impredicative/urltitle/actions?query=workflow%3Abuild+branch%3Amaster)
+
 ## Features
 * An in-memory cache is used with a default time of a week. The cache size and time are customizable.
 * Approximately only the fraction of a HTML page required to return a title is read, up to a customizable maximum of 1 MiB.

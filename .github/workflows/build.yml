@@ -1,4 +1,4 @@
-name: pythonpackage
+name: build
 on: [push, pull_request]
 jobs:
   build:

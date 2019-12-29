@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install deps and run tests
+    - name: Install dependencies and run tests
       run: |
         python -m pip install --upgrade pip
         pip install -U -r ./requirements/install.in -r ./requirements/dev.in

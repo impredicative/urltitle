@@ -19,6 +19,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies and run tests
       run: |
+        python -V
         python -m pip install --upgrade pip
         pip install -U -r ./requirements/install.in -r ./requirements/dev.in
         ./scripts/test.sh

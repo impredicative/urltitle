@@ -20,7 +20,8 @@ def _get_pdf_title(pdf_bytes: bytes) -> str:
         else:
             title = str(title or "").strip()  # Workaround for https://github.com/pikepdf/pikepdf/issues/28
     title = " ".join(title.split())
-    # Note: The above is a workaround for consecutive whitespace characters, e.g. https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf
+    # Note: The above is a workaround for consecutive whitespace characters,
+    # e.g. https://pdfs.semanticscholar.org/1d76/d4561b594b5c5b5250edb43122d85db07262.pdf
     return title
 
 

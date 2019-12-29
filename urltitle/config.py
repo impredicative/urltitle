@@ -74,7 +74,7 @@ NETLOC_OVERRIDES = {  # Site-specific overrides (without www prefix). Sites must
         "title_subs": [(r"(?P<name>.+?) \- Google Drive$", r"\g<name> - Colaboratory")],
     },
     "docs.aws.amazon.com": {
-        "bs_title_selector": """bs.select_one(".topictitle").text + " - " + bs.select_one('meta[name="product"]')['content']"""
+        "bs_title_selector": """bs.select_one(".topictitle").text + " - " + bs.select_one('meta[name="product"]')['content']"""  # pylint: disable=line-too-long
     },
     "eudl.eu": {"url_subs": [(r"/pdf/(?P<id>.+?)$", r"/doi/\g<id>")]},
     "ft.com": {"user_agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"},  # Iffy.

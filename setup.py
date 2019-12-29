@@ -1,27 +1,27 @@
 """Package installation setup."""
+import distutils.text_file
 from pathlib import Path
 from typing import List
 
 from setuptools import find_packages, setup
 
+_DIR = Path(__file__).parent
+
 
 def parse_requirements(filename: str) -> List[str]:
     """Return requirements from requirements file."""
     # Ref: https://stackoverflow.com/a/42033122/
-    requirements = (Path(__file__).parent / filename).read_text().strip().split("\n")
-    requirements = [r.strip() for r in requirements]
-    requirements = [r for r in sorted(requirements) if r and not r.startswith("#")]
-    return requirements
+    return distutils.text_file.TextFile(filename=str(_DIR / filename)).readlines()
 
 
 setup(
     name="urltitle",
     author="Ouroboros Chrysopoeia",
     author_email="impredicative@users.nomail.github.com",
-    version="0.2.31",
+    version="0.2.32",
     description="Get page title or header-based description for URL",
     keywords="url title",
-    long_description=Path(__file__).with_name("README.md").read_text().strip(),
+    long_description=(_DIR / "README.md").read_text().strip(),
     long_description_content_type="text/markdown",
     url="https://github.com/impredicative/urltitle/",
     packages=find_packages(exclude=["scripts"]),

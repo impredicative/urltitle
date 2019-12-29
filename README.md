@@ -3,7 +3,7 @@
 Its intended primary use is the inclusion of the returned value in conversations.
 As a disclaimer, note that the returned title is not guaranteed to be accurate due to many possible factors.
 
-[![Build badge](https://github.com/impredicative/urltitle/workflows/build/badge.svg?branch=master)](https://github.com/impredicative/urltitle/actions?query=workflow%3Abuild+branch%3Amaster)
+[![cicd badge](https://github.com/impredicative/urltitle/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/urltitle/actions?query=workflow%3Acicd+branch%3Amaster)
 
 ## Features
 * An in-memory cache is used with a default time of a week. The cache size and time are customizable.

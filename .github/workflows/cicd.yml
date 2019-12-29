@@ -24,7 +24,7 @@ jobs:
         ./scripts/test.sh
   cd:
     runs-on: ubuntu-latest
-    needs: ci
+    needs: [ci]
     if: github.event == 'release'
     steps:
     - uses: actions/checkout@v1
@@ -37,9 +37,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -U setuptools wheel twine
         python ./setup.py sdist bdist_wheel
-    - name: Publish
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        twine upload ./dist/*
+#    - name: Publish
+#      env:
+#        TWINE_USERNAME: __token__
+#        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+#      run: |
+#        twine upload ./dist/*

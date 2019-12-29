@@ -3,7 +3,7 @@ import datetime
 import logging.config
 from pathlib import Path
 
-from .overrides import NETLOC_OVERRIDES  # pylint: disable=unused-import
+from .overrides import NETLOC_OVERRIDES
 
 
 def configure_logging() -> None:

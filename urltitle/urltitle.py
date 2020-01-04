@@ -342,15 +342,16 @@ class URLTitleReader:
 
         return title
 
-    @staticmethod
-    def _title_from_partial_html_content(content: bytes, title_selector: Optional[str] = None) -> Optional[str]:
+    def _title_from_partial_html_content(self, content: bytes, title_selector: Optional[str] = None) -> Optional[str]:
         if title_selector:
             bsoup = BeautifulSoup(content, features="html.parser")
             try:
                 title_text = eval(title_selector, {}, {"bs": bsoup})  # pylint: disable=eval-used
                 # Note: eval takes expression, globals, and locals, all as positional args.
             except (AttributeError, KeyError, TypeError):
-                return None
+                # Note: Returning the title without the selector is useful here for
+                # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-types.html
+                return self._title_from_partial_html_content(content)
         else:
             bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("title"))
             tag = bsoup.title

@@ -1,9 +1,11 @@
 """Test the titles of various URLs."""
+import logging
 import unittest
 
 from urltitle import URLTitleReader, config
 
 config.configure_logging()
+log = logging.getLogger(f"{config.PACKAGE_NAME}.{__name__}")
 
 # pylint: disable=line-too-long
 TEST_CASES = {
@@ -12,6 +14,7 @@ TEST_CASES = {
     "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/postgresql-kerberos-setting-up.html": "Setting Up Kerberos Authentication for PostgreSQL DB Instances - Amazon Relational Database Service",
     "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html": "What Is Amazon Relational Database Service (Amazon RDS)? - Amazon Relational Database Service",
     "https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html": "Creating a Multi-node Parallel Job Definition - AWS Batch",
+    "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-types.html": "describe-instance-types — AWS CLI 1.16.310 Command Reference",
     "https://docs.aws.amazon.com/codepipeline/latest/APIReference/Welcome.html": "Welcome - AWS CodePipeline",
     "https://docs.aws.amazon.com/snowball/latest/developer-guide/transfer-petabytes.html": "How to Transfer Petabytes of Data Efficiently - AWS Snowball",
     "https://www.annemergmed.com/article/S0196-0644(99)70271-4/abstract": "Agricultural Avermectins: An Uncommon But Potentially Fatal Cause of Pesticide Poisoning - Annals of Emergency Medicine",
@@ -149,6 +152,7 @@ class TestURLs(unittest.TestCase):
             if URL_FILTER and (URL_FILTER not in url):
                 continue
             with self.subTest(url=url):
+                log.info(f"Testing title for {url}")
                 self.assertEqual(expected_title, reader.title(url))
 
     def test_url_titles_without_ssl_verification(self):
@@ -157,4 +161,5 @@ class TestURLs(unittest.TestCase):
             if URL_FILTER and (URL_FILTER not in url):
                 continue
             with self.subTest(url=url):
+                log.info(f"Testing title for {url}")
                 self.assertEqual(expected_title, reader.title(url))

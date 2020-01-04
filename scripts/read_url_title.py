@@ -9,6 +9,6 @@ log = logging.getLogger(f"{config.PACKAGE_NAME}.{__name__}")
 URL = "https://google.com"
 
 reader = URLTitleReader()  # pylint: disable=invalid-name
-reader.title(URL)
+log.info(f"{URL} has title: {reader.title(URL)}")
 log.info("Testing cache.")
-reader.title(URL)  # Should use cache.
+log.info(f"{URL} has title: {reader.title(URL)}")  # Should use cache.

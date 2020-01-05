@@ -18,7 +18,7 @@ setup(
     name="urltitle",
     author="Ouroboros Chrysopoeia",
     author_email="impredicative@users.nomail.github.com",
-    version="0.2.34",
+    version="0.2.35",
     description="Get page title or header-based description for URL",
     keywords="url title",
     long_description=(_DIR / "README.md").read_text().strip(),

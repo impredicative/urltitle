@@ -1,0 +1,2 @@
+# Vulture whitelist:
+max_redirections  # unused variable (urltitle/util/urllib.py:8)

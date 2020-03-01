@@ -28,7 +28,7 @@ CONTENT_TYPE_PREFIXES = {
 MAX_REQUEST_ATTEMPTS = 3
 MAX_REQUEST_SIZES = {"html": MiB, "ipynb": 8 * MiB, "pdf": 8 * MiB}  # Title observed toward the bottom.
 #   Note: Amazon product links, for example, have the title between 512K and 1M in the HTML content.
-PACKAGE_NAME = Path(__file__).parent.stem
+PACKAGE_NAME = Path(__file__).parent.parent.stem
 REQUEST_TIMEOUT = 15
 UNRECOVERABLE_HTTP_CODES = 400, 401, 404
 URL_SCHEME_GUESSES = "https", "http"

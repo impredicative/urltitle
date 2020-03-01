@@ -9,6 +9,8 @@ log = logging.getLogger(f"{config.PACKAGE_NAME}.{__name__}")
 
 # pylint: disable=line-too-long
 TEST_CASES = {
+    "https://www.aliexpress.com/item/33043594353.html": "Online Shop One Channel Wemos D1 Mini Relay Shield for Wemos D1 Mini Relay Module for Arduino ESP8266 Development Board 1 Channel | Aliexpress Mobile",
+    "https://www.aliexpress.com/wholesale?SearchText=d1+mini": "Online Shop for d1 mini Wholesale with Best Price",
     "https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/": "Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty",
     "https://www.amazon.com/gp/product/B077YCC84H/": "Amazon.com: Crest 3D White Whitestrips Vivid Plus: Beauty",
     "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/postgresql-kerberos-setting-up.html": "Setting Up Kerberos Authentication for PostgreSQL DB Instances - Amazon Relational Database Service",

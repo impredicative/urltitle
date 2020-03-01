@@ -82,7 +82,10 @@ NETLOC_OVERRIDES = {
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
     "swansonvitamins.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "t.co": {"substitute_url_with_title": True},
-    "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
+    "trends.google.com": {
+        "user_agent": "soup - Google Trends",
+        "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],
+    },
     "twitter.com": {"user_agent": "Mozilla/5.0"},
     "usnews.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "youtu.be": {"user_agent": "Mozilla/5.0"},

@@ -2,7 +2,6 @@ autopep8
 black
 isort
 mypy
-pip
 pip-tools
 pycodestyle
 pydocstyle

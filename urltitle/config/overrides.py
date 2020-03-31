@@ -32,6 +32,7 @@ NETLOC_OVERRIDES = {
     "docs.aws.amazon.com": {
         "bs_title_selector": """bs.select_one(".topictitle").text + " - " + bs.select_one('meta[name="product"]')['content']"""  # pylint: disable=line-too-long
     },
+    "dolthub.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "eudl.eu": {"url_subs": [(r"/pdf/(?P<id>.+?)$", r"/doi/\g<id>")]},
     "ft.com": {"user_agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"},  # Iffy.
     "forum.effectivealtruism.org": {"extra_headers": {"Accept": "*/*"}},

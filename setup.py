@@ -17,8 +17,8 @@ def parse_requirements(filename: str) -> List[str]:
 setup(
     name="urltitle",
     author="Ouroboros Chrysopoeia",
-    author_email="impredicative@users.nomail.github.com",
-    version="0.2.37",
+    author_email="impredicative@users.noreply.github.com",
+    version="0.2.38",
     description="Get page title or header-based description for URL",
     keywords="url title",
     long_description=(_DIR / "README.md").read_text().strip(),

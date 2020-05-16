@@ -199,7 +199,7 @@ class URLTitleReader:
             try:
                 while read:
                     log.debug(
-                        f"Reading %s in this iteration with a total of %s read so far.",
+                        "Reading %s in this iteration with a total of %s read so far.",
                         humanize_bytes(amt),
                         humanize_len(content),
                     )

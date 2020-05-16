@@ -13,6 +13,7 @@ TEST_CASES = {
     "https://www.aliexpress.com/wholesale?SearchText=d1+mini": "Online Shop for d1 mini Wholesale with Best Price",
     "https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/": "Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty",
     "https://www.amazon.com/gp/product/B077YCC84H/": "Amazon.com: Crest 3D White Whitestrips Vivid Plus Teeth Whitening Kit, 24 Individual Strips (10 Vivid Plus Treatments + 2 1hr Express Treatments): Beauty",
+    "https://www.amd.com/en/thermal-solutions-threadripper": "Thermal Solutions for Ryzen™ Threadripper™ Processors | AMD",
     "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/postgresql-kerberos-setting-up.html": "Setting Up Kerberos Authentication for PostgreSQL DB Instances - Amazon Relational Database Service",
     "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html": "What Is Amazon Relational Database Service (Amazon RDS)? - Amazon Relational Database Service",
     "https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html": "Creating a Multi-node Parallel Job Definition - AWS Batch",

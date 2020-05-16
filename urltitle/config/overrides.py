@@ -7,6 +7,7 @@ NETLOC_OVERRIDES = {
     "aliexpress.com": {
         "user_agent": "Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)"  # pylint: disable=line-too-long
     },
+    "amd.com": {"extra_headers": {"Accept": "*/*", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip"}},
     "arxiv.org": {"url_subs": [(r"/pdf/(?P<id>.+?)(?:\.pdf)?$", r"/abs/\g<id>")]},
     "bloomberg.com": {"extra_headers": {"Referer": "https://google.com/", "DNT": 1}},
     "cbc.ca": {"bs_title_selector": """bs.select_one('meta[property="og:title"]')['content']"""},

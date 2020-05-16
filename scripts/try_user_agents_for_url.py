@@ -8,7 +8,7 @@ from urltitle import URLTitleError, URLTitleReader, config
 TEST_URL = "https://pubs.acs.org/doi/abs/10.1021/acs.jafc.7b03118"
 
 config.MAX_REQUEST_ATTEMPTS = 1
-config.REQUEST_TIMEOUT = 15
+config.REQUEST_TIMEOUT = 7
 
 config.LOGGING["loggers"] = {
     config.PACKAGE_NAME: {"level": "CRITICAL", "handlers": ["console"], "propagate": False},

@@ -327,8 +327,8 @@ class URLTitleReader:
         overrides = cast(Dict, overrides)
         title = self._title_inner(url)
 
-        # Note: This method is separate from self._title because the actions below would have to otherwise be performed
-        # at multiple locations in self._title.
+        # Note: This method is separate from self._title_inner because the actions below would have to otherwise be performed
+        # at multiple locations in self._title_inner.
 
         # Replace consecutive whitespaces
         title = " ".join(title.split())  # e.g. for https://t.co/wyGR7438TH

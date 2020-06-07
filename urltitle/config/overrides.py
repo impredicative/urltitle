@@ -14,16 +14,11 @@ NETLOC_OVERRIDES = {
             (r"cell\.com/action/showPdf\?pii=(?P<id>.+)$", r"cell.com/cell/fulltext/\g<id>"),
         ]
     },
-    "citeseerx.ist.psu.edu": {
-        "url_subs": [(r"/viewdoc/download\?doi=(?P<doi>.+?)\&.+$", r"/viewdoc/summary?doi=\g<doi>")]
-    },
+    "citeseerx.ist.psu.edu": {"url_subs": [(r"/viewdoc/download\?doi=(?P<doi>.+?)\&.+$", r"/viewdoc/summary?doi=\g<doi>")]},
     "colab.research.google.com": {
         "url_subs": [
             (r"//colab\.research\.google\.com/drive/(?P<id>[\w\-]+)(?:\#.*)?$", r"//drive.google.com/file/d/\g<id>"),
-            (
-                r"//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$",
-                r"//raw.githubusercontent.com/\g<repo>/\g<file>",
-            ),
+            (r"//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$", r"//raw.githubusercontent.com/\g<repo>/\g<file>",),
         ],
         "title_subs": [(r"(?P<name>.+?) \- Google Drive$", r"\g<name> - Colaboratory")],
     },
@@ -35,12 +30,8 @@ NETLOC_OVERRIDES = {
     "ft.com": {"user_agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"},  # Iffy.
     "forum.effectivealtruism.org": {"extra_headers": {"Accept": "*/*"}},
     "fresnobee.com": {"extra_headers": {"Accept": "*/*", "Accept-Encoding": "gzip"}},
-    "gastrojournal.org": {
-        "url_subs": [(r"gastrojournal\.org/article/(?P<id>.+?)/pdf$", r"gastrojournal.org/article/\g<id>/")]
-    },
-    "iopscience.iop.org": {
-        "url_subs": [(r"iopscience\.iop\.org/article/(?P<id>.+?)/pdf$", r"iopscience.iop.org/article/\g<id>")]
-    },
+    "gastrojournal.org": {"url_subs": [(r"gastrojournal\.org/article/(?P<id>.+?)/pdf$", r"gastrojournal.org/article/\g<id>/")]},
+    "iopscience.iop.org": {"url_subs": [(r"iopscience\.iop\.org/article/(?P<id>.+?)/pdf$", r"iopscience.iop.org/article/\g<id>")]},
     "jstor.org": {"user_agent": "Mozilla/5.0"},
     "medscape.com": {"user_agent": "Googlebot-News"},
     "miamiherald.com": {"extra_headers": {"Accept": "*/*", "Accept-Encoding": "gzip"}},
@@ -50,9 +41,7 @@ NETLOC_OVERRIDES = {
     "m.youtube.com": {"user_agent": "Mozilla/5.0"},
     "nationalgeographic.com": {"user_agent": "Googlebot-News"},  # Seems to prevent timeout.
     "nature.com": {"url_subs": [(r"nature\.com/articles/(?P<id>.+?)\.pdf$", r"nature.com/articles/\g<id>")]},
-    "ncbi.nlm.nih.gov": {
-        "url_subs": [(r"/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$", r"/pmc/articles/PMC\g<id>/")]
-    },
+    "ncbi.nlm.nih.gov": {"url_subs": [(r"/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$", r"/pmc/articles/PMC\g<id>/")]},
     "omicsonline.org": {"google_webcache": True},
     "onlinelibrary.wiley.com": {
         "url_subs": [
@@ -61,32 +50,21 @@ NETLOC_OVERRIDES = {
         ]
     },
     "outline.com": {"user_agent": "Googlebot-News"},
-    "pdfs.semanticscholar.org": {
-        "url_subs": [
-            (
-                r"//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$",
-                r"//semanticscholar.org/paper/\g<id1>\g<id2>",
-            )
-        ]
-    },
+    "pdfs.semanticscholar.org": {"url_subs": [(r"//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$", r"//semanticscholar.org/paper/\g<id1>\g<id2>",)]},
     "pubs.acs.org": {"url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
     "researchgate.net": {
-        "url_subs": [
-            (
-                r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$",
-                r"researchgate.net/profile/\g<author>/publication/\g<pub>",
-            )
-        ]
+        "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>",)]
     },
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
     "swansonvitamins.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "t.co": {"substitute_url_with_title": True},
-    "trends.google.com": {
-        "user_agent": "soup - Google Trends",
-        "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],
-    },
+    "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
     "twitter.com": {"user_agent": "Mozilla/5.0"},
     "usnews.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "youtu.be": {"user_agent": "Mozilla/5.0"},
-    "youtube.com": {"user_agent": "Mozilla/5.0"},
+    "youtube.com": {
+        "user_agent": "Mozilla/5.0",
+        "title_search:retry": r"^YouTube$"
+        # "title_search:url_subs": {r"^YouTube$": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
+    },
 }

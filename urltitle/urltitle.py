@@ -1,12 +1,12 @@
 """URL title reader."""
 import logging
+import re
 import ssl
 import time
 import zlib
 from datetime import timedelta
 from functools import lru_cache
 from http.client import RemoteDisconnected
-from re import sub
 from socket import timeout as SocketTimeoutError
 from ssl import SSLCertVerificationError
 from statistics import mean
@@ -40,11 +40,7 @@ class URLTitleReader:
     """URL title reader."""
 
     def __init__(
-        self,
-        *,
-        title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE,
-        title_cache_ttl: float = config.DEFAULT_CACHE_TTL,
-        verify_ssl: bool = True,
+        self, *, title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, title_cache_ttl: float = config.DEFAULT_CACHE_TTL, verify_ssl: bool = True,
     ):
         log.debug(
             "Cache parameters: config.DEFAULT_CACHE_MAX_SIZE=%s, title_cache_max_size=%s, title_cache_ttl=%s",
@@ -68,8 +64,7 @@ class URLTitleReader:
             assert self._ssl_context.verify_mode == ssl.CERT_NONE
             assert not self._ssl_context.check_hostname
             log.warning(
-                "SSL verification is disabled for all requests made using this instance of %s.",
-                self.__class__.__qualname__,
+                "SSL verification is disabled for all requests made using this instance of %s.", self.__class__.__qualname__,
             )
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
@@ -78,9 +73,7 @@ class URLTitleReader:
         log.debug("Returning HTML content amount guess for %s of %s.", netloc, humanize_bytes(guess))
         return guess
 
-    def _title_inner(  # pylint: disable=too-many-locals,too-many-return-statements,too-many-branches,too-many-statements
-        self, url: str
-    ) -> str:
+    def _title_inner(self, url: str) -> str:  # pylint: disable=too-many-locals,too-many-return-statements,too-many-branches,too-many-statements
         # Can raise: URLTitleError
         max_attempts = config.MAX_REQUEST_ATTEMPTS
         url = url.strip()
@@ -106,7 +99,7 @@ class URLTitleReader:
         # Substitute path as configured
         for pattern, replacement in overrides.get("url_subs", []):
             original_url = url
-            url = sub(pattern, replacement, url)
+            url = re.sub(pattern, replacement, url)
             if original_url != url:
                 log.info("Substituted URL %s with %s", original_url, url)
                 return self._title_outer(url)
@@ -158,10 +151,7 @@ class URLTitleReader:
                     or (isinstance(exc, URLError) and isinstance(exc.reason, SSLCertVerificationError))
                     or (isinstance(exc, HTTPError) and (exc.code in config.UNRECOVERABLE_HTTP_CODES))
                 ):
-                    msg = (
-                        f"Unrecoverable error processing {request_desc}. The request will not be reattempted. "
-                        f"{exception_desc}"
-                    )
+                    msg = f"Unrecoverable error processing {request_desc}. The request will not be reattempted. " f"{exception_desc}"
                     raise URLTitleError(msg) from None
                 if num_attempt == max_attempts:
                     msg = f"Exhausted all {max_attempts} attempts for {request_desc}. {exception_desc}"
@@ -180,8 +170,7 @@ class URLTitleReader:
         content_len_header = int(content_len_header) if content_len_header is not None else None
         content_len_humanized = humanize_bytes(content_len_header)
         log.debug(
-            "Received response in attempt %s with declared content type %s, encoding %s, and content length %s "
-            "in %.1fs.",
+            "Received response in attempt %s with declared content type %s, encoding %s, and content length %s in %.1fs.",
             num_attempt,
             repr(content_type_header),
             content_encoding_header,
@@ -199,9 +188,7 @@ class URLTitleReader:
             try:
                 while read:
                     log.debug(
-                        "Reading %s in this iteration with a total of %s read so far.",
-                        humanize_bytes(amt),
-                        humanize_len(content),
+                        "Reading %s in this iteration with a total of %s read so far.", humanize_bytes(amt), humanize_len(content),
                     )
                     start_time = time.monotonic()
                     content_new = response.read(amt)
@@ -211,17 +198,12 @@ class URLTitleReader:
                     content_len = len(content)
                     read &= content_len <= max_request_size
                     log.debug(
-                        "Read %s in this iteration in %.1fs with a total of %s read so far.",
-                        humanize_len(content_new),
-                        time_used,
-                        humanize_bytes(content_len),
+                        "Read %s in this iteration in %.1fs with a total of %s read so far.", humanize_len(content_new), time_used, humanize_bytes(content_len),
                     )
                     if not content_new:
                         break
                     content_decoded = (
-                        zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content)
-                        if (content_encoding_header == "gzip")
-                        else content
+                        zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content) if (content_encoding_header == "gzip") else content
                     )  # https://stackoverflow.com/a/56719274/
                     title = self._title_from_partial_html_content(content_decoded, overrides.get("bs_title_selector"))
                     if not title:
@@ -235,10 +217,7 @@ class URLTitleReader:
                         log.info("Substituted URL %s with %s", url, title)
                         return self._title_outer(title)
                     log.debug(
-                        "Returning HTML title %s for URL %s after reading %s.",
-                        repr(title),
-                        url,
-                        humanize_bytes(content_len),
+                        "Returning HTML title %s for URL %s after reading %s.", repr(title), url, humanize_bytes(content_len),
                     )
                     return title
             finally:
@@ -248,9 +227,7 @@ class URLTitleReader:
                 log.info("Content of URL %s has a Distil captcha. A Google cache version will be attempted.", url)
                 url = f"{config.GOOGLE_WEBCACHE_URL_PREFIX}{url}"
                 return self._title_outer(url)
-            log.warning(
-                "Unable to find title in HTML content of length %s for URL %s", humanize_bytes(content_len), url
-            )
+            log.warning("Unable to find title in HTML content of length %s for URL %s", humanize_bytes(content_len), url)
 
         # Return title from PDF
         elif content_type_header_str_cf.startswith(cast(str, config.CONTENT_TYPE_PREFIXES["pdf"])):
@@ -266,10 +243,7 @@ class URLTitleReader:
                         log.debug("Unable to find title in PDF content for URL %s", url)  # Quite common.
                 else:
                     log.debug(
-                        "Undeclared and unknown content length for URL %s likely exceeds the configured PDF max "
-                        "of %s for reading it fully.",
-                        url,
-                        humanize_bytes(max_request_size),
+                        "Undeclared and unknown content length for URL %s likely exceeds the configured PDF max of %s for reading it fully.", url, humanize_bytes(max_request_size),
                     )
             else:
                 log.debug(
@@ -286,9 +260,7 @@ class URLTitleReader:
                 log.debug("The Google cache version failed for the PDF URL %s. %s", url, exc)
 
         # Return title from IPYNB
-        elif url.endswith(".ipynb") and content_type_header_str_cf.startswith(
-            cast(str, config.CONTENT_TYPE_PREFIXES["ipynb"])
-        ):
+        elif url.endswith(".ipynb") and content_type_header_str_cf.startswith(cast(str, config.CONTENT_TYPE_PREFIXES["ipynb"])):
             max_request_size = config.MAX_REQUEST_SIZES["ipynb"]
             if (content_len_header or 0) <= max_request_size:
                 content = response.read(max_request_size)
@@ -301,18 +273,13 @@ class URLTitleReader:
                         log.warning("Unable to find an IPYNB title for URL %s", url)
                 else:
                     log.debug(
-                        "Undeclared and unknown content length for URL %s likely exceeds the configured IPYNB "
-                        "max of %s for reading it fully.",
+                        "Undeclared and unknown content length for URL %s likely exceeds the configured IPYNB max of %s for reading it fully.",
                         url,
                         humanize_bytes(max_request_size),
                     )
             else:
                 log.debug(
-                    "Declared content length of %s for URL %s exceeds the configured IPYNB max of %s for reading "
-                    "it.",
-                    content_len_humanized,
-                    url,
-                    humanize_bytes(max_request_size),
+                    "Declared content length of %s for URL %s exceeds the configured IPYNB max of %s for reading it.", content_len_humanized, url, humanize_bytes(max_request_size),
                 )
 
         # Fallback to return headers-based title
@@ -327,18 +294,44 @@ class URLTitleReader:
         overrides = cast(Dict, overrides)
         title = self._title_inner(url)
 
-        # Note: This method is separate from self._title_inner because the actions below would have to otherwise be performed
-        # at multiple locations in self._title_inner.
+        # Note: This method is separate from self._title_inner because the actions below would have to otherwise be
+        # performed at multiple locations in self._title_inner.
+
+        # Retry title if configured blacklisted
+        config_key = "title_search:retry"
+        title_search_pattern = overrides.get(config_key)
+        if title_search_pattern and re.search(title_search_pattern, title):
+            original_title = title
+            max_reattempts = 2
+            for reattempt in range(1, max_reattempts + 1):
+                # time.sleep(1)
+                log.info(f"As per {config_key} configuration for {netloc}, retrying title for {url} in reattempt {reattempt}/{max_reattempts}.")
+                title = self._title_inner(url)
+                if original_title != title:
+                    log.info(f'As per {config_key} configuration for {netloc}, substituted title "{original_title}" with "{title}" in reattempt {reattempt}/{max_reattempts}.')
+                    if not re.search(title_search_pattern, title):
+                        break
 
         # Replace consecutive whitespaces
         title = " ".join(title.split())  # e.g. for https://t.co/wyGR7438TH
 
         # Substitute title as configured
-        for pattern, replacement in overrides.get("title_subs", []):
+        config_key = "title_subs"
+        for pattern, replacement in overrides.get(config_key, []):
             original_title = title
-            title = sub(pattern, replacement, title)
+            title = re.sub(pattern, replacement, title)
             if original_title != title:
-                log.info('Substituted title "%s" with "%s".', original_title, title)
+                log.info(f'As per by {config_key} configuration for {netloc}, substituted title "{original_title}" with "{title}".')
+
+        # # Substitute blacklisted title as configured
+        # for title_pattern, url_subs in overrides.get("title_search:url_subs", {}).items():
+        #     if re.search(title_pattern, title):
+        #         for pattern, replacement in url_subs:
+        #             original_url = url
+        #             url = re.sub(pattern, replacement, url)
+        #             if original_url != url:
+        #                 log.info("Substituted URL %s with %s", original_url, url)
+        #                 return self._title_outer(url)
 
         return title
 

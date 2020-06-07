@@ -6,7 +6,7 @@ from urltitle import URLTitleReader, config
 config.configure_logging()
 log = logging.getLogger(f"{config.PACKAGE_NAME}.{__name__}")
 
-URL = "https://google.com"
+URL = "https://www.google.com"
 
 reader = URLTitleReader()  # pylint: disable=invalid-name
 log.info(f"{URL} has title: {reader.title(URL)}")

@@ -38,7 +38,7 @@ NETLOC_OVERRIDES = {
     "mobile.twitter.com": {"url_subs": [(r"^https?://mobile\.twitter\.com/", r"https://twitter.com/")]},
     "money.usnews.com": {"extra_headers": {"Cookie": "", "Accept": "*/*", "Accept-Language": "en-US,en;q=0.5"}},
     "m.slashdot.org": {"url_subs": [(r"m\.slashdot\.org/(?P<path>.+)$", r"slashdot.org/\g<path>/")]},
-    "m.youtube.com": {"user_agent": "Mozilla/5.0"},
+    "m.youtube.com": {"user_agent": "Mozilla/5.0", "title_search:retry": r"^YouTube$"},
     "nationalgeographic.com": {"user_agent": "Googlebot-News"},  # Seems to prevent timeout.
     "nature.com": {"url_subs": [(r"nature\.com/articles/(?P<id>.+?)\.pdf$", r"nature.com/articles/\g<id>")]},
     "ncbi.nlm.nih.gov": {"url_subs": [(r"/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$", r"/pmc/articles/PMC\g<id>/")]},
@@ -61,7 +61,7 @@ NETLOC_OVERRIDES = {
     "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
     "twitter.com": {"user_agent": "Googlebot-News"},
     "usnews.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
-    "youtu.be": {"user_agent": "Mozilla/5.0"},
+    "youtu.be": {"user_agent": "Mozilla/5.0", "title_search:retry": r"^YouTube$"},
     "youtube.com": {
         "user_agent": "Mozilla/5.0",
         "title_search:retry": r"^YouTube$"

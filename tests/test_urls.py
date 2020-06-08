@@ -49,7 +49,7 @@ TEST_CASES = {
     "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5334395/": "Fruitflow®: the first European Food Safety Authority-approved natural cardio-protective functional ingredient",
     "https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/": "Ships fooled in GPS spoofing attack suggest Russian cyberweapon | New Scientist",
     "https://seekingalpha.com/news/3473699-wayfair-minus-5-percent-employees-plan-walkout": "Wayfair -5% as some employees plan walkout (NYSE:W) | Seeking Alpha",
-    "https://seekingalpha.com/symbol/GOOG": "Alphabet Inc. (GOOG) Stock Analysis & News | Seeking Alpha",
+    "https://seekingalpha.com/symbol/GOOG": "Stock Picks, Stock Market Investing | Seeking Alpha",
     "https://stackoverflow.com/questions/50842144/": "python - Requirements.txt greater than equal to and then less than? - Stack Overflow",
     "https://www.sciencedaily.com/releases/2019/02/190207142206.htm": "New pill can deliver insulin through the stomach -- ScienceDaily",
     "https://www.semanticscholar.org/paper/Nutrition-in-chronic-disease-Nutrition-in-the-of-Tapsell/ed29f5473a7100bbfe462301d2205f7263339564": "[PDF] Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease | Semantic Scholar",
@@ -145,7 +145,7 @@ TEST_CASES_WITH_BAD_SSL = {
 }
 # pylint: enable=line-too-long
 
-URL_FILTER = "https://google.com"
+URL_FILTER = "seekingalpha"
 
 
 # pylint: disable=missing-class-docstring,missing-function-docstring

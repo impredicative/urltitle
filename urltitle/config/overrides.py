@@ -59,7 +59,7 @@ NETLOC_OVERRIDES = {
     "swansonvitamins.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "t.co": {"substitute_url_with_title": True},
     "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
-    "twitter.com": {"user_agent": "Mozilla/5.0"},
+    "twitter.com": {"user_agent": "Googlebot-News"},
     "usnews.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "youtu.be": {"user_agent": "Mozilla/5.0"},
     "youtube.com": {

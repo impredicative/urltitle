@@ -4,7 +4,7 @@ These are keyed without the www prefix. The keyed sites must be in lowercase.
 """
 
 NETLOC_OVERRIDES = {
-    "amd.com": {"extra_headers": {"Accept": "*/*", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip"}},
+    "amd.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip", "Cookie": ""}},
     "arxiv.org": {"url_subs": [(r"/pdf/(?P<id>.+?)(?:\.pdf)?$", r"/abs/\g<id>")]},
     "bloomberg.com": {"extra_headers": {"Referer": "https://google.com/", "DNT": 1}},
     "cbc.ca": {"bs_title_selector": """bs.select_one('meta[property="og:title"]')['content']"""},
@@ -28,15 +28,14 @@ NETLOC_OVERRIDES = {
     "dolthub.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "eudl.eu": {"url_subs": [(r"/pdf/(?P<id>.+?)$", r"/doi/\g<id>")]},
     "ft.com": {"user_agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"},  # Iffy.
-    "forum.effectivealtruism.org": {"extra_headers": {"Accept": "*/*"}},
-    "fresnobee.com": {"extra_headers": {"Accept": "*/*", "Accept-Encoding": "gzip"}},
+    "fresnobee.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "gastrojournal.org": {"url_subs": [(r"gastrojournal\.org/article/(?P<id>.+?)/pdf$", r"gastrojournal.org/article/\g<id>/")]},
     "iopscience.iop.org": {"url_subs": [(r"iopscience\.iop\.org/article/(?P<id>.+?)/pdf$", r"iopscience.iop.org/article/\g<id>")]},
     "jstor.org": {"user_agent": "Mozilla/5.0"},
     "medscape.com": {"user_agent": "Googlebot-News"},
-    "miamiherald.com": {"extra_headers": {"Accept": "*/*", "Accept-Encoding": "gzip"}},
+    "miamiherald.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "mobile.twitter.com": {"url_subs": [(r"^https?://mobile\.twitter\.com/", r"https://twitter.com/")]},
-    "money.usnews.com": {"extra_headers": {"Cookie": "", "Accept": "*/*", "Accept-Language": "en-US,en;q=0.5"}},
+    "money.usnews.com": {"extra_headers": {"Cookie": "", "Accept-Language": "en-US,en;q=0.5"}},
     "m.slashdot.org": {"url_subs": [(r"m\.slashdot\.org/(?P<path>.+)$", r"slashdot.org/\g<path>/")]},
     "m.youtube.com": {"user_agent": "Mozilla/5.0", "title_search:retry": r"^YouTube$"},
     "nationalgeographic.com": {"user_agent": "Googlebot-News"},  # Seems to prevent timeout.

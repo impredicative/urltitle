@@ -8,7 +8,7 @@ from urltitle import URLTitleError, URLTitleReader, config
 TEST_URL = "https://www.osapublishing.org/prj/fulltext.cfm?uri=prj-7-8-823&id=415059"
 
 config.MAX_REQUEST_ATTEMPTS = 1
-config.REQUEST_TIMEOUT = 7
+config.REQUEST_TIMEOUT = 2
 
 config.LOGGING["loggers"] = {
     config.PACKAGE_NAME: {"level": "CRITICAL", "handlers": ["console"], "propagate": False},

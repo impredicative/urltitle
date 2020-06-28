@@ -302,9 +302,9 @@ class URLTitleReader:
         title_search_pattern = overrides.get(config_key)
         if title_search_pattern and re.search(title_search_pattern, title):
             original_title = title
-            max_reattempts = 2
+            max_reattempts = 5
             for reattempt in range(1, max_reattempts + 1):
-                # time.sleep(1)
+                time.sleep(.1 * (reattempt - 1))
                 log.info(f"As per {config_key} configuration for {netloc}, retrying title for {url} in reattempt {reattempt}/{max_reattempts}.")
                 title = self._title_inner(url)
                 if original_title != title:

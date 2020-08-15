@@ -54,7 +54,6 @@ NETLOC_OVERRIDES = {
         "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>",)]
     },
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
-    "swansonvitamins.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "t.co": {"substitute_url_with_title": True},
     "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
     "twitter.com": {"user_agent": "Googlebot-News"},

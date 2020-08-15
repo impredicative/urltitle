@@ -44,6 +44,7 @@ USER_AGENTS = [
     "compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html",
     "AdsBot-Google-Mobile-Apps",
     "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)",
     # https://www.bing.com/webmaster/help/which-crawlers-does-bing-use-8c184ec0
     "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",

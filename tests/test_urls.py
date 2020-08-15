@@ -146,7 +146,7 @@ TEST_CASES_WITH_BAD_SSL = {
 }
 # pylint: enable=line-too-long
 
-URL_FILTER = ""
+URL_FILTER = "https://google.com"
 
 
 # pylint: disable=missing-class-docstring,missing-function-docstring

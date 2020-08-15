@@ -55,7 +55,7 @@ TEST_CASES = {
     "https://www.sciencedaily.com/releases/2019/02/190207142206.htm": "New pill can deliver insulin through the stomach -- ScienceDaily",
     "https://www.semanticscholar.org/paper/Nutrition-in-chronic-disease-Nutrition-in-the-of-Tapsell/ed29f5473a7100bbfe462301d2205f7263339564": "[PDF] Nutrition in chronic disease Nutrition in the Prevention of Chronic Disease | Semantic Scholar",
     "https://www.tandfonline.com/doi/abs/10.1080/09637486.2018.1542666": "Oxidation of fish oil supplements in Australia: International Journal of Food Sciences and Nutrition: Vol 70, No 5",
-    "https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps": "Vitamin C with Rose Hips - 1,000 mg - Swanson Health Products",
+    "https://www.swansonvitamins.com/swanson-premium-vitamin-c-rose-hips-1000-mg-250-caps": "Swanson Health Products",
     "https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c": "A Visual Explanation of Gradient Descent Methods (Momentum, AdaGrad, RMSProp, Adam) | by Lili Jiang | Towards Data Science",
     "https://twitter.com/KyivPost": "KyivPost (@KyivPost) | Twitter",
     "https://twitter.com/KyivPost/status/1221139925363458048": 'KyivPost on Twitter: "Oleg Sukhov: "Fundamentally, little has changed since the rampant corruption and lawlessness under ex-President Petro Poroshenko or that of his predecessor, Viktor Yanukovych." https://t.co/A0KijQ3Wet"',
@@ -146,7 +146,7 @@ TEST_CASES_WITH_BAD_SSL = {
 }
 # pylint: enable=line-too-long
 
-URL_FILTER = "https://google.com"
+URL_FILTER = ""
 
 
 # pylint: disable=missing-class-docstring,missing-function-docstring

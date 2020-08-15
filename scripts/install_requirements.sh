@@ -5,4 +5,4 @@ cd "${DIR}"/..
 
 pip install -U pip
 cd ./requirements
-pip install -U -r ./install.txt -r ./dev.in
+pip install -U -r ./install.txt -r ./dev.in --use-feature=2020-resolver

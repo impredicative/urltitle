@@ -7,10 +7,10 @@ pycodestyle
 pydocstyle
 pylint
 pytest
-pytest-codestyle
-pytest-docstyle
 pytest-isort
 pytest-mccabe
 pytest-mypy
 pytest-pylint
+pytest-pycodestyle
+pytest-pydocstyle
 vulture

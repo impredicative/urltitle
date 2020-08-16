@@ -2,8 +2,9 @@
 
 These are keyed without the www prefix. The keyed sites must be in lowercase.
 """
+from typing import Any, Dict
 
-NETLOC_OVERRIDES = {
+NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "amazon.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5"}},
     "amd.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip", "Cookie": ""}},
     "arxiv.org": {"url_subs": [(r"/pdf/(?P<id>.+?)(?:\.pdf)?$", r"/abs/\g<id>")]},

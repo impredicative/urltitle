@@ -69,7 +69,8 @@ class URLTitleReader:
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
         netloc = self.netloc(url)
-        guess = config.NETLOC_OVERRIDES.get(netloc, {}).get("default_request_size")
+        overrides = config.NETLOC_OVERRIDES.get(netloc, {})
+        guess = overrides.get("default_request_size")
         if not guess:
             guess = self._content_amount_guesses.get(netloc, config.DEFAULT_REQUEST_SIZE)
         log.debug("Returning HTML content amount guess for %s of %s.", netloc, humanize_bytes(guess))

@@ -36,7 +36,7 @@ log.info("Netloc for %s is %s.", TEST_URL, NETLOC)
 
 titles: Dict[str, str] = {}
 config.NETLOC_OVERRIDES[NETLOC] = {"extra_headers": {}}
-EXTRA_CONFIG_HEADERS = config.NETLOC_OVERRIDES[NETLOC]["extra_headers"]  # type: ignore
+EXTRA_CONFIG_HEADERS = config.NETLOC_OVERRIDES[NETLOC]["extra_headers"]
 for h_key, h_val in EXTRA_HEADERS.items():
     log.debug("Adding header: %s=%s", h_key, h_val)
     EXTRA_CONFIG_HEADERS[h_key] = h_val

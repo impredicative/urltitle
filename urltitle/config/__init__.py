@@ -18,7 +18,7 @@ MiB = KiB ** 2
 
 DEFAULT_CACHE_TTL = datetime.timedelta(weeks=1).total_seconds()
 DEFAULT_CACHE_MAX_SIZE = 4 * KiB
-DEFAULT_REQUEST_SIZE = 16 * KiB
+DEFAULT_REQUEST_SIZE = 16 * KiB  # Note: 8 KiB causes more undesirable matches of og:title over head.title.
 GOOGLE_WEBCACHE_URL_PREFIX = "https://webcache.googleusercontent.com/search?q=cache:"
 CONTENT_TYPE_PREFIXES = {
     "html": ("text/html", "*/*"),  # Nature.com EPDFs are HTML but use */*

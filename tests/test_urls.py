@@ -36,6 +36,8 @@ TEST_CASES = {
     "https://hackernoon.com/a-simple-introduction-to-pythons-asyncio-595d9c9ecf8c": "A simple introduction to Python’s asyncio | Hacker Noon",
     "https://www.kdnuggets.com/2019/02/ai-help-solve-humanity-challenges.html": "How AI can help solve some of humanity’s greatest challenges – and why we might fail",
     "https://www.imdb.com/title/tt0119177/": "Gattaca (1997) - IMDb",
+    "https://www.iospress.nl/ios_news/body-weight-has-surprising-alarming-impact-on-brain-function/": "Body Weight Has Surprising, Alarming Impact on Brain Function",
+    "https://www.iospress.nl/book/intelligent-environments-2020/": "Intelligent Environments 2020",
     "https://jamanetwork.com/journals/jama/fullarticle/2725150": "Rationing of Health Care in the United States: An Inevitable Consequence of Increasing Health Care Costs | Health Care Reform | JAMA | JAMA Network",
     "https://www.marketwatch.com/story/everything-you-need-to-know-about-market-closures-on-washingtons-birthday-the-holiday-you-may-know-as-presidents-day-2019-02-15": "Presidents Day: Everything you need to know about market closures on Washington’s Birthday - MarketWatch",
     "https://medicalxpress.com/news/2019-01-dental-flossing-behaviors-linked-higher.html": "Dental flossing and other behaviors linked with higher levels of toxic chemicals in the body",

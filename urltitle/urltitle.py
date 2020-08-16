@@ -344,7 +344,7 @@ class URLTitleReader:
             try:
                 # title_text = eval(selector, {}, {"bs": bsoup})  # pylint: disable=eval-used
                 # Note: eval takes expression, globals, and locals, all as positional args.
-                title_text = bsoup.select_one(selector)["content"]  # Ref: https://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors
+                title_text = bsoup.select_one(selector).text  # Ref: https://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors
             except (AttributeError, KeyError, TypeError):
                 return self._title_from_partial_html_content(content)
         else:

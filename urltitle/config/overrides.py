@@ -29,6 +29,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "fresnobee.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "gastrojournal.org": {"url_subs": [(r"gastrojournal\.org/article/(?P<id>.+?)/pdf$", r"gastrojournal.org/article/\g<id>/")]},
     "iopscience.iop.org": {"url_subs": [(r"iopscience\.iop\.org/article/(?P<id>.+?)/pdf$", r"iopscience.iop.org/article/\g<id>")]},
+    "iospress.nl": {"default_request_size": 32 * 1024, "selector": "#content > div.heading > h3, .header > h2"},
     "jstor.org": {"user_agent": "Mozilla/5.0"},
     "medscape.com": {"user_agent": "Googlebot-News"},
     "miamiherald.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
@@ -55,7 +56,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
     "swansonvitamins.com": {
         "default_request_size": 128 * 1024,  # Necessary because custom selector is present later, otherwise default selectors are used.
-        "selector": "#item-detail-wrap > meta:nth-child(1)",
+        "selector": "h1[itemprop='name']",
     },
     "t.co": {"substitute_url_with_title": True},
     "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},

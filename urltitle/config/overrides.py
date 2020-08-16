@@ -43,7 +43,7 @@ NETLOC_OVERRIDES = {
         "url_subs": [
             (r"onlinelibrary\.wiley\.com/doi/(?P<doi>.+?)/pdf$", r"onlinelibrary.wiley.com/doi/\g<doi>"),
             (r"onlinelibrary\.wiley\.com/doi/pdf/(?P<doi>.+)$", r"onlinelibrary.wiley.com/doi/\g<doi>"),
-        ]
+        ],
     },
     "outline.com": {"user_agent": "Googlebot-News"},
     "pdfs.semanticscholar.org": {"url_subs": [(r"//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$", r"//semanticscholar.org/paper/\g<id1>\g<id2>",)]},

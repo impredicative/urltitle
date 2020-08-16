@@ -69,7 +69,9 @@ class URLTitleReader:
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
         netloc = self.netloc(url)
-        guess = self._content_amount_guesses.get(netloc, config.DEFAULT_REQUEST_SIZE)
+        guess = config.NETLOC_OVERRIDES.get(netloc, {}).get("default_request_size")
+        if not guess:
+            guess = self._content_amount_guesses.get(netloc, config.DEFAULT_REQUEST_SIZE)
         log.debug("Returning HTML content amount guess for %s of %s.", netloc, humanize_bytes(guess))
         return guess
 
@@ -205,7 +207,7 @@ class URLTitleReader:
                     content_decoded = (
                         zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content) if (content_encoding_header == "gzip") else content
                     )  # https://stackoverflow.com/a/56719274/
-                    title = self._title_from_partial_html_content(content_decoded, overrides.get("bs_title_selector"))
+                    title = self._title_from_partial_html_content(content_decoded, selector=overrides.get("selector"))
                     if not title:
                         target_content_len = min(max_request_size, content_len * 2)
                         amt = max(0, target_content_len - content_len)
@@ -335,28 +337,38 @@ class URLTitleReader:
 
         return title
 
-    def _title_from_partial_html_content(self, content: bytes, title_selector: Optional[str] = None) -> Optional[str]:
-        if title_selector:
+    def _title_from_partial_html_content(self, content: bytes, *, selector: Optional[str] = None) -> Optional[str]:
+        if selector:
             bsoup = BeautifulSoup(content, features="html.parser")
             try:
-                title_text = eval(title_selector, {}, {"bs": bsoup})  # pylint: disable=eval-used
+                # title_text = eval(selector, {}, {"bs": bsoup})  # pylint: disable=eval-used
                 # Note: eval takes expression, globals, and locals, all as positional args.
+                title_text = bsoup.select_one(selector)["content"]  # Ref: https://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors
             except (AttributeError, KeyError, TypeError):
-                # Note: Returning the title without the selector is useful here for
-                # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-types.html
                 return self._title_from_partial_html_content(content)
         else:
             bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("title"))
             tag = bsoup.title
-            if not tag:
-                return None
-            title_text = tag.text
+            if tag:
+                title_text = tag.text
+            else:
+                bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("meta", property="og:title"))
+                tag = bsoup.meta
+                if tag:
+                    title_text = tag["content"]
+                else:
+                    return None
 
+        # Check for incomplete title (inexactly)
         if content.decode(bsoup.original_encoding, errors="ignore").endswith(title_text):
-            # Note: Encoding title_text instead fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
-            # Note: This is an inexact check for an incomplete title.
+            # Note: The alternative of using title_text.encode() fails for https://www.childstats.gov/americaschildren/tables/pop1.asp
             return None
+
+        # Cleanup title
         title_text = title_text.strip()  # Useful for https://www.ncbi.nlm.nih.gov/pubmed/12542348
+        if not title_text:
+            return None
+
         return title_text
 
     def _update_html_content_amount_guess_for_title(self, url: str, content: bytes, title: str) -> None:

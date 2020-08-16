@@ -7,7 +7,6 @@ NETLOC_OVERRIDES = {
     "amd.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip", "Cookie": ""}},
     "arxiv.org": {"url_subs": [(r"/pdf/(?P<id>.+?)(?:\.pdf)?$", r"/abs/\g<id>")]},
     "bloomberg.com": {"extra_headers": {"Referer": "https://google.com/", "DNT": 1}},
-    "cbc.ca": {"bs_title_selector": """bs.select_one('meta[property="og:title"]')['content']"""},
     "cell.com": {
         "url_subs": [
             (r"cell\.com/(?P<path>.+?)/pdf(?:Extended)*/(?P<id>.+?)(?:\.pdf)?$", r"cell.com/\g<path>/fulltext/\g<id>"),
@@ -21,9 +20,6 @@ NETLOC_OVERRIDES = {
             (r"//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$", r"//raw.githubusercontent.com/\g<repo>/\g<file>",),
         ],
         "title_subs": [(r"(?P<name>.+?) \- Google Drive$", r"\g<name> - Colaboratory")],
-    },
-    "docs.aws.amazon.com": {
-        "bs_title_selector": """bs.select_one(".topictitle").text + " - " + bs.select_one('meta[name="product"]')['content']"""  # pylint: disable=line-too-long
     },
     "dolthub.com": {"extra_headers": {"Accept-Encoding": "gzip"}},
     "eudl.eu": {"url_subs": [(r"/pdf/(?P<id>.+?)$", r"/doi/\g<id>")]},
@@ -54,6 +50,10 @@ NETLOC_OVERRIDES = {
         "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>",)]
     },
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
+    "swansonvitamins.com": {
+        "default_request_size": 128 * 1024,  # Necessary because custom selector is present later, otherwise default selectors are used.
+        "selector": "#item-detail-wrap > meta:nth-child(1)",
+    },
     "t.co": {"substitute_url_with_title": True},
     "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
     "twitter.com": {"user_agent": "Googlebot-News"},

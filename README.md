@@ -6,8 +6,9 @@ As a disclaimer, note that the returned title is not guaranteed to be accurate d
 [![cicd badge](https://github.com/impredicative/urltitle/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/urltitle/actions?query=workflow%3Acicd+branch%3Amaster)
 
 ## Features
-* An in-memory cache is used with a default time of a week. The cache size and time are customizable.
+* An in-memory cache is used with a default entry expiration of a week. The cache size and time are customizable.
 * Approximately only the fraction of a HTML page required to return a title is read, up to a customizable maximum of 1 MiB.
+* A fallback to the `og:title` property if the `title` tag is unavailable.
 * A PDF title metadata extractor is used for PDF files of up to a customizable maximum size of 8 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.
@@ -20,7 +21,7 @@ It is also used for a PDF which is too large or doesn't have title metadata.
   - Use of Google web cache
   - User-Agent
   - Additional headers
-  - Title selector
+  - CSS title selector
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/
@@ -98,7 +99,7 @@ An error is expected to raise the `urltitle.URLTitleError` exception.
 
 ### Customizations
 For any site-specific customizations, update (but ideally not replace) 
-`urltitle.config.overrides.NETLOC_OVERRIDES` with the relevant sites using the preexisting entries in it as examples. 
+`urltitle.config.NETLOC_OVERRIDES` with the relevant sites using the preexisting entries in it as examples. 
 Refer to [`overrides.py`](urltitle/config/overrides.py).
 The site of a URL is as defined and returned by the `URLTitleReader().netloc(url)` method in
 [`urltitle.py`](urltitle/urltitle.py).

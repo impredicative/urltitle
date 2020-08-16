@@ -4,6 +4,7 @@ These are keyed without the www prefix. The keyed sites must be in lowercase.
 """
 
 NETLOC_OVERRIDES = {
+    "amazon.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5"}},
     "amd.com": {"extra_headers": {"Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip", "Cookie": ""}},
     "arxiv.org": {"url_subs": [(r"/pdf/(?P<id>.+?)(?:\.pdf)?$", r"/abs/\g<id>")]},
     "bloomberg.com": {"extra_headers": {"Referer": "https://google.com/", "DNT": 1}},

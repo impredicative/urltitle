@@ -37,6 +37,6 @@ USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79
 LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-logging
     "version": 1,
     "formatters": {"detailed": {"format": "%(asctime)s %(name)s:%(lineno)d:%(funcName)s:%(levelname)s: %(message)s"}},
-    "handlers": {"console": {"class": "logging.StreamHandler", "level": "DEBUG", "formatter": "detailed", "stream": "ext://sys.stdout",},},
-    "loggers": {"": {"level": "WARNING", "handlers": ["console"], "propagate": False}, PACKAGE_NAME: {"level": "DEBUG", "handlers": ["console"], "propagate": False},},
+    "handlers": {"console": {"class": "logging.StreamHandler", "level": "DEBUG", "formatter": "detailed", "stream": "ext://sys.stdout"}},
+    "loggers": {"": {"level": "WARNING", "handlers": ["console"], "propagate": False}, PACKAGE_NAME: {"level": "DEBUG", "handlers": ["console"], "propagate": False}},
 }

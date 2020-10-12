@@ -16,7 +16,7 @@ from urllib.parse import quote, urlparse
 from urllib.request import HTTPCookieProcessor, HTTPSHandler, Request, build_opener
 
 from bs4 import BeautifulSoup, SoupStrainer
-from cachetools.func import LFUCache, ttl_cache
+from cachetools.func import LFUCache, ttl_cache  # type: ignore
 
 from . import config
 from .util.humanize import humanize_bytes, humanize_len
@@ -40,7 +40,11 @@ class URLTitleReader:
     """URL title reader."""
 
     def __init__(
-        self, *, title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE, title_cache_ttl: float = config.DEFAULT_CACHE_TTL, verify_ssl: bool = True,
+        self,
+        *,
+        title_cache_max_size: int = config.DEFAULT_CACHE_MAX_SIZE,
+        title_cache_ttl: float = config.DEFAULT_CACHE_TTL,
+        verify_ssl: bool = True,
     ):
         log.debug(
             "Cache parameters: config.DEFAULT_CACHE_MAX_SIZE=%s, title_cache_max_size=%s, title_cache_ttl=%s",
@@ -50,9 +54,7 @@ class URLTitleReader:
         )
 
         self._content_amount_guesses = LFUCache(maxsize=config.DEFAULT_CACHE_TTL)  # Don't use title_cache_max_size.
-        self._title_outer = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(  # type: ignore
-            self._title_outer
-        )
+        self._title_outer = ttl_cache(maxsize=title_cache_max_size, ttl=title_cache_ttl)(self._title_outer)  # type: ignore
         self.netloc = lru_cache(maxsize=title_cache_max_size)(self.netloc)  # type: ignore
 
         if verify_ssl:
@@ -64,7 +66,8 @@ class URLTitleReader:
             assert self._ssl_context.verify_mode == ssl.CERT_NONE
             assert not self._ssl_context.check_hostname
             log.warning(
-                "SSL verification is disabled for all requests made using this instance of %s.", self.__class__.__qualname__,
+                "SSL verification is disabled for all requests made using this instance of %s.",
+                self.__class__.__qualname__,
             )
 
     def _guess_html_content_amount_for_title(self, url: str) -> int:
@@ -191,7 +194,9 @@ class URLTitleReader:
             try:
                 while read:
                     log.debug(
-                        "Reading %s in this iteration with a total of %s read so far.", humanize_bytes(amt), humanize_len(content),
+                        "Reading %s in this iteration with a total of %s read so far.",
+                        humanize_bytes(amt),
+                        humanize_len(content),
                     )
                     start_time = time.monotonic()
                     content_new = response.read(amt)
@@ -201,7 +206,10 @@ class URLTitleReader:
                     content_len = len(content)
                     read &= content_len <= max_request_size
                     log.debug(
-                        "Read %s in this iteration in %.1fs with a total of %s read so far.", humanize_len(content_new), time_used, humanize_bytes(content_len),
+                        "Read %s in this iteration in %.1fs with a total of %s read so far.",
+                        humanize_len(content_new),
+                        time_used,
+                        humanize_bytes(content_len),
                     )
                     if not content_new:
                         break
@@ -220,7 +228,10 @@ class URLTitleReader:
                         log.info("Substituted URL %s with %s", url, title)
                         return self._title_outer(title)
                     log.debug(
-                        "Returning HTML title %s for URL %s after reading %s.", repr(title), url, humanize_bytes(content_len),
+                        "Returning HTML title %s for URL %s after reading %s.",
+                        repr(title),
+                        url,
+                        humanize_bytes(content_len),
                     )
                     return title
             finally:
@@ -246,7 +257,9 @@ class URLTitleReader:
                         log.debug("Unable to find title in PDF content for URL %s", url)  # Quite common.
                 else:
                     log.debug(
-                        "Undeclared and unknown content length for URL %s likely exceeds the configured PDF max of %s for reading it fully.", url, humanize_bytes(max_request_size),
+                        "Undeclared and unknown content length for URL %s likely exceeds the configured PDF max of %s for reading it fully.",
+                        url,
+                        humanize_bytes(max_request_size),
                     )
             else:
                 log.debug(
@@ -282,7 +295,10 @@ class URLTitleReader:
                     )
             else:
                 log.debug(
-                    "Declared content length of %s for URL %s exceeds the configured IPYNB max of %s for reading it.", content_len_humanized, url, humanize_bytes(max_request_size),
+                    "Declared content length of %s for URL %s exceeds the configured IPYNB max of %s for reading it.",
+                    content_len_humanized,
+                    url,
+                    humanize_bytes(max_request_size),
                 )
 
         # Fallback to return headers-based title

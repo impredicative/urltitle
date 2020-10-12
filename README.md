@@ -8,7 +8,7 @@ As a disclaimer, note that the returned title is not guaranteed to be accurate d
 ## Features
 * An in-memory cache is used with a default entry expiration of a week. The cache size and time are customizable.
 * Approximately only the fraction of a HTML page required to return a title is read, up to a customizable maximum of 1 MiB.
-* A fallback to the `og:title` property if the `title` tag is unavailable.
+* A fallback to the `og:title` property exists if the `title` tag is unavailable.
 * A PDF title metadata extractor is used for PDF files of up to a customizable maximum size of 8 MiB.
 * Up to three attempts are made for resiliency except if there is an unrecoverable error, i.e. 400, 401, 404, etc.
 * A guess of `https` and otherwise `http` is made for a URL with a missing scheme, e.g. git-scm.com/downloads.

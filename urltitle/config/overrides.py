@@ -19,7 +19,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "colab.research.google.com": {
         "url_subs": [
             (r"//colab\.research\.google\.com/drive/(?P<id>[\w\-]+)(?:\#.*)?$", r"//drive.google.com/file/d/\g<id>"),
-            (r"//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$", r"//raw.githubusercontent.com/\g<repo>/\g<file>",),
+            (r"//colab\.research\.google\.com/github/(?P<repo>\w+/\w+)/blob/(?P<file>[^\#]*?\.ipynb)(?:\#.*)?$", r"//raw.githubusercontent.com/\g<repo>/\g<file>"),
         ],
         "title_subs": [(r"(?P<name>.+?) \- Google Drive$", r"\g<name> - Colaboratory")],
     },
@@ -48,10 +48,10 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
         ],
     },
     "outline.com": {"user_agent": "Googlebot-News"},
-    "pdfs.semanticscholar.org": {"url_subs": [(r"//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$", r"//semanticscholar.org/paper/\g<id1>\g<id2>",)]},
+    "pdfs.semanticscholar.org": {"url_subs": [(r"//pdfs\.semanticscholar.org/(?P<id1>.+?)/(?P<id2>.+?)\.pdf$", r"//semanticscholar.org/paper/\g<id1>\g<id2>")]},
     "pubs.acs.org": {"url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
     "researchgate.net": {
-        "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>",)]
+        "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>")]
     },
     "seekingalpha.com": {"extra_headers": {"Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
     # "swansonvitamins.com": {  # Was useful when title tag had a useless value.
@@ -59,7 +59,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     #     "selector": "h1[itemprop='name']",
     # },
     "t.co": {"substitute_url_with_title": True},
-    "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")],},
+    "trends.google.com": {"user_agent": "soup - Google Trends", "url_subs": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
     "twitter.com": {"user_agent": "Googlebot-News"},
     "usnews.com": {"user_agent": "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)"},
     "youtube.com": {

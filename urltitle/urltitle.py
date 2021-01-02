@@ -374,7 +374,7 @@ class URLTitleReader:
                     else:
                         title_text = tag["content"]
                     if title_text:
-                        log.info("Discovered raw HTML title using strainer %s: %s", repr(strainer_type), title_text)
+                        log.debug("Discovered raw HTML title using strainer %s: %s", repr(strainer_type), title_text)
                         break
             else:
                 if strainer:

@@ -22,6 +22,7 @@ It is also used for a PDF which is too large or doesn't have title metadata.
   - User-Agent
   - Additional headers
   - CSS title selector
+  - Use of `og:title` or `twitter:title` over `title` tag
 
 ## Links
 * Code: https://github.com/impredicative/urltitle/

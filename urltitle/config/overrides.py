@@ -53,7 +53,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "researchgate.net": {
         "url_subs": [(r"researchgate\.net/profile/(?P<author>.+?)/publication/(?P<pub>.+?)/links/.+?\.pdf$", r"researchgate.net/profile/\g<author>/publication/\g<pub>")]
     },
-    "seekingalpha.com": {"extra_headers": {"Accept-Encoding": "gzip", "Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
+    "seekingalpha.com": {"strainer": "twitter:title", "extra_headers": {"Accept-Encoding": "gzip", "Host": "seekingalpha.com", "Referer": "https://google.com/", "DNT": 1}},
     # "swansonvitamins.com": {  # Was useful when title tag had a useless value.
     #     "default_request_size": 128 * 1024,  # Necessary because custom selector is present later, otherwise default selectors are used.
     #     "selector": "h1[itemprop='name']",

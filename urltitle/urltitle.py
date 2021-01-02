@@ -216,7 +216,7 @@ class URLTitleReader:
                     content_decoded = (
                         zlib.decompressobj(wbits=zlib.MAX_WBITS | 16).decompress(content) if (content_encoding_header == "gzip") else content
                     )  # https://stackoverflow.com/a/56719274/
-                    title = self._title_from_partial_html_content(content_decoded, selector=overrides.get("selector"))
+                    title = self._title_from_partial_html_content(content_decoded, selector=overrides.get("selector"), strainer=overrides.get("strainer"))
                     if not title:
                         target_content_len = min(max_request_size, content_len * 2)
                         amt = max(0, target_content_len - content_len)
@@ -354,7 +354,7 @@ class URLTitleReader:
 
         return title
 
-    def _title_from_partial_html_content(self, content: bytes, *, selector: Optional[str] = None) -> Optional[str]:
+    def _title_from_partial_html_content(self, content: bytes, *, selector: Optional[str] = None, strainer: Optional[str] = None) -> Optional[str]:
         if selector:
             bsoup = BeautifulSoup(content, features="html.parser")
             try:
@@ -362,9 +362,10 @@ class URLTitleReader:
                 # Note: eval takes expression, globals, and locals, all as positional args.
                 title_text = bsoup.select_one(selector).text  # Ref: https://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors
             except (AttributeError, KeyError, TypeError):
-                return self._title_from_partial_html_content(content)
+                return self._title_from_partial_html_content(content, strainer=strainer)  # Retrying without custom selector.
         else:
-            for strainer_type, strainer_config in config.STRAINERS.items():
+            strainers = {strainer: config.STRAINERS[strainer]} if strainer else config.STRAINERS
+            for strainer_type, strainer_config in strainers.items():
                 bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer(strainer_config["name"], **strainer_config.get("kwargs", {})))
                 tag = getattr(bsoup, strainer_config["name"])
                 if tag:
@@ -376,6 +377,8 @@ class URLTitleReader:
                         log.info("Discovered raw HTML title using strainer %s: %s", repr(strainer_type), title_text)
                         break
             else:
+                if strainer:
+                    return self._title_from_partial_html_content(content)  # Retrying without custom strainer.
                 return None
 
         # Check for incomplete title (inexactly)

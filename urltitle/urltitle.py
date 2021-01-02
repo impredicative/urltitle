@@ -364,17 +364,19 @@ class URLTitleReader:
             except (AttributeError, KeyError, TypeError):
                 return self._title_from_partial_html_content(content)
         else:
-            bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("title"))
-            tag = bsoup.title
-            if tag:
-                title_text = tag.text
-            else:
-                bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer("meta", property="og:title"))
-                tag = bsoup.meta
+            for strainer_type, strainer_config in config.STRAINERS.items():
+                bsoup = BeautifulSoup(content, features="html.parser", parse_only=SoupStrainer(strainer_config["name"], **strainer_config.get("kwargs", {})))
+                tag = getattr(bsoup, strainer_config["name"])
                 if tag:
-                    title_text = tag["content"]
-                else:
-                    return None
+                    if "attr" in strainer_config:
+                        title_text = getattr(tag, strainer_config["attr"])
+                    else:
+                        title_text = tag["content"]
+                    if title_text:
+                        log.info("Discovered raw HTML title using strainer %s: %s", repr(strainer_type), title_text)
+                        break
+            else:
+                return None
 
         # Check for incomplete title (inexactly)
         if content.decode(bsoup.original_encoding, errors="ignore").endswith(title_text):

@@ -68,5 +68,4 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
         # "title_search:url_subs": {r"^YouTube$": [(r"^https://(?P<url>.+)$", r"http://\g<url>")]},
     },
 }
-NETLOC_OVERRIDES["m.youtube.com"] = NETLOC_OVERRIDES["youtube.com"]
-NETLOC_OVERRIDES["youtu.be"] = NETLOC_OVERRIDES["youtube.com"]
+NETLOC_OVERRIDES["m.youtube.com"] = NETLOC_OVERRIDES["youtu.be"] = NETLOC_OVERRIDES["youtube.com"]

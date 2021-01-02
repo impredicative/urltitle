@@ -10,7 +10,7 @@ log = logging.getLogger(f"{config.PACKAGE_NAME}.{__name__}")
 # pylint: disable=line-too-long
 TEST_CASES = {
     "https://www.aliexpress.com/item/33043594353.html": "One Channel Wemos D1 Mini Relay Shield for Wemos D1 Mini Relay Module for Arduino ESP8266 Development Board 1 Channel|Relays| - AliExpress",
-    "https://www.aliexpress.com/wholesale?SearchText=d1+mini": "d1 mini – Buy d1 mini with free shipping on AliExpress version",
+    "https://www.aliexpress.com/wholesale?SearchText=d1+mini": "d1 mini – Buy d1 mini with free shipping on AliExpress",
     "https://www.amazon.com/Active-Wow-Whitening-Charcoal-Natural/dp/B01N8XF244/": "Amazon.com : Active Wow Teeth Whitening Charcoal Powder Natural : Beauty",
     "https://www.amazon.com/gp/product/B077YCC84H/": "Amazon.com : Crest 3D White Whitestrips Vivid Plus Teeth Whitening Kit, 24 Individual Strips (10 Vivid Plus Treatments + 2 1hr Express Treatments), Basic : Beauty",
     "https://www.amd.com/en/thermal-solutions-threadripper": "Thermal Solutions for Ryzen™ Threadripper™ Processors | AMD",
@@ -27,8 +27,8 @@ TEST_CASES = {
     "https://www.businessinsider.com/cocaine-ship-jpmorgan-owns-vessel-seized-by-us-cbp-2019-7": "US Customs just seized a ship owned by JPMorgan after authorities found $1 billion worth of drugs on it | Markets Insider",
     "https://www.cbc.ca/news/technology/ai-climate-change-1.5206402": "AI could better predict climate change impacts, some experts believe | CBC News",
     "https://www.cell.com/cell-metabolism/fulltext/S1550-4131(18)30630-2": "Profound Perturbation of the Metabolome in Obesity Is Associated with Health Risk: Cell Metabolism",
-    "https://www.childstats.gov/americaschildren/tables/pop1.asp": "POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2018 and projected 2019–2050",
-    "https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html": "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed - CNN",
+    "https://www.childstats.gov/americaschildren/tables/pop1.asp": "POP1 Child population: Number of children (in millions) ages 0–17 in the United States by age, 1950–2019 and projected 2020–2050",
+    "https://www.cnn.com/2019/02/13/media/jeff-bezos-national-enquirer-leaker/index.html": "As questions linger around Jeff Bezos' explosive suggestions, identity of tabloid leaker is confirmed",
     "http://www.ekathimerini.com/241425/article/ekathimerini/business/piraeus-bank-offloads-507-mln-euros-of-impaired-corporate-loans": "Piraeus Bank offloads 507 mln euros of impaired corporate loans | Business | ekathimerini.com",
     "https://forum.effectivealtruism.org/posts/dCjz5mgQdiv57wWGz/ingredients-for-creating-disruptive-research-teams": "Ingredients for creating disruptive research teams - EA Forum",
     "https://eudl.eu/pdf/10.4108/eai.7-12-2018.159405": "Predictive Analytics In Weather Forecasting Using Machine Learning Algorithms - EUDL",
@@ -73,9 +73,9 @@ TEST_CASES = {
     "https://www.youtube.com/watch?v=53YvP6gdD7U": "Deep Learning State of the Art (2019) - MIT - YouTube",
     "https://m.youtube.com/watch?v=GltlJO56S1g": "Jeff Bezos In 1999 On Amazon's Plans Before The Dotcom Crash - YouTube",
     # Missing scheme:
-    "neverssl.com": "NeverSSL - Connecting ...",
+    "neverssl.com": "NeverSSL - helping you get online",
     "reddit.com/r/FoodNerds/comments/arb6qj": "Paternal high-fat diet transgenerationally impacts hepatic immunometabolism. - PubMed - NCBI : FoodNerds",
-    "www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275": "Army calls base housing hazards 'unconscionable,' details steps to protect families - Reuters",
+    "www.reuters.com/article/us-usa-military-army/army-calls-base-housing-hazards-unconscionable-details-steps-to-protect-families-idUSKCN1Q4275": "Army calls base housing hazards 'unconscionable,' details steps to protect families | Reuters",
     # Non-ASCII:
     "https://en.wikipedia.org/wiki/Amanattō": "Amanattō - Wikipedia",
     "https://fr.wikipedia.org/wiki/Wikipédia:Accueil_principal": "Wikipédia, l'encyclopédie libre",
@@ -146,7 +146,7 @@ TEST_CASES_WITH_BAD_SSL = {
     "https://expired.badssl.com/": "expired.badssl.com",
     "https://wrong.host.badssl.com/": "wrong.host.badssl.com",
     "https://self-signed.badssl.com/": "self-signed.badssl.com",
-    "https://neverssl.com/": "NeverSSL - Connecting ...",
+    "https://neverssl.com/": "NeverSSL - helping you get online",
     "https://verizon.net": "Pay Bill, See Offers with My Verizon Fios Login",
 }
 # pylint: enable=line-too-long

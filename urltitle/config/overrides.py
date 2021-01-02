@@ -41,7 +41,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "ncbi.nlm.nih.gov": {"url_subs": [(r"/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$", r"/pmc/articles/PMC\g<id>/")]},
     "omicsonline.org": {"google_webcache": True},
     "onlinelibrary.wiley.com": {
-        "default_request_size": 16 * 1024,  # Necessary because custom selector is present later, otherwise default selectors are used.
+        "default_request_size": 32 * 1024,  # Necessary to prefer 'title' strainer over 'og:title' strainer.
         "url_subs": [
             (r"onlinelibrary\.wiley\.com/doi/(?P<doi>.+?)/pdf$", r"onlinelibrary.wiley.com/doi/\g<doi>"),
             (r"onlinelibrary\.wiley\.com/doi/pdf/(?P<doi>.+)$", r"onlinelibrary.wiley.com/doi/\g<doi>"),

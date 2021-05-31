@@ -36,6 +36,7 @@ NETLOC_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "mobile.twitter.com": {"url_subs": [(r"^https?://mobile\.twitter\.com/", r"https://twitter.com/")]},
     "money.usnews.com": {"extra_headers": {"Cookie": "", "Accept-Language": "en-US,en;q=0.5"}},
     "m.slashdot.org": {"url_subs": [(r"m\.slashdot\.org/(?P<path>.+)$", r"slashdot.org/\g<path>/")]},
+    "nasdaq.com": {"user_agent": "https://www"},
     "nationalgeographic.com": {"user_agent": "Googlebot-News"},  # Seems to prevent timeout.
     "nature.com": {"url_subs": [(r"nature\.com/articles/(?P<id>.+?)\.pdf$", r"nature.com/articles/\g<id>")]},
     "ncbi.nlm.nih.gov": {"url_subs": [(r"/pmc/articles/PMC(?P<id>.+?)/pdf/?(?:.+?\.pdf)?$", r"/pmc/articles/PMC\g<id>/")]},
